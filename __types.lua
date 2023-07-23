@@ -1105,7 +1105,7 @@ kTextAlignment = kTextAlignment
 --- If the file couldn’t be opened, a second return value indicates the error. The filesystem has a limit of 64 simultaneous open files.
 --- 
 --- Equivalent to playdate->file->open() in the C API.
----@field open fun(path: string, mode?: pd_filemode): pd_file
+---@field open fun(path: string, mode?: pd_filemode): pd_file_file
 ---@field file pd_file_file_lib
 --- Returns an array containing the file names in the given directory path as strings. Folders are indicated by a slash / at the end of the filename. If showhidden is set, files beginning with a period will be included; otherwise, they are skipped.
 --- 
