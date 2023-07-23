@@ -1964,7 +1964,7 @@ kTextAlignment = kTextAlignment
 
 ---@class pd_affineTransform
 --- Returns a new copy of the affine transform.
----@field copy fun(self: pd_affineTransform): true
+---@field copy fun(self: pd_affineTransform): pd_affineTransform
 --- Mutates the caller so that it is an affine transformation matrix constructed by inverting itself.
 --- 
 --- Inversion is generally used to provide reverse transformation of points within transformed objects. Given the coordinates (x, y), which have been transformed by a given matrix to new coordinates (x’, y’), transforming the coordinates (x’, y’) by the inverse matrix produces the original coordinates (x, y).
@@ -2032,7 +2032,7 @@ kTextAlignment = kTextAlignment
 --- If specified, direction should be true for clockwise, false for counterclockwise. If not specified, the direction is inferred from the start and end angles.
 ---@field new fun(x: number, y: number, radius: number, startAngle: number, endAngle: number, direction?: boolean): pd_arc
 --- Returns a new copy of the arc.
----@field copy fun(self: pd_arc): true
+---@field copy fun(self: pd_arc): pd_arc
 --- Returns the length of the arc.
 ---@field length fun(self: pd_arc): number
 --- Returns true if the direction of the arc is clockwise.
@@ -2040,7 +2040,7 @@ kTextAlignment = kTextAlignment
 --- Sets the direction of the arc.
 ---@field setIsClockwise fun(self: pd_arc, flag: boolean)
 --- Returns a new point on the arc, distance pixels from the arc’s start angle. If extend is true, the returned point is allowed to project past the arc’s endpoints; otherwise, it is constrained to the arc’s initial point if distance is negative, or the end point if distance is greater than the arc’s length.
----@field pointOnArc fun(self: pd_arc, distance: number): true
+---@field pointOnArc fun(self: pd_arc, distance: number): pd_arc
 
 ---@class pd_lineSegment_lib
 --- Returns a new playdate.geometry.lineSegment.
@@ -2052,7 +2052,7 @@ kTextAlignment = kTextAlignment
 
 ---@class pd_lineSegment
 --- Returns a new copy of the line segment.
----@field copy fun(self: pd_lineSegment): true
+---@field copy fun(self: pd_lineSegment): pd_lineSegment
 --- Returns the values x1, y1, x2, y2.
 ---@field unpack fun(self: pd_lineSegment): (number, number, number, number)
 --- Returns the length of the line segment.
@@ -2060,7 +2060,7 @@ kTextAlignment = kTextAlignment
 --- Modifies the line segment, offsetting its values by dx, dy.
 ---@field offset fun(self: pd_lineSegment, dx: number, dy: number)
 --- Returns a new line segment, the given segment offset by dx, dy.
----@field offsetBy fun(self: pd_lineSegment, dx: number, dy: number): true
+---@field offsetBy fun(self: pd_lineSegment, dx: number, dy: number): pd_lineSegment
 --- Returns a playdate.geometry.point representing the mid point of the line segment.
 ---@field midPoint fun(self: pd_lineSegment): pd_point
 --- Returns a playdate.geometry.point on the line segment, distance pixels from the start of the line. If extend is true, the returned point is allowed to project past the segment’s endpoints; otherwise, it is constrained to the line segment’s initial point if distance is negative, or the end point if distance is greater than the segment’s length.
@@ -2092,13 +2092,13 @@ kTextAlignment = kTextAlignment
 
 ---@class pd_point
 --- Returns a new copy of the point.
----@field copy fun(self: pd_point): true
+---@field copy fun(self: pd_point): pd_point
 --- Returns the values x, y.
 ---@field unpack fun(self: pd_point): (number, number)
 --- Modifies the point, offsetting its values by dx, dy.
 ---@field offset fun(self: pd_point, dx: number, dy: number)
 --- Returns a new point object, the given point offset by dx, dy.
----@field offsetBy fun(self: pd_point, dx: number, dy: number): true
+---@field offsetBy fun(self: pd_point, dx: number, dy: number): pd_point
 --- Returns the square of the distance to point p.
 ---@field squaredDistanceToPoint fun(self: pd_point, p: pd_point): number
 --- Returns the distance to point p.
@@ -2159,9 +2159,9 @@ kTextAlignment = kTextAlignment
 
 ---@class pd_rect
 --- Returns a new copy of the rect.
----@field copy fun(self: pd_rect): true
+---@field copy fun(self: pd_rect): pd_rect
 --- Returns a new playdate.geometry.polygon version of the rect.
----@field toPolygon fun(self: pd_rect): true
+---@field toPolygon fun(self: pd_rect): pd_rect
 --- Returns x, y, width and height as individual values.
 ---@field unpack fun(self: pd_rect): (number, number, number, number)
 --- Returns true if a rectangle has zero width or height.
@@ -2215,7 +2215,7 @@ kTextAlignment = kTextAlignment
 
 ---@class pd_size
 --- Returns a new copy of the size.
----@field copy fun(self: pd_size): true
+---@field copy fun(self: pd_size): pd_size
 --- Returns the values width, height.
 ---@field unpack fun(self: pd_size): (number, number)
 
@@ -2227,7 +2227,7 @@ kTextAlignment = kTextAlignment
 
 ---@class pd_vector2D
 --- Returns a new copy of the vector2D.
----@field copy fun(self: pd_vector2D): true
+---@field copy fun(self: pd_vector2D): pd_vector2D
 --- Returns the values dx, dy.
 ---@field unpack fun(self: pd_vector2D): (number, number)
 --- Modifies the caller by adding vector v.
@@ -2239,7 +2239,7 @@ kTextAlignment = kTextAlignment
 --- Modifies the caller by normalizing it so that its length is 1. If the vector is (0,0), the vector is unchanged.
 ---@field normalize fun(self: pd_vector2D)
 --- Returns a new vector by normalizing the given vector.
----@field normalized fun(self: pd_vector2D): true
+---@field normalized fun(self: pd_vector2D): pd_vector2D
 --- Returns the dot product of the caller and the vector v.
 ---@field dotProduct fun(self: pd_vector2D, v: pd_vector2D): number
 --- Returns the magnitude of the caller.
@@ -2249,7 +2249,7 @@ kTextAlignment = kTextAlignment
 --- Modifies the caller by projecting it along the vector v.
 ---@field projectAlong fun(self: pd_vector2D, v: pd_vector2D)
 --- Returns a new vector created by projecting the given vector along the vector v.
----@field projectedAlong fun(self: pd_vector2D, v: pd_vector2D): true
+---@field projectedAlong fun(self: pd_vector2D, v: pd_vector2D): pd_vector2D
 --- Returns the angle between the caller and the vector v.
 ---@field angleBetween fun(self: pd_vector2D, v: pd_vector2D): number
 --- Returns a vector that is the left normal of the caller.
@@ -2282,7 +2282,7 @@ kTextAlignment = kTextAlignment
 --- Returns (success, [error]). If the boolean success is false, error is also returned.
 ---@field load fun(self: pd_image, path: string): (boolean, string?)
 --- Returns a new playdate.graphics.image that is an exact copy of the original.
----@field copy fun(self: pd_image): true
+---@field copy fun(self: pd_image): pd_image
 --- Returns the pair (width, height)
 ---@field getSize fun(self: pd_image): (number, number)
 --- Draws the image with its upper-left corner at location (x, y) or playdate.geometry.point p.
@@ -2326,15 +2326,15 @@ kTextAlignment = kTextAlignment
 --- Returns a new image containing this image rotated by (clockwise) angle degrees, scaled by optional argument scale, with an optional separate scaling for the y axis.
 --- 
 --- Unless rotating by a multiple of 180 degrees, the new image will have different dimensions than the original.
----@field rotatedImage fun(self: pd_image, angle: number, scale?: number, yscale?: number): true
+---@field rotatedImage fun(self: pd_image, angle: number, scale?: number, yscale?: number): pd_image
 --- Draws this image with its upper-left corner at point (x,y), scaled by amount scale, with an optional separate scaling for the y axis.
 ---@field drawScaled fun(self: pd_image, x: number, y: number, scale: number, yscale?: number)
 --- Returns a new image containing this image scaled by amount scale, with an optional separate scaling for the y axis.
----@field scaledImage fun(self: pd_image, scale: number, yscale?: number): true
+---@field scaledImage fun(self: pd_image, scale: number, yscale?: number): pd_image
 --- Draws this image centered at point (x,y) with the transform xform applied.
 ---@field drawWithTransform fun(self: pd_image, xform: pd_affineTransform, x: number, y: number)
 --- Returns a new image containing the image with the transform xform applied.
----@field transformedImage fun(self: pd_image, xform: pd_affineTransform): true
+---@field transformedImage fun(self: pd_image, xform: pd_affineTransform): pd_image
 --- Draws the image as if it’s mapped onto a tilted plane, transforming the target coordinates to image coordinates using an affine transform:
 --- 
 --- x' = dxx * x + dyx * y + dx
@@ -3180,7 +3180,7 @@ kTextAlignment = kTextAlignment
 
 ---@class pd_sampleplayer
 --- Returns a new playdate.sound.sampleplayer with the same sample, volume, and rate as the given sampleplayer.
----@field copy fun(self: pd_sampleplayer): true
+---@field copy fun(self: pd_sampleplayer): pd_sampleplayer
 --- Starts playing the sample. If repeatCount is greater than one, it loops the given number of times. If zero, it loops endlessly until it is stopped with playdate.sound.sampleplayer:stop(). If rate is set, the sample will be played at the given rate instead of the rate previous set with playdate.sound.sampleplayer.setRate().
 ---@field play fun(self: pd_sampleplayer, repeatCount?: number, rate?: number)
 --- Schedules the sound for playing at device time when. If vol is specified, the sample will be played at level vol (with optional separate right channel volume rightvol). If when is less than the current device time, the sample is played immediately. If rate is set, the sample will be played at the given rate instead of the rate previous set with playdate.sound.sampleplayer.setRate().
@@ -3298,7 +3298,7 @@ kTextAlignment = kTextAlignment
 
 ---@class pd_sample
 --- Returns a new subsample containing a subrange of the given sample. Offset values are in frames, not bytes.
----@field getSubsample fun(self: pd_sample, startOffset: pd_UNKNOWN, endOffset: pd_UNKNOWN): true
+---@field getSubsample fun(self: pd_sample, startOffset: pd_UNKNOWN, endOffset: pd_UNKNOWN): pd_sample
 --- Loads the sound data from the file at path into an existing sample buffer. If there is no file at path, the function returns nil.
 ---@field load fun(self: pd_sample, path: string): pd_UNKNOWN
 --- Returns the sample rate as an integer, such as 44100 or 22050.
@@ -3626,7 +3626,7 @@ kTextAlignment = kTextAlignment
 --- Sets a signal to modulate the mix level.
 ---@field setMixMod fun(self: pd_delayline, signal: pd_UNKNOWN)
 --- Returns a new playdate.sound.delaylinetap on the delay line, at the given delay (which must be less than or equal to the delay line’s length).
----@field addTap fun(self: pd_delayline, delay: number): true
+---@field addTap fun(self: pd_delayline, delay: number): pd_delayline
 --- Sets the feedback level of the delay line.
 ---@field setFeedback fun(self: pd_delayline, level: pd_UNKNOWN)
 
