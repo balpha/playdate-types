@@ -2819,7 +2819,7 @@ kTextAlignment = kTextAlignment
 --- `exitPoint`: a point representing the coordinates of the second intersection between sprite and the line segment.
 --- 
 --- `ti1` & `ti2`: numbers between 0 and 1 which indicate how far from the starting point of the line segment the collision happened; t1 for the entry point, t2 for the exit point. This can be useful for things like having a laser cause more damage if the impact is close.
----@field querySpriteInfoAlongLine (fun(x1: number, y1: number, x2: number, y2: number): pd_line_collision_info[]) | (fun(lineSegment: pd_lineSegment): pd_line_collision_info[])
+---@field querySpriteInfoAlongLine (fun(x1: number, y1: number, x2: number, y2: number): (pd_line_collision_info[], integer)) | (fun(lineSegment: pd_lineSegment): (pd_line_collision_info[], integer))
 --- You must import `CoreLibs/sprites` to use this function.
 --- 
 --- This convenience function adds an invisible sprite defined by the rectangle `x`, `y`, `w`, `h` (or the playdate.geometry.rect `r`) for the purpose of triggering collisions. This is useful for making areas impassable, triggering an event when a sprite enters a certain area, and so on.
