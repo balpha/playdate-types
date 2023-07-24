@@ -51,7 +51,6 @@ kTextAlignment = kTextAlignment
 ---@field length number
 ---@field velocity number
 
----@class pd_UNKNOWN
 ---@class pd_UNDOCUMENTED
 ---@class pd_button
 ---@class pd_text_alignment
