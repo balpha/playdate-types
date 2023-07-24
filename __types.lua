@@ -120,21 +120,21 @@ kTextAlignment = kTextAlignment
 ---@field upButtonDown nil | (fun())
 --- Called immediately after the player releases the up direction on the d-pad.
 ---@field upButtonUp nil | (fun())
---- For playdate.cranked(), change is the angle change in degrees. acceleratedChange is change multiplied by a value that increases as the crank moves faster, similar to the way mouse acceleration works. Negative values are anti-clockwise.
+--- For playdate.cranked(), `change` is the angle change in degrees. `acceleratedChange` is `change` multiplied by a value that increases as the crank moves faster, similar to the way mouse acceleration works. Negative values are anti-clockwise.
 ---@field cranked nil | (fun(change: number, acceleratedChange: number))
 
 ---@class tablelib
---- Returns the first index of element in the given array-style table. If the table does not contain element, the function returns nil.
+--- Returns the first index of `element` in the given array-style table. If the table does not contain `element`, the function returns nil.
 ---@field indexOfElement fun(table: table, element: any): number?
---- Returns the size of the given table as multiple values (arrayCount, hashCount).
+--- Returns the size of the given table as multiple values (`arrayCount`, `hashCount`).
 ---@field getsize fun(table: table): (number, number)
---- Returns a new Lua table with the array and hash parts preallocated to accommodate arrayCount and hashCount elements respectively.
+--- Returns a new Lua table with the array and hash parts preallocated to accommodate `arrayCount` and `hashCount` elements respectively.
 --- 
 --- If you can make a decent estimation of how big your table will need to be, table.create() can be much more efficient than the alternative, especially in loops. For example, if you know your array is always going to contain approximately ten elements, say myArray = table.create( 10, 0 ) instead of myArray = {}.
 ---@field create fun(arrayCount: number, hashCount: number): table
---- shallowCopy returns a shallow copy of the source table. If a destination table is provided, it copies the contents of source into destination and returns destination. The copy will contain references to any nested tables.
+--- shallowCopy returns a shallow copy of the `source` table. If a `destination` table is provided, it copies the contents of `source` into `destination` and returns `destination`. The copy will contain references to any nested tables.
 ---@field shallowcopy fun(source: table, destination?: table): table
---- deepCopy returns a deep copy of the source table. The copy will contain copies of any nested tables.
+--- deepCopy returns a deep copy of the `source` table. The copy will contain copies of any nested tables.
 ---@field deepcopy fun(source: table): table
 
 ---@class pd_playdate_lib
@@ -147,7 +147,7 @@ kTextAlignment = kTextAlignment
 --- Suspends callbacks to playdate.update() for the specified number of milliseconds.
 --- 
 --- playdate.wait() is ideal for pausing game execution to, for example, show a message to the player. Because .update() will not be called, the screen will freeze during .wait(). Audio will continue to play. Animation during this wait period is possible, but you will need to explicitly call playdate.display.flush() once per frame.
---- While timers should pause during playdate.wait() (assuming playdate.timer.updateTimers() and playdate.frameTimer.updateTimers() are invoked during playdate.update()), animators will not pause during playdate.wait(). Be sure to account for this in your code.
+--- While timers should pause during playdate.wait() (assuming playdate.timer.updateTimers() and playdate.frameTimer.updateTimers() are invoked during playdate.update()), animators will `not` pause during playdate.wait(). Be sure to account for this in your code.
 ---@field wait fun(milliseconds: number)
 --- Stops per-frame callbacks to playdate.update(). Useful in conjunction with playdate.display.flush() if your program only does things in response to button presses.
 ---@field stop fun()
@@ -170,17 +170,17 @@ kTextAlignment = kTextAlignment
 ---@field menu pd_menu_lib
 --- While the game is paused it can optionally provide an image to be displayed alongside the System Menu. Use this function to set that image.
 --- 
---- image should be a 400 x 240 pixel playdate.graphics.image. All important content should be in the left half of the image in an area 200 pixels wide, as the menu will obscure the rest. The right side of the image will be visible briefly as the menu animates in and out.
+--- `image` should be a 400 x 240 pixel playdate.graphics.image. All important content should be in the left half of the image in an area 200 pixels wide, as the menu will obscure the rest. The right side of the image will be visible briefly as the menu animates in and out.
 --- 
---- Optionally, xOffset can be provided which must be a number between 0 and 200 and will cause the menu image to animate to a position offset left by xOffset pixels as the menu is animated in.
+--- Optionally, `xOffset` can be provided which must be a number between 0 and 200 and will cause the menu image to animate to a position offset left by `xOffset` pixels as the menu is animated in.
 --- 
---- To remove a previously-set menu image, pass nil for the image argument.
+--- To remove a previously-set menu image, pass nil for the `image` argument.
 ---@field setMenuImage fun(image: pd_image, xOffset?: number)
---- Returns the current language of the system, which will be one of the constants playdate.graphics.font.kLanguageEnglish or playdate.graphics.font.kLanguageJapanese.
+--- Returns the current language of the system, which will be one of the constants `playdate.graphics.font.kLanguageEnglish` or `playdate.graphics.font.kLanguageJapanese`.
 ---@field getSystemLanguage fun(): pd_language
---- Returns true if the user has checked the "Reduce Flashing" option in Playdate Settings; false otherwise. Games should read this value and, if true, avoid visuals that could be problematic for people with sensitivities to flashing lights or patterns.
+--- Returns `true` if the user has checked the "Reduce Flashing" option in Playdate Settings; `false` otherwise. Games should read this value and, if `true`, avoid visuals that could be problematic for people with sensitivities to flashing lights or patterns.
 ---@field getReduceFlashing fun(): boolean
---- Returns true if the user has checked the "Upside Down" option in Playdate Settings; false otherwise. (Upside Down mode can be convenient for players wanting to hold Playdate upside-down so they can use their left hand to operate the crank.)
+--- Returns `true` if the user has checked the "Upside Down" option in Playdate Settings; `false` otherwise. (Upside Down mode can be convenient for players wanting to hold Playdate upside-down so they can use their left hand to operate the crank.)
 --- 
 --- Typically your game doesn’t need to anything in regards to this setting. But it is available in case your game wants to take some special actions, display special instructions, etc.
 --- 
@@ -194,33 +194,33 @@ kTextAlignment = kTextAlignment
 ---@field readAccelerometer fun(): (number, number, number)
 --- Returns true if the accelerometer is currently running.
 ---@field accelerometerIsRunning fun(): boolean
---- Returns true if button is currently being pressed.
+--- Returns true if `button` is currently being pressed.
 --- 
---- button should be one of the constants:
+--- `button` should be one of the constants:
 --- 
---- playdate.kButtonA
+--- `playdate.kButtonA`
 --- 
---- playdate.kButtonB
+--- `playdate.kButtonB`
 --- 
---- playdate.kButtonUp
+--- `playdate.kButtonUp`
 --- 
---- playdate.kButtonDown
+--- `playdate.kButtonDown`
 --- 
---- playdate.kButtonLeft
+--- `playdate.kButtonLeft`
 --- 
---- playdate.kButtonRight
+--- `playdate.kButtonRight`
 --- 
 --- Or one of the strings "a", "b", "up", "down", "left", "right".
 ---@field buttonIsPressed fun(button: pd_button): boolean
---- Returns true for just one update cycle if button was pressed. buttonJustPressed will not return true again until the button is released and pressed again. This is useful for, say, a player "jump" action, so the jump action is taken only once and not on every single update.
+--- Returns true for `just one update cycle` if `button` was pressed. buttonJustPressed will not return true again until the button is released and pressed again. This is useful for, say, a player "jump" action, so the jump action is taken only once and not on every single update.
 --- 
---- button should be one of the constants listed in playdate.buttonIsPressed()
+--- `button` should be one of the constants listed in playdate.buttonIsPressed()
 ---@field buttonJustPressed fun(button: pd_button): boolean
---- Returns true for just one update cycle if button was released. buttonJustReleased will not return true again until the button is pressed and released again.
+--- Returns true for `just one update cycle` if `button` was released. buttonJustReleased will not return true again until the button is pressed and released again.
 --- 
---- button should be one of the constants listed in playdate.buttonIsPressed()
+--- `button` should be one of the constants listed in playdate.buttonIsPressed()
 ---@field buttonJustReleased fun(button: pd_button): boolean
---- Returns the above data in one call, with multiple return values (current, pressed, released) containing bitmasks indicating which buttons are currently down, and which were pressed and released since the last update. For example, if the d-pad left button and the A button are both down, the current value will be (playdate.kButtonA|playdate.kButtonLeft).
+--- Returns the above data in one call, with multiple return values (`current`, `pressed`, `released`) containing bitmasks indicating which buttons are currently down, and which were pressed and released since the last update. For example, if the d-pad left button and the A button are both down, the `current` value will be (`playdate.kButtonA`|`playdate.kButtonLeft`).
 ---@field getButtonState fun(): (integer, integer, integer)
 --- Called immediately after the player presses the A Button.
 ---@field AButtonDown nil | (fun())
@@ -256,68 +256,68 @@ kTextAlignment = kTextAlignment
 ---@field isCrankDocked fun(): boolean
 --- Returns the absolute position of the crank (in degrees). Zero is pointing straight up parallel to the device. Turning the crank clockwise (when looking at the right edge of an upright device) increases the angle, up to a maximum value 359.9999. The value then resets back to zero as the crank continues its rotation.
 ---@field getCrankPosition fun(): number
---- Returns two values, change and acceleratedChange. change represents the angle change (in degrees) of the crank since the last time this function (or the playdate.cranked() callback) was called. Negative values are anti-clockwise. acceleratedChange is change multiplied by a value that increases as the crank moves faster, similar to the way mouse acceleration works.
+--- Returns two values, `change` and `acceleratedChange`. `change` represents the angle change (in degrees) of the crank since the last time this function (or the playdate.cranked() callback) was called. Negative values are anti-clockwise. `acceleratedChange` is change multiplied by a value that increases as the crank moves faster, similar to the way mouse acceleration works.
 ---@field getCrankChange fun(): (number, number)
---- Returns the number of "ticks" — whose frequency is defined by the value of ticksPerRevolution — the crank has turned through since the last time this function was called. Tick boundaries are set at absolute positions along the crank’s rotation. Ticks can be positive or negative, depending upon the direction of rotation.
+--- Returns the number of "ticks" — whose frequency is defined by the value of `ticksPerRevolution` — the crank has turned through since the last time this function was called. Tick boundaries are set at absolute positions along the crank’s rotation. Ticks can be positive or negative, depending upon the direction of rotation.
 --- 
 --- For example, say you have a movie player and you want your movie to advance 6 frames for every one revolution of the crank. Calling playdate.getCrankTicks(6) during each update will give you a return value of 1 as the crank turns past each 60 degree increment. (Since we passed in a 6, each tick represents 360 ÷ 6 = 60 degrees.) So getCrankTicks(6) will return a 1 as the crank turns past the 0 degree absolute position, the 60 degree absolute position, and so on for the 120, 180, 240, and 300 degree positions. Otherwise, 0 will be returned. (-1 will be returned if the crank moves past one of these mentioned positions while going in a backward direction.)
 --- 
---- You must import CoreLibs/crank to use getCrankTicks().
+--- You must import `CoreLibs/crank` to use getCrankTicks().
 ---@field getCrankTicks fun(ticksPerRevolution: number): number
---- For playdate.cranked(), change is the angle change in degrees. acceleratedChange is change multiplied by a value that increases as the crank moves faster, similar to the way mouse acceleration works. Negative values are anti-clockwise.
+--- For playdate.cranked(), `change` is the angle change in degrees. `acceleratedChange` is `change` multiplied by a value that increases as the crank moves faster, similar to the way mouse acceleration works. Negative values are anti-clockwise.
 ---@field cranked nil | (fun(change: number, acceleratedChange: number))
 --- This function, if defined, is called when the crank is docked.
 ---@field crankDocked nil | (fun())
 --- This function, if defined, is called when the crank is undocked.
 ---@field crankUndocked nil | (fun())
---- True disables the default crank docking/undocking sound effects. False re-enables them. Useful if the crank sounds seem out-of-place in your game.
+--- `True` disables the default crank docking/undocking sound effects. `False` re-enables them. Useful if the crank sounds seem out-of-place in your game.
 --- 
 --- When your game terminates, crank sounds will automatically be re-enabled.
 ---@field setCrankSoundsDisabled fun(disable: boolean)
 ---@field inputHandlers pd_inputHandlers_lib
---- True disables the 60-second auto-lock feature. False re-enables it and resets the timer back to 60 seconds.
+--- `True` disables the 60-second auto-lock feature. `False` re-enables it and resets the timer back to 60 seconds.
 --- 
 --- Auto-lock will automatically be re-enabled when your game terminates.
 --- If disabling auto-lock, developers should look for opportunities to re-enable auto-lock when appropriate. (For example, if your game is an MP3 audio player, auto-lock could be re-enabled when the user pauses the audio.)
 ---@field setAutoLockDisabled fun(disable: boolean)
---- Returns the number of milliseconds the game has been active since launched.
+--- Returns the number of milliseconds the game has been `active` since launched.
 ---@field getCurrentTimeMilliseconds fun(): number
 --- Resets the high-resolution timer.
 ---@field resetElapsedTime fun()
 --- Returns the number of seconds since playdate.resetElapsedTime() was called. The value is a floating-point number with microsecond accuracy.
 ---@field getElapsedTime fun(): number
---- Returns the number of seconds and milliseconds elapsed since midnight (hour 0), January 1 2000 UTC, as a list: (seconds, milliseconds). This function is suitable for seeding the random number generator:
+--- Returns the number of seconds and milliseconds elapsed since midnight (hour 0), January 1 2000 UTC, as a list: `(seconds, milliseconds)`. This function is suitable for seeding the random number generator:
 --- 
 --- Sample code for seeding the random number generator
 --- math.randomseed(playdate.getSecondsSinceEpoch())
 ---@field getSecondsSinceEpoch fun(): (number, number)
 --- Returns a table with values for the local time, accessible via the following keys:
 --- 
---- year: 4-digit year (until 10,000 AD)
+--- `year`: 4-digit year (until 10,000 AD)
 --- 
---- month: month of the year, where 1 is January and 12 is December
+--- `month`: month of the year, where 1 is January and 12 is December
 --- 
---- day: day of the month, 1 - 31
+--- `day`: day of the month, 1 - 31
 --- 
---- weekday: day of the week, where 1 is Monday and 7 is Sunday
+--- `weekday`: day of the week, where 1 is Monday and 7 is Sunday
 --- 
---- hour: 0 - 23
+--- `hour`: 0 - 23
 --- 
---- minute: 0 - 59
+--- `minute`: 0 - 59
 --- 
---- second: 0 - 59 (or 60 on a leap second)
+--- `second`: 0 - 59 (or 60 on a leap second)
 --- 
---- millisecond: 0 - 999
+--- `millisecond`: 0 - 999
 ---@field getTime fun(): pd_time_table
 --- Returns a table in the same format as playdate.getTime(), but in GMT rather than local time.
 ---@field getGMTTime fun(): pd_time_table
---- Returns the number of seconds and milliseconds between midnight (hour 0), January 1 2000 UTC and time, specified in local time, as a list: (seconds, milliseconds).
+--- Returns the number of seconds and milliseconds between midnight (hour 0), January 1 2000 UTC and `time`, specified in local time, as a list: `(seconds, milliseconds)`.
 --- 
---- time should be a table of the same format as the one returned by playdate.getTime().
+--- `time` should be a table of the same format as the one returned by playdate.getTime().
 ---@field epochFromTime fun(time: pd_time_table): (number, number)
---- Returns the number of seconds and milliseconds between midnight (hour 0), January 1 2000 UTC and time, specified in GMT time, as a list: (seconds, milliseconds).
+--- Returns the number of seconds and milliseconds between midnight (hour 0), January 1 2000 UTC and `time`, specified in GMT time, as a list: `(seconds, milliseconds)`.
 --- 
---- time should be a table of the same format as the one returned by playdate.getTime().
+--- `time` should be a table of the same format as the one returned by playdate.getTime().
 ---@field epochFromGMTTime fun(time: pd_time_table): (number, number)
 --- Converts the epoch to a local date and time table, in the same format as the table returned by playdate.getTime().
 ---@field timeFromEpoch fun(seconds: number, milliseconds: number): pd_time_table
@@ -327,9 +327,9 @@ kTextAlignment = kTextAlignment
 ---@field shouldDisplay24HourTime fun(): boolean
 --- If the simulator is launched from the command line, any extra arguments passed there are available in the playdate.argv array.
 ---@field argv string[]
---- flag determines whether or not the print() function adds a newline to the end of the printed text. Default is true.
+--- `flag` determines whether or not the print() function adds a newline to the end of the printed text. Default is `true`.
 ---@field setNewlinePrinted fun(flag: boolean)
---- Calculates the current frames per second and draws that value at x, y.
+--- Calculates the current frames per second and draws that value at `x, y`.
 ---@field drawFPS fun(x: number, y: number)
 --- Returns the effective refresh rate in frames per second. See also playdate.display.getRefreshRate().
 ---@field getFPS fun(): number
@@ -338,7 +338,7 @@ kTextAlignment = kTextAlignment
 --- { "kernel"=0.23, "game"=0.62, "audio"=0.15 }
 --- playdate.getStats() only functions on a Playdate device. In the Simulator, this function returns nil.
 ---@field getStats fun(): table
---- setStatsInterval() sets the length of time for each sample frame of runtime stats. Set seconds to zero to disable stats collection.
+--- setStatsInterval() sets the length of time for each sample frame of runtime stats. Set `seconds` to zero to disable stats collection.
 ---@field setStatsInterval fun(seconds: number)
 ---@field display pd_display_lib
 ---@field easingFunctions pd_easingFunctions_lib
@@ -351,17 +351,17 @@ kTextAlignment = kTextAlignment
 ---@field pathfinder pd_pathfinder_lib
 --- Returns a table holding booleans with the following keys:
 --- 
---- charging: The battery is actively being charged
+--- `charging`: The battery is actively being charged
 --- 
---- USB: There is a powered USB cable connected
+--- `USB`: There is a powered USB cable connected
 --- 
---- screws: There is 5V being applied to the corner screws (via the dock, for example)
+--- `screws`: There is 5V being applied to the corner screws (via the dock, for example)
 ---@field getPowerStatus fun(): table
 --- Returns a value from 0-100 denoting the current level of battery charge. 0 = empty; 100 = full.
 ---@field getBatteryPercentage fun(): number
 --- Returns the battery’s current voltage level.
 ---@field getBatteryVoltage fun(): number
---- This variable—not a function, so don’t invoke with ()—it is set to 1 when running inside of the Simulator and is nil otherwise.
+--- This variable—not a function, so don’t invoke with `()`—it is set to 1 when running inside of the Simulator and is `nil` otherwise.
 ---@field isSimulator boolean
 ---@field simulator pd_simulator_lib
 --- Clears the simulator console.
@@ -378,7 +378,7 @@ kTextAlignment = kTextAlignment
 --- 
 --- If the keypress in question is already in use by the Simulator for another purpose (say, to control the d-pad or A/B buttons), these functions will not be called.
 --- 
---- If key is an alphabetic character, the value will always be lowercase, even if the user deliberately typed an uppercase character.
+--- If `key` is an alphabetic character, the value will always be lowercase, even if the user deliberately typed an uppercase character.
 ---@field keyPressed nil | (fun(key: string))
 --- Lets you act on keyboard key releases when running in the Simulator ONLY. These can be useful for adding debugging functions that can be enabled via your keyboard.
 ---@field keyReleased nil | (fun(key: string))
@@ -391,9 +391,9 @@ kTextAlignment = kTextAlignment
 ---@field timer pd_timer_lib
 ---@field frameTimer pd_frameTimer_lib
 ---@field ui pd_ui_lib
---- If flag is false, automatic garbage collection is disabled and the game should manually collect garbage with Lua’s collectgarbage() function.
+--- If `flag` is false, automatic garbage collection is disabled and the game should manually collect garbage with Lua’s collectgarbage() function.
 ---@field setCollectsGarbage fun(flag: boolean)
---- Force the Lua garbage collector to run for at least ms milliseconds every frame, so that garbage doesn’t pile up and cause the game to run out of memory and stall in emergency garbage collection. The default value is 1 millisecond.
+--- Force the Lua garbage collector to run for at least `ms` milliseconds every frame, so that garbage doesn’t pile up and cause the game to run out of memory and stall in emergency garbage collection. The default value is 1 millisecond.
 --- 
 --- If your game isn’t generating a lot of garbage, it might be advantageous to set a smaller minimum GC time, granting more CPU bandwidth to your game.
 ---@field setMinimumGCTime fun(ms: number)
@@ -440,15 +440,15 @@ kTextAlignment = kTextAlignment
 ---@field item pd_item_lib
 
 ---@class pd_menu
---- title will be the title displayed by the menu item.
+--- `title` will be the title displayed by the menu item.
 ---@field addMenuItem fun(self: pd_menu, title: string, callback: fun())
 --- Creates a new menu item that can be checked or unchecked by the player.
 --- 
---- title will be the title displayed by the menu item.
+--- `title` will be the title displayed by the menu item.
 --- 
---- initialValue can be set to true or false, indicating the checked state of the menu item. Optional, defaults to false.
+--- `initialValue` can be set to true or false, indicating the checked state of the menu item. Optional, defaults to false.
 --- 
---- If this menu item is interacted with while the system menu is open, callback will be called when the menu is closed, before playdate.gameWillResume is called. The callback function will be passed one argument, a boolean value, indicating the current value of the menu item.
+--- If this menu item is interacted with while the system menu is open, `callback` will be called when the menu is closed, before playdate.gameWillResume is called. The callback function will be passed one argument, a boolean value, indicating the current value of the menu item.
 --- 
 --- If the returned playdate.menu.item is nil, a second errorMessage return value will indicate the reason the operation failed.
 --- 
@@ -456,13 +456,13 @@ kTextAlignment = kTextAlignment
 ---@field addCheckmarkMenuItem fun(self: pd_menu, title: string, initialValue?: number, callback?: fun(boolean)): pd_item
 --- Creates a menu item that allows the player to cycle through a set of options.
 --- 
---- title will be the title displayed by the menu item.
+--- `title` will be the title displayed by the menu item.
 --- 
---- options should be an array-style table of strings representing the states the menu item can have. Due to limited horizontal space, the option strings and title should be kept short for this type of menu item.
+--- `options` should be an array-style table of strings representing the states the menu item can have. Due to limited horizontal space, the option strings and title should be kept short for this type of menu item.
 --- 
---- initialValue can optionally be set to any of the values in the options array.
+--- `initialValue` can optionally be set to any of the values in the options array.
 --- 
---- If the value of this menu item is changed while the system menu is open, callback will be called when the menu is closed, before playdate.gameWillResume is called. The callback function will be passed one string argument indicating the currently selection option.
+--- If the value of this menu item is changed while the system menu is open, `callback` will be called when the menu is closed, before playdate.gameWillResume is called. The callback function will be passed one string argument indicating the currently selection option.
 --- 
 --- If the returned playdate.menu.item is nil, a second errorMessage return value will indicate the reason the operation failed.
 --- 
@@ -480,9 +480,9 @@ kTextAlignment = kTextAlignment
 ---@class pd_inputHandlers_lib
 --- Pushes a new input handler onto the stack.
 --- 
---- handler: A table containing one or more custom input functions.
+--- `handler:` A table containing one or more custom input functions.
 --- 
---- masksPreviousHandlers: If true, input functions not defined in handler will not be called. If missing or false, the previously-pushed input handler tables will be searched for input functions missing from handler, cascading down to the default playdate table.
+--- `masksPreviousHandlers:` If true, input functions not defined in `handler` will not be called. If missing or false, the previously-pushed input handler tables will be searched for input functions missing from `handler`, cascading down to the default playdate table.
 ---@field push fun(handler: pd_input_handler, masksPreviousHandlers?: boolean)
 --- Pops the last input handler off of the stack.
 ---@field pop fun()
@@ -490,7 +490,7 @@ kTextAlignment = kTextAlignment
 ---@class pd_display_lib
 --- Sets the nominal refresh rate in frames per second. The default is 30 fps, which is a recommended figure that balances animation smoothness with performance and power considerations. Maximum is 50 fps.
 --- 
---- If rate is 0, playdate.update() is called as soon as a frame buffer is available. Since the display refreshes line-by-line, and unchanged lines aren’t sent to the display, the update cycle will be faster than 30 times a second but at an indeterminate rate. playdate.getCurrentTimeMilliseconds() should then be used as a steady time base.
+--- If `rate` is 0, playdate.update() is called as soon as a frame buffer is available. Since the display refreshes line-by-line, and unchanged lines aren’t sent to the display, the update cycle will be faster than 30 times a second but at an indeterminate rate. playdate.getCurrentTimeMilliseconds() should then be used as a steady time base.
 --- 
 --- Equivalent to playdate->display->setRefreshRate() in the C API.
 ---@field setRefreshRate fun(rate: number)
@@ -506,17 +506,17 @@ kTextAlignment = kTextAlignment
 --- 
 --- Equivalent to playdate->display->getWidth() in the C API.
 ---@field getWidth fun(): number
---- Returns the values (width, height) describing the Playdate display size. Takes the current display scale into account; e.g., if the scale is 2, the values returned will be based off of a 200 x 120-pixel screen rather than the native 400 x 240. (See playdate.display.setScale().)
+--- Returns the values `(width, height)` describing the Playdate display size. Takes the current display scale into account; e.g., if the scale is 2, the values returned will be based off of a 200 x 120-pixel screen rather than the native 400 x 240. (See playdate.display.setScale().)
 ---@field getSize fun(): (number, number)
---- Returns the values (x, y, width, height) describing the Playdate display size. Takes the current display scale into account; e.g., if the scale is 2, the values returned will be based off of a 200 x 120-pixel screen rather than the native 400 x 240. (See playdate.display.setScale().)
+--- Returns the values `(x, y, width, height)` describing the Playdate display size. Takes the current display scale into account; e.g., if the scale is 2, the values returned will be based off of a 200 x 120-pixel screen rather than the native 400 x 240. (See playdate.display.setScale().)
 ---@field getRect fun(): pd_rect
---- Sets the display scale factor. Valid values for scale are 1, 2, 4, and 8.
+--- Sets the display scale factor. Valid values for `scale` are 1, 2, 4, and 8.
 --- 
 --- The top-left corner of the frame buffer is scaled up to fill the display; e.g., if the scale is set to 4, the pixels in rectangle [0,100] x [0,60] are drawn on the screen as 4 x 4 squares.
 --- 
 --- Equivalent to playdate->display->setScale() in the C API.
 ---@field setScale fun(scale: number)
---- Gets the display scale factor. Valid values for scale are 1, 2, 4, and 8.
+--- Gets the display scale factor. Valid values for `scale` are 1, 2, 4, and 8.
 ---@field getScale fun(): number
 --- If the argument passed to setInverted() is true, the frame buffer will be drawn inverted (everything onscreen that was black will now be white, etc.)
 --- 
@@ -524,19 +524,19 @@ kTextAlignment = kTextAlignment
 ---@field setInverted fun(flag: boolean)
 --- If getInverted() returns true, the frame buffer will be drawn inverted (everything onscreen that was black will now be white, etc.)
 ---@field getInverted fun(): boolean
---- Adds a mosaic effect to the display. Valid x and y values are between 0 and 3, inclusive.
+--- Adds a mosaic effect to the display. Valid `x` and `y` values are between 0 and 3, inclusive.
 --- 
 --- Equivalent to playdate->display->setMosaic() in the C API.
 ---@field setMosaic fun(x: number, y: number)
---- Returns the current mosaic effect settings as multiple values (x, y).
+--- Returns the current mosaic effect settings as multiple values (`x`, `y`).
 ---@field getMosaic fun(): (number, number)
---- Offsets the entire display by x, y. Offset values can be negative. The "exposed" part of the display is black or white, according to the value set in playdate.graphics.setBackgroundColor(). This is an efficient way to make a "shake" effect without redrawing anything.
+--- Offsets the entire display by `x`, `y`. Offset values can be negative. The "exposed" part of the display is black or white, according to the value set in playdate.graphics.setBackgroundColor(). This is an efficient way to make a "shake" effect without redrawing anything.
 --- 
 --- This function is different from playdate.graphics.setDrawOffset().
 --- 
 --- Equivalent to playdate->display->setOffset() in the C API.
 ---@field setOffset fun(x: number, y: number)
---- getOffset() returns the current display offset as multiple values (x, y).
+--- getOffset() returns the current display offset as multiple values (`x`, `y`).
 ---@field getOffset fun(): (number, number)
 --- Flips the display on the x or y axis, or both.
 --- 
@@ -544,607 +544,607 @@ kTextAlignment = kTextAlignment
 --- 
 --- Equivalent to playdate->display->setFlipped() in the C API.
 ---@field setFlipped fun(x: number, y: number)
---- The simplest method for putting an image on the display. Copies the contents of the image at path directly to the frame buffer. The image must be 400x240 pixels with no transparency.
+--- The simplest method for putting an image on the display. Copies the contents of the image at `path` directly to the frame buffer. The image must be 400x240 pixels with no transparency.
 --- 
 --- Loading an image via playdate.graphics.image.new() and drawing it at a desired coordinate with playdate.graphics.image:draw() offers more flexibility.
 ---@field loadImage fun(path: string)
 
 ---@class pd_easingFunctions_lib
---- t is elapsed time
+--- `t` is elapsed time
 --- 
---- b is the beginning value
+--- `b` is the beginning value
 --- 
---- c is the change (or end value - start value)
+--- `c` is the change (or end value - start value)
 --- 
---- d is the duration
+--- `d` is the duration
 --- 
---- a - amplitude
+--- `a` - amplitude
 --- 
---- p - period parameter
+--- `p` - period parameter
 --- 
---- s - amount of "overshoot"
+--- `s` - amount of "overshoot"
 ---@field linear fun(t: number, b: number, c: number, d: number): number
---- t is elapsed time
+--- `t` is elapsed time
 --- 
---- b is the beginning value
+--- `b` is the beginning value
 --- 
---- c is the change (or end value - start value)
+--- `c` is the change (or end value - start value)
 --- 
---- d is the duration
+--- `d` is the duration
 --- 
---- a - amplitude
+--- `a` - amplitude
 --- 
---- p - period parameter
+--- `p` - period parameter
 --- 
---- s - amount of "overshoot"
+--- `s` - amount of "overshoot"
 ---@field inQuad fun(t: number, b: number, c: number, d: number): number
---- t is elapsed time
+--- `t` is elapsed time
 --- 
---- b is the beginning value
+--- `b` is the beginning value
 --- 
---- c is the change (or end value - start value)
+--- `c` is the change (or end value - start value)
 --- 
---- d is the duration
+--- `d` is the duration
 --- 
---- a - amplitude
+--- `a` - amplitude
 --- 
---- p - period parameter
+--- `p` - period parameter
 --- 
---- s - amount of "overshoot"
+--- `s` - amount of "overshoot"
 ---@field outQuad fun(t: number, b: number, c: number, d: number): number
---- t is elapsed time
+--- `t` is elapsed time
 --- 
---- b is the beginning value
+--- `b` is the beginning value
 --- 
---- c is the change (or end value - start value)
+--- `c` is the change (or end value - start value)
 --- 
---- d is the duration
+--- `d` is the duration
 --- 
---- a - amplitude
+--- `a` - amplitude
 --- 
---- p - period parameter
+--- `p` - period parameter
 --- 
---- s - amount of "overshoot"
+--- `s` - amount of "overshoot"
 ---@field inOutQuad fun(t: number, b: number, c: number, d: number): number
---- t is elapsed time
+--- `t` is elapsed time
 --- 
---- b is the beginning value
+--- `b` is the beginning value
 --- 
---- c is the change (or end value - start value)
+--- `c` is the change (or end value - start value)
 --- 
---- d is the duration
+--- `d` is the duration
 --- 
---- a - amplitude
+--- `a` - amplitude
 --- 
---- p - period parameter
+--- `p` - period parameter
 --- 
---- s - amount of "overshoot"
+--- `s` - amount of "overshoot"
 ---@field outInQuad fun(t: number, b: number, c: number, d: number): number
---- t is elapsed time
+--- `t` is elapsed time
 --- 
---- b is the beginning value
+--- `b` is the beginning value
 --- 
---- c is the change (or end value - start value)
+--- `c` is the change (or end value - start value)
 --- 
---- d is the duration
+--- `d` is the duration
 --- 
---- a - amplitude
+--- `a` - amplitude
 --- 
---- p - period parameter
+--- `p` - period parameter
 --- 
---- s - amount of "overshoot"
+--- `s` - amount of "overshoot"
 ---@field inCubic fun(t: number, b: number, c: number, d: number): number
---- t is elapsed time
+--- `t` is elapsed time
 --- 
---- b is the beginning value
+--- `b` is the beginning value
 --- 
---- c is the change (or end value - start value)
+--- `c` is the change (or end value - start value)
 --- 
---- d is the duration
+--- `d` is the duration
 --- 
---- a - amplitude
+--- `a` - amplitude
 --- 
---- p - period parameter
+--- `p` - period parameter
 --- 
---- s - amount of "overshoot"
+--- `s` - amount of "overshoot"
 ---@field outCubic fun(t: number, b: number, c: number, d: number): number
---- t is elapsed time
+--- `t` is elapsed time
 --- 
---- b is the beginning value
+--- `b` is the beginning value
 --- 
---- c is the change (or end value - start value)
+--- `c` is the change (or end value - start value)
 --- 
---- d is the duration
+--- `d` is the duration
 --- 
---- a - amplitude
+--- `a` - amplitude
 --- 
---- p - period parameter
+--- `p` - period parameter
 --- 
---- s - amount of "overshoot"
+--- `s` - amount of "overshoot"
 ---@field inOutCubic fun(t: number, b: number, c: number, d: number): number
---- t is elapsed time
+--- `t` is elapsed time
 --- 
---- b is the beginning value
+--- `b` is the beginning value
 --- 
---- c is the change (or end value - start value)
+--- `c` is the change (or end value - start value)
 --- 
---- d is the duration
+--- `d` is the duration
 --- 
---- a - amplitude
+--- `a` - amplitude
 --- 
---- p - period parameter
+--- `p` - period parameter
 --- 
---- s - amount of "overshoot"
+--- `s` - amount of "overshoot"
 ---@field outInCubic fun(t: number, b: number, c: number, d: number): number
---- t is elapsed time
+--- `t` is elapsed time
 --- 
---- b is the beginning value
+--- `b` is the beginning value
 --- 
---- c is the change (or end value - start value)
+--- `c` is the change (or end value - start value)
 --- 
---- d is the duration
+--- `d` is the duration
 --- 
---- a - amplitude
+--- `a` - amplitude
 --- 
---- p - period parameter
+--- `p` - period parameter
 --- 
---- s - amount of "overshoot"
+--- `s` - amount of "overshoot"
 ---@field inQuart fun(t: number, b: number, c: number, d: number): number
---- t is elapsed time
+--- `t` is elapsed time
 --- 
---- b is the beginning value
+--- `b` is the beginning value
 --- 
---- c is the change (or end value - start value)
+--- `c` is the change (or end value - start value)
 --- 
---- d is the duration
+--- `d` is the duration
 --- 
---- a - amplitude
+--- `a` - amplitude
 --- 
---- p - period parameter
+--- `p` - period parameter
 --- 
---- s - amount of "overshoot"
+--- `s` - amount of "overshoot"
 ---@field outQuart fun(t: number, b: number, c: number, d: number): number
---- t is elapsed time
+--- `t` is elapsed time
 --- 
---- b is the beginning value
+--- `b` is the beginning value
 --- 
---- c is the change (or end value - start value)
+--- `c` is the change (or end value - start value)
 --- 
---- d is the duration
+--- `d` is the duration
 --- 
---- a - amplitude
+--- `a` - amplitude
 --- 
---- p - period parameter
+--- `p` - period parameter
 --- 
---- s - amount of "overshoot"
+--- `s` - amount of "overshoot"
 ---@field inOutQuart fun(t: number, b: number, c: number, d: number): number
---- t is elapsed time
+--- `t` is elapsed time
 --- 
---- b is the beginning value
+--- `b` is the beginning value
 --- 
---- c is the change (or end value - start value)
+--- `c` is the change (or end value - start value)
 --- 
---- d is the duration
+--- `d` is the duration
 --- 
---- a - amplitude
+--- `a` - amplitude
 --- 
---- p - period parameter
+--- `p` - period parameter
 --- 
---- s - amount of "overshoot"
+--- `s` - amount of "overshoot"
 ---@field outInQuart fun(t: number, b: number, c: number, d: number): number
---- t is elapsed time
+--- `t` is elapsed time
 --- 
---- b is the beginning value
+--- `b` is the beginning value
 --- 
---- c is the change (or end value - start value)
+--- `c` is the change (or end value - start value)
 --- 
---- d is the duration
+--- `d` is the duration
 --- 
---- a - amplitude
+--- `a` - amplitude
 --- 
---- p - period parameter
+--- `p` - period parameter
 --- 
---- s - amount of "overshoot"
+--- `s` - amount of "overshoot"
 ---@field inQuint fun(t: number, b: number, c: number, d: number): number
---- t is elapsed time
+--- `t` is elapsed time
 --- 
---- b is the beginning value
+--- `b` is the beginning value
 --- 
---- c is the change (or end value - start value)
+--- `c` is the change (or end value - start value)
 --- 
---- d is the duration
+--- `d` is the duration
 --- 
---- a - amplitude
+--- `a` - amplitude
 --- 
---- p - period parameter
+--- `p` - period parameter
 --- 
---- s - amount of "overshoot"
+--- `s` - amount of "overshoot"
 ---@field outQuint fun(t: number, b: number, c: number, d: number): number
---- t is elapsed time
+--- `t` is elapsed time
 --- 
---- b is the beginning value
+--- `b` is the beginning value
 --- 
---- c is the change (or end value - start value)
+--- `c` is the change (or end value - start value)
 --- 
---- d is the duration
+--- `d` is the duration
 --- 
---- a - amplitude
+--- `a` - amplitude
 --- 
---- p - period parameter
+--- `p` - period parameter
 --- 
---- s - amount of "overshoot"
+--- `s` - amount of "overshoot"
 ---@field inOutQuint fun(t: number, b: number, c: number, d: number): number
---- t is elapsed time
+--- `t` is elapsed time
 --- 
---- b is the beginning value
+--- `b` is the beginning value
 --- 
---- c is the change (or end value - start value)
+--- `c` is the change (or end value - start value)
 --- 
---- d is the duration
+--- `d` is the duration
 --- 
---- a - amplitude
+--- `a` - amplitude
 --- 
---- p - period parameter
+--- `p` - period parameter
 --- 
---- s - amount of "overshoot"
+--- `s` - amount of "overshoot"
 ---@field outInQuint fun(t: number, b: number, c: number, d: number): number
---- t is elapsed time
+--- `t` is elapsed time
 --- 
---- b is the beginning value
+--- `b` is the beginning value
 --- 
---- c is the change (or end value - start value)
+--- `c` is the change (or end value - start value)
 --- 
---- d is the duration
+--- `d` is the duration
 --- 
---- a - amplitude
+--- `a` - amplitude
 --- 
---- p - period parameter
+--- `p` - period parameter
 --- 
---- s - amount of "overshoot"
+--- `s` - amount of "overshoot"
 ---@field inSine fun(t: number, b: number, c: number, d: number): number
---- t is elapsed time
+--- `t` is elapsed time
 --- 
---- b is the beginning value
+--- `b` is the beginning value
 --- 
---- c is the change (or end value - start value)
+--- `c` is the change (or end value - start value)
 --- 
---- d is the duration
+--- `d` is the duration
 --- 
---- a - amplitude
+--- `a` - amplitude
 --- 
---- p - period parameter
+--- `p` - period parameter
 --- 
---- s - amount of "overshoot"
+--- `s` - amount of "overshoot"
 ---@field outSine fun(t: number, b: number, c: number, d: number): number
---- t is elapsed time
+--- `t` is elapsed time
 --- 
---- b is the beginning value
+--- `b` is the beginning value
 --- 
---- c is the change (or end value - start value)
+--- `c` is the change (or end value - start value)
 --- 
---- d is the duration
+--- `d` is the duration
 --- 
---- a - amplitude
+--- `a` - amplitude
 --- 
---- p - period parameter
+--- `p` - period parameter
 --- 
---- s - amount of "overshoot"
+--- `s` - amount of "overshoot"
 ---@field inOutSine fun(t: number, b: number, c: number, d: number): number
---- t is elapsed time
+--- `t` is elapsed time
 --- 
---- b is the beginning value
+--- `b` is the beginning value
 --- 
---- c is the change (or end value - start value)
+--- `c` is the change (or end value - start value)
 --- 
---- d is the duration
+--- `d` is the duration
 --- 
---- a - amplitude
+--- `a` - amplitude
 --- 
---- p - period parameter
+--- `p` - period parameter
 --- 
---- s - amount of "overshoot"
+--- `s` - amount of "overshoot"
 ---@field outInSine fun(t: number, b: number, c: number, d: number): number
---- t is elapsed time
+--- `t` is elapsed time
 --- 
---- b is the beginning value
+--- `b` is the beginning value
 --- 
---- c is the change (or end value - start value)
+--- `c` is the change (or end value - start value)
 --- 
---- d is the duration
+--- `d` is the duration
 --- 
---- a - amplitude
+--- `a` - amplitude
 --- 
---- p - period parameter
+--- `p` - period parameter
 --- 
---- s - amount of "overshoot"
+--- `s` - amount of "overshoot"
 ---@field inExpo fun(t: number, b: number, c: number, d: number): number
---- t is elapsed time
+--- `t` is elapsed time
 --- 
---- b is the beginning value
+--- `b` is the beginning value
 --- 
---- c is the change (or end value - start value)
+--- `c` is the change (or end value - start value)
 --- 
---- d is the duration
+--- `d` is the duration
 --- 
---- a - amplitude
+--- `a` - amplitude
 --- 
---- p - period parameter
+--- `p` - period parameter
 --- 
---- s - amount of "overshoot"
+--- `s` - amount of "overshoot"
 ---@field outExpo fun(t: number, b: number, c: number, d: number): number
---- t is elapsed time
+--- `t` is elapsed time
 --- 
---- b is the beginning value
+--- `b` is the beginning value
 --- 
---- c is the change (or end value - start value)
+--- `c` is the change (or end value - start value)
 --- 
---- d is the duration
+--- `d` is the duration
 --- 
---- a - amplitude
+--- `a` - amplitude
 --- 
---- p - period parameter
+--- `p` - period parameter
 --- 
---- s - amount of "overshoot"
+--- `s` - amount of "overshoot"
 ---@field inOutExpo fun(t: number, b: number, c: number, d: number): number
---- t is elapsed time
+--- `t` is elapsed time
 --- 
---- b is the beginning value
+--- `b` is the beginning value
 --- 
---- c is the change (or end value - start value)
+--- `c` is the change (or end value - start value)
 --- 
---- d is the duration
+--- `d` is the duration
 --- 
---- a - amplitude
+--- `a` - amplitude
 --- 
---- p - period parameter
+--- `p` - period parameter
 --- 
---- s - amount of "overshoot"
+--- `s` - amount of "overshoot"
 ---@field outInExpo fun(t: number, b: number, c: number, d: number): number
---- t is elapsed time
+--- `t` is elapsed time
 --- 
---- b is the beginning value
+--- `b` is the beginning value
 --- 
---- c is the change (or end value - start value)
+--- `c` is the change (or end value - start value)
 --- 
---- d is the duration
+--- `d` is the duration
 --- 
---- a - amplitude
+--- `a` - amplitude
 --- 
---- p - period parameter
+--- `p` - period parameter
 --- 
---- s - amount of "overshoot"
+--- `s` - amount of "overshoot"
 ---@field inCirc fun(t: number, b: number, c: number, d: number): number
---- t is elapsed time
+--- `t` is elapsed time
 --- 
---- b is the beginning value
+--- `b` is the beginning value
 --- 
---- c is the change (or end value - start value)
+--- `c` is the change (or end value - start value)
 --- 
---- d is the duration
+--- `d` is the duration
 --- 
---- a - amplitude
+--- `a` - amplitude
 --- 
---- p - period parameter
+--- `p` - period parameter
 --- 
---- s - amount of "overshoot"
+--- `s` - amount of "overshoot"
 ---@field outCirc fun(t: number, b: number, c: number, d: number): number
---- t is elapsed time
+--- `t` is elapsed time
 --- 
---- b is the beginning value
+--- `b` is the beginning value
 --- 
---- c is the change (or end value - start value)
+--- `c` is the change (or end value - start value)
 --- 
---- d is the duration
+--- `d` is the duration
 --- 
---- a - amplitude
+--- `a` - amplitude
 --- 
---- p - period parameter
+--- `p` - period parameter
 --- 
---- s - amount of "overshoot"
+--- `s` - amount of "overshoot"
 ---@field inOutCirc fun(t: number, b: number, c: number, d: number): number
---- t is elapsed time
+--- `t` is elapsed time
 --- 
---- b is the beginning value
+--- `b` is the beginning value
 --- 
---- c is the change (or end value - start value)
+--- `c` is the change (or end value - start value)
 --- 
---- d is the duration
+--- `d` is the duration
 --- 
---- a - amplitude
+--- `a` - amplitude
 --- 
---- p - period parameter
+--- `p` - period parameter
 --- 
---- s - amount of "overshoot"
+--- `s` - amount of "overshoot"
 ---@field outInCirc fun(t: number, b: number, c: number, d: number): number
---- t is elapsed time
+--- `t` is elapsed time
 --- 
---- b is the beginning value
+--- `b` is the beginning value
 --- 
---- c is the change (or end value - start value)
+--- `c` is the change (or end value - start value)
 --- 
---- d is the duration
+--- `d` is the duration
 --- 
---- a - amplitude
+--- `a` - amplitude
 --- 
---- p - period parameter
+--- `p` - period parameter
 --- 
---- s - amount of "overshoot"
+--- `s` - amount of "overshoot"
 ---@field inElastic fun(t: number, b: number, c: number, d: number, a?: number, p?: number): number
---- t is elapsed time
+--- `t` is elapsed time
 --- 
---- b is the beginning value
+--- `b` is the beginning value
 --- 
---- c is the change (or end value - start value)
+--- `c` is the change (or end value - start value)
 --- 
---- d is the duration
+--- `d` is the duration
 --- 
---- a - amplitude
+--- `a` - amplitude
 --- 
---- p - period parameter
+--- `p` - period parameter
 --- 
---- s - amount of "overshoot"
+--- `s` - amount of "overshoot"
 ---@field outElastic fun(t: number, b: number, c: number, d: number, a?: number, p?: number): number
---- t is elapsed time
+--- `t` is elapsed time
 --- 
---- b is the beginning value
+--- `b` is the beginning value
 --- 
---- c is the change (or end value - start value)
+--- `c` is the change (or end value - start value)
 --- 
---- d is the duration
+--- `d` is the duration
 --- 
---- a - amplitude
+--- `a` - amplitude
 --- 
---- p - period parameter
+--- `p` - period parameter
 --- 
---- s - amount of "overshoot"
+--- `s` - amount of "overshoot"
 ---@field inOutElastic fun(t: number, b: number, c: number, d: number, a?: number, p?: number): number
---- t is elapsed time
+--- `t` is elapsed time
 --- 
---- b is the beginning value
+--- `b` is the beginning value
 --- 
---- c is the change (or end value - start value)
+--- `c` is the change (or end value - start value)
 --- 
---- d is the duration
+--- `d` is the duration
 --- 
---- a - amplitude
+--- `a` - amplitude
 --- 
---- p - period parameter
+--- `p` - period parameter
 --- 
---- s - amount of "overshoot"
+--- `s` - amount of "overshoot"
 ---@field outInElastic fun(t: number, b: number, c: number, d: number, a?: number, p?: number): number
---- t is elapsed time
+--- `t` is elapsed time
 --- 
---- b is the beginning value
+--- `b` is the beginning value
 --- 
---- c is the change (or end value - start value)
+--- `c` is the change (or end value - start value)
 --- 
---- d is the duration
+--- `d` is the duration
 --- 
---- a - amplitude
+--- `a` - amplitude
 --- 
---- p - period parameter
+--- `p` - period parameter
 --- 
---- s - amount of "overshoot"
+--- `s` - amount of "overshoot"
 ---@field inBack fun(t: number, b: number, c: number, d: number, s?: number): number
---- t is elapsed time
+--- `t` is elapsed time
 --- 
---- b is the beginning value
+--- `b` is the beginning value
 --- 
---- c is the change (or end value - start value)
+--- `c` is the change (or end value - start value)
 --- 
---- d is the duration
+--- `d` is the duration
 --- 
---- a - amplitude
+--- `a` - amplitude
 --- 
---- p - period parameter
+--- `p` - period parameter
 --- 
---- s - amount of "overshoot"
+--- `s` - amount of "overshoot"
 ---@field outBack fun(t: number, b: number, c: number, d: number, s?: number): number
---- t is elapsed time
+--- `t` is elapsed time
 --- 
---- b is the beginning value
+--- `b` is the beginning value
 --- 
---- c is the change (or end value - start value)
+--- `c` is the change (or end value - start value)
 --- 
---- d is the duration
+--- `d` is the duration
 --- 
---- a - amplitude
+--- `a` - amplitude
 --- 
---- p - period parameter
+--- `p` - period parameter
 --- 
---- s - amount of "overshoot"
+--- `s` - amount of "overshoot"
 ---@field inOutBack fun(t: number, b: number, c: number, d: number, s?: number): number
---- t is elapsed time
+--- `t` is elapsed time
 --- 
---- b is the beginning value
+--- `b` is the beginning value
 --- 
---- c is the change (or end value - start value)
+--- `c` is the change (or end value - start value)
 --- 
---- d is the duration
+--- `d` is the duration
 --- 
---- a - amplitude
+--- `a` - amplitude
 --- 
---- p - period parameter
+--- `p` - period parameter
 --- 
---- s - amount of "overshoot"
+--- `s` - amount of "overshoot"
 ---@field outInBack fun(t: number, b: number, c: number, d: number, s?: number): number
---- t is elapsed time
+--- `t` is elapsed time
 --- 
---- b is the beginning value
+--- `b` is the beginning value
 --- 
---- c is the change (or end value - start value)
+--- `c` is the change (or end value - start value)
 --- 
---- d is the duration
+--- `d` is the duration
 --- 
---- a - amplitude
+--- `a` - amplitude
 --- 
---- p - period parameter
+--- `p` - period parameter
 --- 
---- s - amount of "overshoot"
+--- `s` - amount of "overshoot"
 ---@field outBounce fun(t: number, b: number, c: number, d: number): number
---- t is elapsed time
+--- `t` is elapsed time
 --- 
---- b is the beginning value
+--- `b` is the beginning value
 --- 
---- c is the change (or end value - start value)
+--- `c` is the change (or end value - start value)
 --- 
---- d is the duration
+--- `d` is the duration
 --- 
---- a - amplitude
+--- `a` - amplitude
 --- 
---- p - period parameter
+--- `p` - period parameter
 --- 
---- s - amount of "overshoot"
+--- `s` - amount of "overshoot"
 ---@field inBounce fun(t: number, b: number, c: number, d: number): number
---- t is elapsed time
+--- `t` is elapsed time
 --- 
---- b is the beginning value
+--- `b` is the beginning value
 --- 
---- c is the change (or end value - start value)
+--- `c` is the change (or end value - start value)
 --- 
---- d is the duration
+--- `d` is the duration
 --- 
---- a - amplitude
+--- `a` - amplitude
 --- 
---- p - period parameter
+--- `p` - period parameter
 --- 
---- s - amount of "overshoot"
+--- `s` - amount of "overshoot"
 ---@field inOutBounce fun(t: number, b: number, c: number, d: number): number
---- t is elapsed time
+--- `t` is elapsed time
 --- 
---- b is the beginning value
+--- `b` is the beginning value
 --- 
---- c is the change (or end value - start value)
+--- `c` is the change (or end value - start value)
 --- 
---- d is the duration
+--- `d` is the duration
 --- 
---- a - amplitude
+--- `a` - amplitude
 --- 
---- p - period parameter
+--- `p` - period parameter
 --- 
---- s - amount of "overshoot"
+--- `s` - amount of "overshoot"
 ---@field outInBounce fun(t: number, b: number, c: number, d: number): number
 
 ---@class pd_datastore_lib
---- Encodes the given table into the named file. (The .json extension should be omitted from the file name.) The default file name is "data". If pretty-print is true, the JSON will be nicely formatted.
+--- Encodes the given table into the named file. (The .json extension should be omitted from the file name.) The default file name is "data". If `pretty-print` is true, the JSON will be nicely formatted.
 ---@field write fun(table: table, filename?: string, pretty-print?: boolean)
 --- Returns a table instantiated with the data in the JSON-encoded file you specify. (The .json extension should be omitted.) The default file name is "data". If no file is found, this function returns nil.
 ---@field read fun(filename?: string): table
 --- Deletes the specified datastore file. The default file name is "data". Returns false if the datastore file could not be deleted.
 ---@field delete fun(filename?: string): boolean
---- Saves a playdate.graphics.image to a file. If path doesn’t contain a folder name, the image is stored in a folder named "images".
+--- Saves a playdate.graphics.image to a file. If `path` doesn’t contain a folder name, the image is stored in a folder named "images".
 --- 
---- By default, this method writes out a PDI file, a custom image format used by Playdate that can be read back in using readImage(). If you want to write out a GIF file, append a .gif extension to your path.
+--- By default, this method writes out a PDI file, a custom image format used by Playdate that can be read back in using readImage(). If you want to write out a GIF file, append a .gif extension to your `path`.
 --- 
---- Because writeImage() doesn’t currently support GIF transparency, if you attempt to write a GIF from an image buffer you instantiated, you must call playdate.graphics.image.new( width, height, bgcolor ) with bgcolor set to playdate.graphics.kColorWhite or playdate.graphics.kColorBlack, otherwise your image will render improperly to the file.
+--- Because writeImage() doesn’t currently support GIF transparency, if you attempt to write a GIF from an image buffer you instantiated, you must call playdate.graphics.image.new( `width, height, bgcolor` ) with `bgcolor` set to playdate.graphics.kColorWhite or playdate.graphics.kColorBlack, otherwise your image will render improperly to the file.
 ---@field writeImage fun(image: pd_image, path: string)
---- Reads a playdate.graphics.image from a file in the data folder. If path doesn’t contain a folder name, the image is searched for in a folder named "images".
+--- Reads a playdate.graphics.image from a file in the data folder. If `path` doesn’t contain a folder name, the image is searched for in a folder named "images".
 --- 
 --- readImage() can only load compiled pdi files. (writeImage() by default creates compiled pdi files.)
 ---@field readImage fun(path: string)
 
 ---@class pd_file_lib
---- Returns a playdate.file.file corresponding to the opened file. mode should be one of the following:
+--- Returns a playdate.file.file corresponding to the opened file. `mode` should be one of the following:
 --- 
 --- playdate.file.kFileRead: the file is opened for reading; the system first looks in the /Data/<bundleid> folder for the given file, then in the game’s pdx folder if it isn’t found
 --- 
@@ -1152,14 +1152,14 @@ kTextAlignment = kTextAlignment
 --- 
 --- playdate.file.kFileAppend: the file is created if it doesn’t exist, opened for writing, with new data written to the end of the file
 --- 
---- If mode is not specified, the default is playdate.file.kFileRead.
+--- If `mode` is not specified, the default is `playdate.file.kFileRead`.
 --- 
 --- If the file couldn’t be opened, a second return value indicates the error. The filesystem has a limit of 64 simultaneous open files.
 --- 
 --- Equivalent to playdate->file->open() in the C API.
 ---@field open fun(path: string, mode?: pd_filemode): pd_file_file
 ---@field file pd_file_file_lib
---- Returns an array containing the file names in the given directory path as strings. Folders are indicated by a slash / at the end of the filename. If showhidden is set, files beginning with a period will be included; otherwise, they are skipped.
+--- Returns an array containing the file names in the given directory path as strings. Folders are indicated by a slash / at the end of the filename. If `showhidden` is set, files beginning with a period will be included; otherwise, they are skipped.
 --- 
 --- Call with no argument to get a list of all files and folders your game has access to. (For a game with default access permissions, listFiles(), listFiles("/"), and listFiles(".") should all return the same result.)
 --- 
@@ -1173,13 +1173,13 @@ kTextAlignment = kTextAlignment
 ---@field isdir fun(path: string): boolean
 --- Creates a directory at the given path, under the /Data/<bundleid> folder. See About the Playdate Filesystem for details.
 --- 
---- playdate.file.mkdir() will create all intermediate directories, if a succession of directories ("testdir/testdir/testdir/") is specified in path.
+--- playdate.file.mkdir() will create all intermediate directories, if a succession of directories ("testdir/testdir/testdir/") is specified in `path`.
 --- 
 --- Equivalent to playdate->file->mkdir() in the C API.
 ---@field mkdir fun(path: string)
 --- Deletes the file at the given path. Returns true if successful, else false.
 --- 
---- If recursive is true, this function will delete the directory at path and its contents, otherwise the directory must be empty to be deleted.
+--- If `recursive` is true, this function will delete the directory at `path` and its contents, otherwise the directory must be empty to be deleted.
 ---@field delete fun(path: string, recursive?: boolean): boolean
 --- Returns the size of the file at the given path.
 ---@field getSize fun(path: string): number
@@ -1187,31 +1187,31 @@ kTextAlignment = kTextAlignment
 ---@field getType fun(path: string): pd_UNDOCUMENTED
 --- Returns the modification date/time of the file at the given path, as a table with keys:
 --- 
---- year: 4-digit year (until 10,000 AD)
+--- `year`: 4-digit year (until 10,000 AD)
 --- 
---- month: month of the year, where 1 is January and 12 is December
+--- `month`: month of the year, where 1 is January and 12 is December
 --- 
---- day: day of the month, 1 - 31
+--- `day`: day of the month, 1 - 31
 --- 
---- hour: 0 - 23
+--- `hour`: 0 - 23
 --- 
---- minute: 0 - 59
+--- `minute`: 0 - 59
 --- 
---- second: 0 - 59 (or 60 on a leap second)
+--- `second`: 0 - 59 (or 60 on a leap second)
 ---@field modtime fun(path: string): pd_file_time_table
---- Renames the file at path, if it exists, to the value of newPath. This can result in the file being moved to a new directory, but directories will not be created. Returns true if the operation was successful.
+--- Renames the file at `path`, if it exists, to the value of newPath. This can result in the file being moved to a new directory, but directories will not be created. Returns true if the operation was successful.
 --- 
 --- Equivalent to playdate->file->rename() in the C API.
 ---@field rename fun(path: string, newPath: string): boolean
---- Loads the compiled .pdz file at the given location and returns the contents as a function. The .pdz extension on path is optional.
+--- Loads the compiled `.pdz` file at the given location and returns the contents as a function. The .pdz extension on `path` is optional.
 --- 
---- env, if specified, is a table to use as the function’s global namespace instead of _G.
+--- `env`, if specified, is a table to use as the function’s global namespace instead of `_G`.
 ---@field load fun(path: string, env?: table): fun()
 --- Runs the pdz file at the given location. Equivalent to playdate.file.load(path, env)().
 --- 
---- The .pdz extension on path is optional. Values returned from the pdz file are left on the stack.
+--- The `.pdz` extension on `path` is optional. Values returned from the pdz file are left on the stack.
 --- 
---- env, if specified, is a table to use as the function’s global namespace instead of _G.
+--- `env`, if specified, is a table to use as the function’s global namespace instead of `_G`.
 ---@field run fun(path: string, env?: table)
 ---@field kFileRead pd_filemode
 ---@field kFileWrite pd_filemode
@@ -1225,11 +1225,11 @@ kTextAlignment = kTextAlignment
 ---@field polygon pd_polygon_lib
 ---@field rect pd_rect_lib
 ---@field size pd_size_lib
---- Returns the square of the distance from point (x1, y1) to point (x2, y2).
+--- Returns the square of the distance from point `(x1, y1)` to point `(x2, y2)`.
 --- 
 --- Compared to geometry.point:squaredDistanceToPoint(), this version will be slightly faster.
 ---@field squaredDistanceToPoint fun(x1: number, y1: number, x2: number, y2: number): number
---- Returns the the distance from point (x1, y1) to point (x2, y2).
+--- Returns the the distance from point `(x1, y1)` to point `(x2, y2)`.
 --- 
 --- Compared to geometry.point:distanceToPoint(), this version will be slightly faster.
 ---@field distanceToPoint fun(x1: number, y1: number, x2: number, y2: number): number
@@ -1242,8 +1242,8 @@ kTextAlignment = kTextAlignment
 ---@class pd_graphics_lib
 --- Pushes the current graphics state to the context stack and creates a new context. If a playdate.graphics.image is given, drawing functions are applied to the image instead of the screen buffer.
 --- 
---- If you draw into an image context with color set to playdate.graphics.kColorClear, those drawn pixels will be set to transparent. When you later draw the image into the framebuffer, those pixels will not be rendered, i.e., will act as transparent pixels in the image.
---- playdate.graphics.lockFocus(image) will reroute drawing into an image, without saving the overall graphics context.
+--- If you draw into an image context with color set to `playdate.graphics.kColorClear`, those drawn pixels will be set to transparent. When you later draw the image into the framebuffer, those pixels will not be rendered, i.e., will act as transparent pixels in the image.
+--- playdate.graphics.lockFocus(`image`) will reroute drawing into an image, without saving the overall graphics context.
 --- 
 --- Equivalent to playdate->graphics->pushContext() in the C API.
 ---@field pushContext fun(image?: pd_image)
@@ -1251,26 +1251,26 @@ kTextAlignment = kTextAlignment
 --- 
 --- Equivalent to playdate->graphics->popContext() in the C API.
 ---@field popContext fun()
---- Clears the entire display, setting the color to either the given color argument, or the current background color set in setBackgroundColor(color) if no argument is given.
+--- Clears the entire display, setting the color to either the given `color` argument, or the current background color set in setBackgroundColor(color) if no argument is given.
 --- 
 --- Equivalent to playdate->graphics->clear() in the C API.
 ---@field clear fun(color?: pd_color)
 ---@field image pd_image_lib
---- Returns the pair (width, height) for the image at path without actually loading the image.
+--- Returns the pair (`width`, `height`) for the image at `path` without actually loading the image.
 ---@field imageSizeAtPath fun(path: string): (number, number)
---- Returns true if the non-alpha-masked portions of image1 and image2 overlap if they were drawn at positions (x1, y1) and (x2, y2) and flipped according to flip1 and flip2, which should each be one of the values listed in playdate.graphics.image:draw().
+--- Returns true if the non-alpha-masked portions of `image1` and `image2` overlap if they were drawn at positions (`x1`, `y1`) and (`x2`, `y2`) and flipped according to `flip1` and `flip2`, which should each be one of the values listed in playdate.graphics.image:draw().
 ---@field checkAlphaCollision fun(image1: pd_image, x1: number, y1: number, flip1: pd_image_flip, image2: pd_image, x2: number, y2: number, flip2: pd_image_flip): boolean
 --- Sets and gets the current drawing color for primitives.
 --- 
---- color should be one of the constants:
+--- `color` should be one of the constants:
 --- 
---- playdate.graphics.kColorBlack
+--- `playdate.graphics.kColorBlack`
 --- 
---- playdate.graphics.kColorWhite
+--- `playdate.graphics.kColorWhite`
 --- 
---- playdate.graphics.kColorClear
+--- `playdate.graphics.kColorClear`
 --- 
---- playdate.graphics.kColorXOR
+--- `playdate.graphics.kColorXOR`
 --- 
 --- This color applies to drawing primitive shapes such as lines and rectangles, not bitmap images.
 ---@field setColor fun(color: pd_color)
@@ -1278,37 +1278,37 @@ kTextAlignment = kTextAlignment
 ---@field getColor fun(): pd_color
 --- Sets the color used for drawing the background, if necessary, before playdate.graphics.sprites are drawn on top.
 --- 
---- color should be one of the constants:
+--- `color` should be one of the constants:
 --- 
---- playdate.graphics.kColorBlack
+--- `playdate.graphics.kColorBlack`
 --- 
---- playdate.graphics.kColorWhite
+--- `playdate.graphics.kColorWhite`
 --- 
---- playdate.graphics.kColorClear
+--- `playdate.graphics.kColorClear`
 --- 
---- Use kColorClear if you intend to draw behind sprites.
+--- Use `kColorClear` if you intend to draw behind sprites.
 --- 
 --- Equivalent to playdate->graphics->setBackgroundColor() in the C API.
 ---@field setBackgroundColor fun(color: pd_color)
 --- Gets the color used for drawing the background, if necessary, before playdate.graphics.sprites are drawn on top.
 ---@field getBackgroundColor fun(): pd_color
---- Sets the 8x8 pattern used for drawing. The pattern argument is an array of 8 numbers describing the bitmap for each row; for example, { 0xaa, 0x55, 0xaa, 0x55, 0xaa, 0x55, 0xaa, 0x55 } specifies a checkerboard pattern. An additional 8 numbers can be specified for an alpha mask bitmap.
+--- Sets the 8x8 pattern used for drawing. The `pattern` argument is an array of 8 numbers describing the bitmap for each row; for example, `{ 0xaa, 0x55, 0xaa, 0x55, 0xaa, 0x55, 0xaa, 0x55 }` specifies a checkerboard pattern. An additional 8 numbers can be specified for an alpha mask bitmap.
 --- 
 --- To "un-set" a pattern, call setColor().
 --- 
 --- playdate.graphics.setPattern(image, [x, y])
 --- 
---- Uses the given playdate.graphics.image to set the 8 x 8 pattern used for drawing. The optional x, y offset (default 0, 0) indicates the top left corner of the 8 x 8 pattern.
+--- Uses the given playdate.graphics.image to set the 8 x 8 pattern used for drawing. The optional `x`, `y` offset (default 0, 0) indicates the top left corner of the 8 x 8 pattern.
 ---@field setPattern fun(pattern: pd_pattern)
---- Sets the pattern used for drawing to a dithered pattern. If the current drawing color is white, the pattern is white pixels on a transparent background and (due to a bug) the alpha value is inverted: 1.0 is transparent and 0 is opaque. Otherwise, the pattern is black pixels on a transparent background and alpha 0 is transparent while 1.0 is opaque.
+--- Sets the pattern used for drawing to a dithered pattern. If the current drawing color is white, the pattern is white pixels on a transparent background and (due to a bug) the `alpha` value is inverted: 1.0 is transparent and 0 is opaque. Otherwise, the pattern is black pixels on a transparent background and `alpha` 0 is transparent while 1.0 is opaque.
 --- 
---- The optional ditherType argument is a dither type as used in playdate.graphics.image:blurredImage(), and should be an ordered dither type; i.e., line, screen, or Bayer.
+--- The optional `ditherType` argument is a dither type as used in playdate.graphics.image:blurredImage(), and should be an ordered dither type; i.e., line, screen, or Bayer.
 --- 
 --- The error-diffusing dither types Floyd-Steinberg (kDitherTypeFloydSteinberg), Burkes (kDitherTypeBurkes), and Atkinson (kDitherTypeAtkinson) are allowed but produce very unpredictable results here.
 ---@field setDitherPattern fun(alpha: number, ditherType?: pd_dither_type)
 --- playdate.graphics.drawLine(ls)
 --- 
---- Draws a line from (x1, y1) to (x2, y2), or draws the playdate.geometry.lineSegment ls.
+--- Draws a line from (`x1`, `y1`) to (`x2`, `y2`), or draws the playdate.geometry.lineSegment `ls`.
 --- 
 --- Line width is specified by setLineWidth(). End cap style is specified by setLineCapStyle().
 --- 
@@ -1316,66 +1316,66 @@ kTextAlignment = kTextAlignment
 ---@field drawLine fun(x1: number, y1: number, x2: number, y2: number)
 --- Specifies the shape of the endpoints drawn by drawLine.
 --- 
---- style should be one of these constants:
+--- `style` should be one of these constants:
 --- 
---- playdate.graphics.kLineCapStyleButt
+--- `playdate.graphics.kLineCapStyleButt`
 --- 
---- playdate.graphics.kLineCapStyleRound
+--- `playdate.graphics.kLineCapStyleRound`
 --- 
---- playdate.graphics.kLineCapStyleSquare
+--- `playdate.graphics.kLineCapStyleSquare`
 --- 
 --- Equivalent to playdate->graphics->setLineCapStyle() in the C API.
 ---@field setLineCapStyle fun(style: pd_line_cap_style)
---- Draw a single pixel in the current color at (x, y).
+--- Draw a single pixel in the current color at (`x`, `y`).
 --- 
 --- playdate.graphics.drawPixel(p)
 --- 
---- Draw a single pixel in the current color at playdate.geometry.point p.
+--- Draw a single pixel in the current color at playdate.geometry.point `p`.
 ---@field drawPixel fun(x: number, y: number)
---- Draws the rect r or the rect with origin (x, y) with a size of (w, h).
+--- Draws the rect `r` or the rect with origin (`x`, `y`) with a size of (`w`, `h`).
 --- 
 --- Line width is specified by setLineWidth(). Stroke location is specified by setStrokeLocation().
 --- 
 --- Equivalent to playdate->graphics->drawRect() in the C API.
 ---@field drawRect (fun(x: number, y: number, w: number, h: number)) | (fun(r: pd_rect))
---- Draws the filled rectangle r or the rect at (x, y) of the given width and height.
+--- Draws the filled rectangle `r` or the rect at (`x`, `y`) of the given width and height.
 --- 
 --- Equivalent to playdate->graphics->fillRect() in the C API.
 ---@field fillRect (fun(x: number, y: number, width: number, height: number)) | (fun(r: pd_rect))
---- Draws a rectangle with rounded corners in the rect r or the rect with origin (x, y) and size (w, h).
+--- Draws a rectangle with rounded corners in the rect `r` or the rect with origin (`x`, `y`) and size (`w`, `h`).
 --- 
---- radius defines the radius of the corners.
+--- `radius` defines the radius of the corners.
 ---@field drawRoundRect (fun(x: number, y: number, w: number, h: number, radius: number)) | (fun(r: pd_rect, radius: number))
---- Draws a filled rectangle with rounded corners in the rect r or the rect with origin (x, y) and size (w, h).
+--- Draws a filled rectangle with rounded corners in the rect `r` or the rect with origin (`x`, `y`) and size (`w`, `h`).
 --- 
---- radius defines the radius of the corners.
+--- `radius` defines the radius of the corners.
 ---@field fillRoundRect (fun(x: number, y: number, w: number, h: number, radius: number)) | (fun(r: pd_rect, radius: number))
 --- Draws an arc using the current color.
 --- 
 --- Angles are specified in degrees, not radians.
 ---@field drawArc (fun(arc: pd_arc)) | (fun(x: number, y: number, radius: number, startAngle: number, endAngle: number))
---- Draws a circle at the point (x, y) (or p) with radius radius.
+--- Draws a circle at the point `(x, y)` (or `p`) with radius `radius`.
 ---@field drawCircleAtPoint (fun(x: number, y: number, radius: number)) | (fun(p: pd_point, radius: number))
---- Draws a circle in the rect r or the rect with origin (x, y) and size (width, height).
+--- Draws a circle in the rect `r` or the rect with origin `(x, y)` and size `(width, height)`.
 --- 
 --- If the rect is not a square, the circle will be drawn centered in the rect.
 ---@field drawCircleInRect (fun(x: number, y: number, width: number, height: number)) | (fun(r: pd_rect))
---- Draws a filled circle at the point (x, y) (or p) with radius radius.
+--- Draws a filled circle at the point `(x, y)` (or `p`) with radius `radius`.
 ---@field fillCircleAtPoint (fun(x: number, y: number, radius: number)) | (fun(p: pd_point, radius: number))
---- Draws a filled circle in the rect r or the rect with origin (x, y) and size (width, height).
+--- Draws a filled circle in the rect `r` or the rect with origin `(x, y)` and size `(width, height)`.
 --- 
 --- If the rect is not a square, the circle will be drawn centered in the rect.
 ---@field fillCircleInRect (fun(x: number, y: number, width: number, height: number)) | (fun(r: pd_rect))
---- Draws an ellipse in the rect r or the rect with origin (x, y) and size (width, height).
+--- Draws an ellipse in the rect `r` or the rect with origin `(x, y)` and size `(width, height)`.
 --- 
---- startAngle and endAngle, if provided, should be in degrees (not radians), and will cause only the segment of the ellipse between startAngle and endAngle to be drawn.
+--- `startAngle` and `endAngle`, if provided, should be in degrees (not radians), and will cause only the segment of the ellipse between `startAngle` and `endAngle` to be drawn.
 ---@field drawEllipseInRect (fun(x: number, y: number, width: number, height: number, startAngle?: number, endAngle?: number)) | (fun(rect: pd_rect, startAngle?: number, endAngle?: number))
---- Draws a filled ellipse in the rect r or the rect with origin (x, y) and size (width, height).
+--- Draws a filled ellipse in the rect `r` or the rect with origin `(x, y)` and size `(width, height)`.
 --- 
---- startAngle and endAngle, if provided, should be in degrees (not radians), and will cause only the segment of the ellipse between startAngle and endAngle to be drawn.
+--- `startAngle` and `endAngle`, if provided, should be in degrees (not radians), and will cause only the segment of the ellipse between `startAngle` and `endAngle` to be drawn.
 ---@field fillEllipseInRect (fun(x: number, y: number, width: number, height: number, startAngle?: number, endAngle?: number)) | (fun(rect: pd_rect, startAngle?: number, endAngle?: number))
 --- ### Overload 1 ###
---- Draw the playdate.geometry.polygon p.
+--- Draw the playdate.geometry.polygon `p`.
 --- 
 --- Line width is specified by setLineWidth().
 --- 
@@ -1390,45 +1390,45 @@ kTextAlignment = kTextAlignment
 --- Equivalent to playdate->graphics->fillPolygon() in the C API.
 --- 
 --- ### Overload 2 ###
---- Fills the polygon specified by the playdate.geometry.polygon p with the currently selected color or pattern.
+--- Fills the polygon specified by the playdate.geometry.polygon `p` with the currently selected color or pattern.
 ---@field fillPolygon (fun(x1: number, y1: number, x2: number, y2: number, ...)) | (fun(p: pd_polygon))
 --- Sets the winding rule for filling polygons, one of:
 --- 
---- playdate.graphics.kPolygonFillNonZero
+--- `playdate.graphics.kPolygonFillNonZero`
 --- 
---- playdate.graphics.kPolygonFillEvenOdd
+--- `playdate.graphics.kPolygonFillEvenOdd`
 --- 
 --- See https://en.wikipedia.org/wiki/Nonzero-rule for an explanation of the winding rule.
 ---@field setPolygonFillRule fun(rule: pd_polygon_fill_rule)
---- Draws a triangle with vertices (x1, y1), (x2, y2), and (x3, y3).
+--- Draws a triangle with vertices (`x1`, `y1`), (`x2`, `y2`), and (`x3`, `y3`).
 ---@field drawTriangle fun(x1: number, y1: number, x2: number, y2: number, x3: number, y3: number)
---- Draws a filled triangle with vertices (x1, y1), (x2, y2), and (x3, y3).
+--- Draws a filled triangle with vertices (`x1`, `y1`), (`x2`, `y2`), and (`x3`, `y3`).
 --- 
 --- Equivalent to playdate->graphics->fillTriangle() in the C API.
 ---@field fillTriangle fun(x1: number, y1: number, x2: number, y2: number, x3: number, y3: number)
 ---@field nineSlice pd_nineSlice_lib
---- Returns the Perlin value (from 0.0 to 1.0) at position (x, y, z).
+--- Returns the Perlin value (from 0.0 to 1.0) at position `(x, y, z)`.
 --- 
---- If repeat is greater than 0, the pattern of noise will repeat at that point on all 3 axes.
+--- If `repeat` is greater than 0, the pattern of noise will repeat at that point on all 3 axes.
 --- 
---- octaves is the number of octaves of noise to apply. Compute time increases linearly with each additional octave, but the results are a bit more organic, consisting of a combination of larger and smaller variations.
+--- `octaves` is the number of octaves of noise to apply. Compute time increases linearly with each additional octave, but the results are a bit more organic, consisting of a combination of larger and smaller variations.
 --- 
---- When using more than one octave, persistence is a value from 0.0 - 1.0 describing the amount the amplitude is scaled each octave. The lower the value of persistence, the less influence each successive octave has on the final value.
+--- When using more than one octave, `persistence` is a value from 0.0 - 1.0 describing the amount the amplitude is scaled each octave. The lower the value of `persistence`, the less influence each successive octave has on the final value.
 ---@field perlin fun(x: number, y: number, z: number, repeat: number, octaves?: number, persistence?: number): number
---- Returns an array of Perlin values at once, avoiding the performance penalty of calling perlin() multiple times in a loop.
+--- Returns an array of Perlin values at once, avoiding the performance penalty of calling `perlin()` multiple times in a loop.
 --- 
---- The parameters are the same as perlin() except:
+--- The parameters are the same as `perlin()` except:
 --- 
---- count is the number of values to be returned.
+--- `count` is the number of values to be returned.
 --- 
---- dx, dy, and dz are how far to step along the x, y, and z axes in each iteration.
+--- `dx`, `dy`, and `dz` are how far to step along the x, y, and z axes in each iteration.
 ---@field perlinArray fun(count: number, x: number, dx: number, y?: number, dy?: number, z?: number, dz?: number, repeat?: number, octaves?: number, persistence?: number): number[]
---- You must import CoreLibs/qrcode to use this function.
+--- You must import `CoreLibs/qrcode` to use this function.
 --- This function uses playdate.timer internally, so be sure to call playdate.timer.updateTimers() in your main playdate.update() function, otherwise the callback will never be invoked.
 --- 
---- Asynchronously returns an image representing a QR code for the passed-in string to the function callback. The arguments passed to the callback are image, errorMessage. (If an errorMessage string is returned, image will be nil.)
+--- Asynchronously returns an image representing a QR code for the passed-in string to the function callback. The arguments passed to the callback are `image`, `errorMessage`. (If an `errorMessage` string is returned, `image` will be nil.)
 --- 
---- desiredEdgeDimension lets you specify an approximate edge dimension in pixels for the desired QR code, though the function has limited flexibility in sizing QR codes, based on the amount of information to be encoded, and the restrictions of a 1-bit screen. The function will attempt to generate a QR code smaller than desiredEdgeDimension if possible. (Note that QR codes always have the same width and height.)
+--- desiredEdgeDimension lets you specify an approximate edge dimension in pixels for the desired QR code, though the function has limited flexibility in sizing QR codes, based on the amount of information to be encoded, and the restrictions of a 1-bit screen. The function will attempt to generate a QR code `smaller` than desiredEdgeDimension if possible. (Note that QR codes always have the same width and height.)
 --- 
 --- If you specify nil for desiredEdgeDimension, the returned image will balance small size with easy readability. If you specify 0, the returned image will be the smallest possible QR code for the specified string.
 --- 
@@ -1436,17 +1436,17 @@ kTextAlignment = kTextAlignment
 --- 
 --- If you know ahead of time what data you plan to encode, it is much faster to pre-generate the QR code, store it as a .png file in your game, and draw the .png at runtime. You can use playdate.simulator.writeToFile() to create this .png file.
 ---@field generateQRCode fun(stringToEncode: string, desiredEdgeDimension: number, callback: fun(image: pd_image)): pd_timer
---- You must import CoreLibs/graphics to use this function.
+--- You must import `CoreLibs/graphics` to use this function.
 --- 
---- Draws an approximation of a sine wave between the points startX, startY and endX, endY.
+--- Draws an approximation of a sine wave between the points `startX, startY` and `endX, endY`.
 --- 
---- startAmplitude: The number of pixels above and below the line from startX, startY and endX, endY the peaks and valleys of the wave will be drawn at the start of the wave.
+--- `startAmplitude`: The number of pixels above and below the line from `startX, startY` and `endX, endY` the peaks and valleys of the wave will be drawn at the start of the wave.
 --- 
---- endAmplitude: The number of pixels above and below the line from startX, startY and endX, endY the peaks and valleys of the wave will be drawn at the end of the wave.
+--- `endAmplitude`: The number of pixels above and below the line from `startX, startY` and `endX, endY` the peaks and valleys of the wave will be drawn at the end of the wave.
 --- 
---- period: The distance between peaks, in pixels.
+--- `period`: The distance between peaks, in pixels.
 --- 
---- phaseShift: If provided, specifies the wave’s offset, in pixels.
+--- `phaseShift`: If provided, specifies the wave’s offset, in pixels.
 ---@field drawSineWave fun(startX: number, startY: number, endX: number, endY: number, startAmplitude: number, endAmplitude: number, period: number, phaseShift?: number)
 --- ### Overload 1 ###
 --- setClipRect() sets the clipping rectangle for all subsequent graphics drawing, including bitmaps. The argument can either be separate dimensions or a playdate.geometry.rect object. The clip rect is automatically cleared at the beginning of the playdate.update() callback. The function uses world coordinates; that is, the given rectangle will be translated by the current drawing offset. To use screen coordinates instead, use setScreenClipRect()
@@ -1456,7 +1456,7 @@ kTextAlignment = kTextAlignment
 --- ### Overload 2 ###
 --- setClipRect() sets the clipping rectangle for all subsequent graphics drawing, including bitmaps. The argument can either be separate dimensions or a playdate.geometry.rect object. The clip rect is automatically cleared at the beginning of the playdate.update() callback. The function uses world coordinates; that is, the given rectangle will be translated by the current drawing offset. To use screen coordinates instead, use setScreenClipRect()
 ---@field setClipRect (fun(x: number, y: number, width: number, height: number)) | (fun(rect: pd_rect))
---- getClipRect() returns multiple values (x, y, width, height) giving the current clipping rectangle.
+--- getClipRect() returns multiple values (`x`, `y`, `width`, `height`) giving the current clipping rectangle.
 ---@field getClipRect fun(): pd_rect
 --- ### Overload 1 ###
 --- Sets the clip rectangle as above, but uses screen coordinates instead of world coordinates—​that is, it ignores the current drawing offset.
@@ -1472,7 +1472,7 @@ kTextAlignment = kTextAlignment
 --- 
 --- Equivalent to playdate->graphics->clearClipRect() in the C API.
 ---@field clearClipRect fun()
---- Sets the current stencil to the given image. If tile is set, the the stencil will be tiled; in this case, the image width must be a multiple of 32 pixels.
+--- Sets the current stencil to the given image. If `tile` is set, the the stencil will be tiled; in this case, the image width must be a multiple of 32 pixels.
 --- 
 --- Equivalent to playdate->graphics->setStencilImage() in the C API.
 ---@field setStencilImage fun(image: pd_image, tile?: boolean)
@@ -1480,14 +1480,14 @@ kTextAlignment = kTextAlignment
 --- Sets a pattern to use for stenciled drawing, as an alternative to creating an image, drawing a pattern into the image, then using that in setStencilImage().
 --- 
 --- ### Overload 2 ###
---- Sets the stencil to a dither pattern specified by level and optional ditherType (defaults to playdate.graphics.image.kDitherTypeBayer8x8).
+--- Sets the stencil to a dither pattern specified by `level` and optional `ditherType` (defaults to playdate.graphics.image.kDitherTypeBayer8x8).
 --- 
 --- ### Overload 3 ###
 --- Sets the sprite’s stencil to the given pattern, tiled across the screen.
 ---@field setStencilPattern (fun(eightRows: number[])) | (fun(row1: number, row2: number, row3: number, row4: number, row5: number, row6: number, row7: number, row8: number)) | (fun(level: number, ditherType?: pd_dither_type)) | (fun(eightRows: number[]))
 --- Clears the stencil buffer.
 ---@field clearStencil fun()
---- Deprecated.
+--- `Deprecated.`
 --- 
 --- Clears the stencil buffer.
 ---@field clearStencilImage fun()
@@ -1495,23 +1495,23 @@ kTextAlignment = kTextAlignment
 --- 
 --- The draw mode applies to images and fonts (which are technically images). The draw mode does not apply to primitive shapes such as lines or rectangles.
 --- 
---- The available options for mode (demonstrated by drawing a two-color background image first, setting the specified draw mode, then drawing the Crankin' character on top) are:
+--- The available options for `mode` (demonstrated by drawing a two-color background image first, setting the specified draw mode, then drawing the Crankin' character on top) are:
 --- 
---- playdate.graphics.kDrawModeCopy
+--- `playdate.graphics.kDrawModeCopy`
 --- 
---- playdate.graphics.kDrawModeWhiteTransparent
+--- `playdate.graphics.kDrawModeWhiteTransparent`
 --- 
---- playdate.graphics.kDrawModeBlackTransparent
+--- `playdate.graphics.kDrawModeBlackTransparent`
 --- 
---- playdate.graphics.kDrawModeFillWhite
+--- `playdate.graphics.kDrawModeFillWhite`
 --- 
---- playdate.graphics.kDrawModeFillBlack
+--- `playdate.graphics.kDrawModeFillBlack`
 --- 
---- playdate.graphics.kDrawModeXOR
+--- `playdate.graphics.kDrawModeXOR`
 --- 
---- playdate.graphics.kDrawModeNXOR
+--- `playdate.graphics.kDrawModeNXOR`
 --- 
---- playdate.graphics.kDrawModeInverted
+--- `playdate.graphics.kDrawModeInverted`
 --- 
 --- Instead of the above-specified constants, you can also use one of the following strings: "copy", "inverted", "XOR", "NXOR", "whiteTransparent", "blackTransparent", "fillWhite", or "fillBlack".
 --- 
@@ -1525,49 +1525,49 @@ kTextAlignment = kTextAlignment
 ---@field getLineWidth fun(): number
 --- Specifies where the stroke is placed relative to the rectangle passed into drawRect.
 --- 
---- location is one of these constants:
+--- `location` is one of these constants:
 --- 
---- playdate.graphics.kStrokeCentered
+--- `playdate.graphics.kStrokeCentered`
 --- 
---- playdate.graphics.kStrokeOutside
+--- `playdate.graphics.kStrokeOutside`
 --- 
---- playdate.graphics.kStrokeInside
+--- `playdate.graphics.kStrokeInside`
 ---@field setStrokeLocation fun(location: pd_stroke_location)
 --- Gets stroke position relative to the rectangle passed into drawRect.
 --- 
---- location is one of these constants:
+--- `location` is one of these constants:
 --- 
---- playdate.graphics.kStrokeCentered
+--- `playdate.graphics.kStrokeCentered`
 --- 
---- playdate.graphics.kStrokeOutside
+--- `playdate.graphics.kStrokeOutside`
 --- 
---- playdate.graphics.kStrokeInside
+--- `playdate.graphics.kStrokeInside`
 ---@field getStrokeLocation fun(): pd_stroke_location
 --- lockFocus() routes all drawing to the given playdate.graphics.image. playdate.graphics.unlockFocus() returns drawing to the frame buffer.
 --- 
---- If you draw into an image with color set to playdate.graphics.kColorClear, those drawn pixels will be set to transparent. When you later draw the image into the framebuffer, those pixels will not be rendered, i.e., will act as transparent pixels in the image.
---- playdate.graphics.pushContext(image) will also allow offscreen drawing into an image, with the additional benefit of being able to save and restore the graphics state.
+--- If you draw into an image with color set to `playdate.graphics.kColorClear`, those drawn pixels will be set to transparent. When you later draw the image into the framebuffer, those pixels will not be rendered, i.e., will act as transparent pixels in the image.
+--- playdate.graphics.pushContext(`image`) will also allow offscreen drawing into an image, with the additional benefit of being able to save and restore the graphics state.
 ---@field lockFocus fun(image: pd_image)
 --- After calling unlockFocus(), drawing is routed to the frame buffer.
 ---@field unlockFocus fun()
 ---@field animation pd_animation_lib
 ---@field animator pd_animator_lib
---- setDrawOffset(x, y) offsets the origin point for all drawing calls to x, y (can be negative). So, for example, if the offset is set to -20, -20, an image drawn at 20, 20 will appear at the origin (in the upper left corner.)
+--- setDrawOffset(x, y) offsets the origin point for all drawing calls to `x`, `y` (can be negative). So, for example, if the offset is set to -20, -20, an image drawn at 20, 20 will appear at the origin (in the upper left corner.)
 --- 
 --- This is useful, for example, for centering a "camera" on a sprite that is moving around a world larger than the screen.
 --- 
---- The x and y arguments to .setDrawOffset() are always specified in the original, unaltered coordinate system. So, for instance, repeated calls to playdate.graphics.setDrawOffset(-10, -10) will leave the draw offset unchanged. Likewise, .setDrawOffset(0, 0) will always "disable" the offset.
+--- The `x` and `y` arguments to .setDrawOffset() are always specified in the original, unaltered coordinate system. So, for instance, repeated calls to playdate.graphics.setDrawOffset(-10, -10) will leave the draw offset unchanged. Likewise, .setDrawOffset(0, 0) will always "disable" the offset.
 --- It can be useful to have operations sometimes ignore the draw offsets. For example, you may want to have the score or some other heads-up display appear onscreen apart from scrolling content. A sprite can be set to ignore offsets by calling playdate.graphics.sprite:setIgnoresDrawOffset(true). playdate.graphics.image:drawIgnoringOffsets() lets you render an image using screen coordinates.
 --- 
 --- Equivalent to playdate->graphics->setDrawOffset() in the C API.
 ---@field setDrawOffset fun(x: number, y: number)
---- getDrawOffset() returns multiple values (x, y) giving the current draw offset.
+--- getDrawOffset() returns multiple values (`x`, `y`) giving the current draw offset.
 ---@field getDrawOffset fun(): (number, number)
---- Returns a copy the contents of the last completed frame, i.e., a "screenshot", as a playdate.graphics.image.
+--- Returns a copy the contents of the `last completed frame`, i.e., a "screenshot", as a playdate.graphics.image.
 --- 
 --- Display functions like setMosaic(), setInverted(), setScale(), and setOffset() do not affect the returned image.
 ---@field getDisplayImage fun(): pd_image
---- Returns a copy the contents of the working frame buffer — the current frame, in-progress — as a playdate.graphics.image.
+--- Returns a copy the contents of the working frame buffer — `the current frame, in-progress` — as a playdate.graphics.image.
 --- 
 --- Display functions like setMosaic(), setInverted(), setScale(), and setOffset() do not affect the returned image.
 ---@field getWorkingImage fun(): pd_image
@@ -1577,15 +1577,15 @@ kTextAlignment = kTextAlignment
 ---@field font pd_font_lib
 --- Sets the current font, a playdate.graphics.font.
 --- 
---- variant should be one of the strings "normal", "bold", or "italic", or one of the constants:
+--- `variant` should be one of the strings "normal", "bold", or "italic", or one of the constants:
 --- 
---- playdate.graphics.font.kVariantNormal
+--- `playdate.graphics.font.kVariantNormal`
 --- 
---- playdate.graphics.font.kVariantBold
+--- `playdate.graphics.font.kVariantBold`
 --- 
---- playdate.graphics.font.kVariantItalic
+--- `playdate.graphics.font.kVariantItalic`
 --- 
---- If no variant is specified, kFontVariantNormal is used.
+--- If no variant is specified, `kFontVariantNormal` is used.
 --- 
 --- Equivalent to playdate->graphics->setFont() in the C API.
 ---@field setFont fun(font: pd_font, variant?: pd_font_variant)
@@ -1611,21 +1611,21 @@ kTextAlignment = kTextAlignment
 ---@field getFontTracking fun(): number
 --- Like getFont() but returns the system font rather than the currently set font.
 --- 
---- variant should be one of the strings "normal", "bold", or "italic", or one of the constants:
+--- `variant` should be one of the strings "normal", "bold", or "italic", or one of the constants:
 --- 
---- playdate.graphics.font.kVariantNormal
+--- `playdate.graphics.font.kVariantNormal`
 --- 
---- playdate.graphics.font.kVariantBold
+--- `playdate.graphics.font.kVariantBold`
 --- 
---- playdate.graphics.font.kVariantItalic
+--- `playdate.graphics.font.kVariantItalic`
 ---@field getSystemFont fun(variant?: pd_font_variant): pd_font
---- Draws the text using the current font and font advance at location (x, y).
+--- Draws the text using the current font and font advance at location (`x`, `y`).
 --- 
---- If fontFamily is provided, the text is draw using the given fonts instead of the currently set font. fontFamily should be a table of fonts using keys as specified in setFontFamily(fontFamily).
+--- If `fontFamily` is provided, the text is draw using the given fonts instead of the currently set font. `fontFamily` should be a table of fonts using keys as specified in setFontFamily(fontFamily).
 --- 
---- The optional leadingAdjustment may be used to modify the spacing between lines of text. Pass nil to use the default leading for the font.
+--- The optional `leadingAdjustment` may be used to modify the spacing between lines of text. Pass nil to use the default leading for the font.
 --- 
---- Returns width, height, indicating the size in pixels of the drawn text.
+--- Returns `width`, `height`, indicating the size in pixels of the drawn text.
 --- 
 --- Styling text
 --- 
@@ -1633,13 +1633,13 @@ kTextAlignment = kTextAlignment
 --- 
 --- playdate.graphics.drawText("normal *bold* _italic_", x, y)
 --- 
---- which will output: "normal bold italic". Bold and italic font variations must be set using setFont() with the appropriate variant argument, otherwise the default Playdate fonts will be used.
+--- which will output: "normal bold `italic`". Bold and italic font variations must be set using setFont() with the appropriate variant argument, otherwise the default Playdate fonts will be used.
 --- 
 --- Escaping styling characters
 --- 
 --- To draw an asterisk or underscore, use a double-asterisk or double-underscore. Styles may not be nested, but double-characters can be used inside of a styled portion of text.
 --- 
---- For a complete set of characters allowed in text, see playdate.graphics.font. In addition, the newline character \n is allowed and works as expected.
+--- For a complete set of characters allowed in `text`, see playdate.graphics.font. In addition, the newline character \n is allowed and works as expected.
 --- 
 --- Avoiding styling
 --- 
@@ -1651,87 +1651,87 @@ kTextAlignment = kTextAlignment
 --- 
 --- Equivalent to playdate->graphics->drawText() in the C API.
 ---@field drawText fun(text: string, x: number, y: number, fontFamily?: pd_font_family, leadingAdjustment?: number): (number, number)
---- Draws the text found by doing a lookup of key in the .strings file corresponding to the current system language, or language, if specified.
+--- Draws the text found by doing a lookup of `key` in the .strings file corresponding to the current system language, or `language`, if specified.
 --- 
---- The optional language argument can be one of the strings "en", "jp", or one of the constants:
+--- The optional `language` argument can be one of the strings "en", "jp", or one of the constants:
 --- 
---- playdate.graphics.font.kLanguageEnglish
+--- `playdate.graphics.font.kLanguageEnglish`
 --- 
---- playdate.graphics.font.kLanguageJapanese
+--- `playdate.graphics.font.kLanguageJapanese`
 --- 
 --- For more information about localization and strings files, see the Localization section.
 ---@field drawLocalizedText fun(key: string, x: number, y: number, language?: pd_language, leadingAdjustment?: number)
---- Returns a string found by doing a lookup of key in the .strings file corresponding to the current system language, or language, if specified.
+--- Returns a string found by doing a lookup of `key` in the .strings file corresponding to the current system language, or `language`, if specified.
 --- 
---- The optional language argument can be one of the strings "en", "jp", or one of the constants:
+--- The optional `language` argument can be one of the strings "en", "jp", or one of the constants:
 --- 
---- playdate.graphics.font.kLanguageEnglish
+--- `playdate.graphics.font.kLanguageEnglish`
 --- 
---- playdate.graphics.font.kLanguageJapanese
+--- `playdate.graphics.font.kLanguageJapanese`
 --- 
 --- For more information about localization and strings files, see the Localization section.
 ---@field getLocalizedText fun(key: string, language?: pd_language): string
---- Returns multiple values (width, height) giving the dimensions required to draw the text str using drawText(). Newline characters (\n) are respected.
+--- Returns multiple values `(width, height)` giving the dimensions required to draw the text `str` using drawText(). Newline characters (\n) are respected.
 --- 
---- fontFamily should be a table of fonts using keys as specified in setFontFamily(fontFamily). If provided, fonts from fontFamily will be used for calculating the size of str instead of the currently set font.
+--- `fontFamily` should be a table of fonts using keys as specified in setFontFamily(fontFamily). If provided, fonts from `fontFamily` will be used for calculating the size of `str` instead of the currently set font.
 ---@field getTextSize fun(str: string, fontFamily?: pd_font_family, leadingAdjustment?: number): (number, number)
---- You must import CoreLibs/graphics to use this function.
+--- You must import `CoreLibs/graphics` to use this function.
 --- 
---- Draws the string text aligned to the left, right, or centered on the x coordinate. Pass one of kTextAlignment.left, kTextAlignment.center, kTextAlignment.right for the alignment parameter.
+--- Draws the string `text` aligned to the left, right, or centered on the `x` coordinate. Pass one of `kTextAlignment.left`, `kTextAlignment.center`, `kTextAlignment.right` for the `alignment` parameter.
 --- 
 --- For text formatting options, see drawText()
 --- 
 --- To draw unstyled text using a single font, see playdate.graphics.font:drawTextAligned()
 ---@field drawTextAligned fun(text: string, x: number, y: number, alignment: pd_text_alignment, leadingAdjustment?: number)
---- You must import CoreLibs/graphics to use these functions.
+--- You must import `CoreLibs/graphics` to use these functions.
 --- 
---- Draws the text using the current font and font advance into the rect defined by (x, y, width, height) (or rect).
+--- Draws the text using the current font and font advance into the rect defined by (`x`, `y`, `width`, `height`) (or `rect`).
 --- 
---- If truncationString is provided and the text cannot fit in the rect, truncationString will be appended to the last line.
+--- If `truncationString` is provided and the text cannot fit in the rect, `truncationString` will be appended to the last line.
 --- 
---- alignment, if provided, should be one of one of kTextAlignment.left, kTextAlignment.center, kTextAlignment.right. Pass nil for leadingAdjustment and truncationString if those parameters are not required.
+--- `alignment`, if provided, should be one of one of `kTextAlignment.left`, `kTextAlignment.center`, `kTextAlignment.right`. Pass nil for `leadingAdjustment` and `truncationString` if those parameters are not required.
 --- 
---- font, if provided, will cause the text to be drawn unstyled using font:drawText() rather than playdate.graphics.drawText() using the currently-set system fonts.
+--- `font`, if provided, will cause the text to be drawn unstyled using font:drawText() rather than playdate.graphics.drawText() using the currently-set system fonts.
 --- 
 --- For text formatting options, see drawText()
 --- 
---- Returns width, height, textWasTruncated
+--- Returns `width`, `height`, `textWasTruncated`
 --- 
---- width and height indicate the size in pixels of the drawn text. These values may be smaller than the width and height specified when calling the function.
+--- `width` and `height` indicate the size in pixels of the drawn text. These values may be smaller than the width and height specified when calling the function.
 --- 
---- textWasTruncated indicates if the text was truncated to fit within the specified rect.
+--- `textWasTruncated` indicates if the text was truncated to fit within the specified rect.
 ---@field drawTextInRect (fun(text: string, x: number, y: number, width: number, height: number, leadingAdjustment?: number, truncationString?: string, alignment?: pd_text_alignment, font?: pd_font): (number, number, boolean)) | (fun(text: string, rect: pd_rect, leadingAdjustment?: number, truncationString?: string, alignment?: pd_text_alignment, font?: pd_font): (number, number, boolean))
---- You must import CoreLibs/graphics to use this function.
+--- You must import `CoreLibs/graphics` to use this function.
 --- 
 --- Same as drawTextAligned() except localized text is drawn.
 ---@field drawLocalizedTextAligned fun(text: string, x: number, y: number, alignment: pd_text_alignment, language?: pd_language, leadingAdjustment?: number)
---- You must import CoreLibs/graphics to use these functions.
+--- You must import `CoreLibs/graphics` to use these functions.
 --- 
 --- Same as drawTextInRect() except localized text is drawn.
 ---@field drawLocalizedTextInRect (fun(text: string, x: number, y: number, width: number, height: number, leadingAdjustment?: number, truncationString?: string, alignment?: pd_text_alignment, font?: pd_font, language?: pd_language)) | (fun(text: string, rect: pd_rect, leadingAdjustment?: number, truncationString?: string, alignment?: pd_text_alignment, font?: pd_font, language?: pd_language))
---- You must import CoreLibs/graphics to use this function.
+--- You must import `CoreLibs/graphics` to use this function.
 --- 
---- Returns width, height which indicate the minimum size required for text to be drawn using drawTextInRect(). The width returned will be less than or equal to maxWidth.
+--- Returns `width`, `height` which indicate the minimum size required for `text` to be drawn using drawTextInRect(). The `width` returned will be less than or equal to `maxWidth`.
 --- 
---- font, if provided, will cause the text size to be calculated without bold or italic styling using the specified font.
+--- `font`, if provided, will cause the text size to be calculated without bold or italic styling using the specified font.
 ---@field getTextSizeForMaxWidth fun(text: string, maxWidth: number, leadingAdjustment?: number, font?: pd_font): (number, number)
---- You must import CoreLibs/graphics to use this function.
+--- You must import `CoreLibs/graphics` to use this function.
 --- 
---- Generates an image containing text. This is useful if you need to redraw the same text frequently.
+--- Generates an image containing `text`. This is useful if you need to redraw the same text frequently.
 --- 
---- maxWidth and maxHeight specify the maximum size of the returned image.
+--- `maxWidth` and `maxHeight` specify the maximum size of the returned image.
 --- 
---- backgroundColor, if specified, will cause the image’s background to be one of playdate.graphics.kColorWhite, playdate.graphics.kColorBlack, or playdate.graphics.kColorClear.
+--- `backgroundColor`, if specified, will cause the image’s background to be one of `playdate.graphics.kColorWhite`, `playdate.graphics.kColorBlack`, or `playdate.graphics.kColorClear`.
 --- 
---- font, if provided, will cause the text to be drawn without bold or italic styling using the specified font.
+--- `font`, if provided, will cause the text to be drawn without bold or italic styling using the specified font.
 --- 
 --- The remaining arguments are the same as those in drawTextInRect().
 --- 
---- Returns image, textWasTruncated
+--- Returns `image`, `textWasTruncated`
 --- 
---- image is a newly-created image containing the specified text, or nil if an image could not be created. The image’s dimensions may be smaller than maxWidth, maxHeight.
+--- `image` is a newly-created image containing the specified text, or nil if an image could not be created. The image’s dimensions may be smaller than `maxWidth`, `maxHeight`.
 --- 
---- textWasTruncated indicates if the text was truncated to fit within the specified width and height.
+--- `textWasTruncated` indicates if the text was truncated to fit within the specified width and height.
 ---@field imageWithText fun(text: string, maxWidth: number, maxHeight: number, backgroundColor?: pd_color, leadingAdjustment?: number, truncationString?: string, alignment?: pd_text_alignment, font?: pd_font): (pd_image, boolean)
 ---@field video pd_video_lib
 ---@field kColorBlack pd_color
@@ -1765,15 +1765,15 @@ kTextAlignment = kTextAlignment
 ---@class pd_keyboard_lib
 --- Opens the keyboard, taking over input focus.
 --- 
---- text, if provided, will be used to set the initial text value of the keyboard.
+--- `text`, if provided, will be used to set the initial text value of the keyboard.
 ---@field show fun(text?: string)
 --- Hides the keyboard.
 ---@field hide fun()
 --- Access or set the text value of the keyboard.
 ---@field text string
---- behavior should be one of the constants playdate.keyboard.kCapitalizationNormal, playdate.keyboard.kCapitalizationWords, or playdate.keyboard.kCapitalizationSentences.
+--- `behavior` should be one of the constants `playdate.keyboard.kCapitalizationNormal`, `playdate.keyboard.kCapitalizationWords`, or `playdate.keyboard.kCapitalizationSentences`.
 --- 
---- In the case of playdate.keyboard.kCapitalizationWords, the keyboard selection will automatically move to the upper case column after a space is entered. For playdate.keyboard.kCapitalizationSentences the selection will automatically move to the upper case column after a period and a space have been entered.
+--- In the case of `playdate.keyboard.kCapitalizationWords`, the keyboard selection will automatically move to the upper case column after a space is entered. For `playdate.keyboard.kCapitalizationSentences` the selection will automatically move to the upper case column after a period and a space have been entered.
 ---@field setCapitalizationBehavior fun(behavior: pd_capitalization)
 --- Returns the current x location of the left edge of the keyboard.
 ---@field left fun(): number
@@ -1796,9 +1796,9 @@ kTextAlignment = kTextAlignment
 ---@field kCapitalizationSentences pd_capitalization
 
 ---@class pd_math_lib
---- Returns a number that is the linear interpolation between min and max based on t, where t = 0.0 will return min and t = 1.0 will return max.
+--- Returns a number that is the linear interpolation between `min` and `max` based on `t`, where `t = 0.0` will return `min` and `t = 1.0` will return `max`.
 --- 
---- You must import CoreLibs/math to use this function.
+--- You must import `CoreLibs/math` to use this function.
 ---@field lerp fun(min: number, max: number, t: number): number
 
 ---@class pd_pathfinder_lib
@@ -1808,11 +1808,11 @@ kTextAlignment = kTextAlignment
 ---@class pd_simulator_lib
 --- Writes an image to a PNG file at the path specified. Only available on the Simulator.
 --- 
---- path represents a path on your development computer, not the Playdate filesystem. It’s recommended you prefix your path with ~/ to ensure you are writing to a writeable directory, for example, ~/myImageFile.png. Please include the .png file extension in your path name. Any directories in your path must already exist on your development computer in order for the file to be written.
+--- `path` represents a path on your development computer, not the Playdate filesystem. It’s recommended you prefix your path with ~/ to ensure you are writing to a writeable directory, for example, ~/myImageFile.png. Please include the .png file extension in your path name. Any directories in your path must already exist on your development computer in order for the file to be written.
 ---@field writeToFile fun(image: pd_image, path: string)
 --- Quits the Playdate Simulator app.
 ---@field exit fun()
---- Returns the contents of the URL url as a string.
+--- Returns the contents of the URL `url` as a string.
 ---@field getURL fun(url: string): string
 
 ---@class pd_sound_lib
@@ -1844,7 +1844,7 @@ kTextAlignment = kTextAlignment
 ---@field instrument pd_instrument_lib
 ---@field controlsignal pd_controlsignal_lib
 ---@field micinput pd_micinput_lib
---- Returns a pair of booleans (headphone, mic) indicating whether headphones are plugged in, and if so whether they have a microphone attached. If changeCallback is a function, it will be called every time the headphone state changes, until it is cleared by calling playdate.sound.getHeadphoneState(nil). If a change callback is set, the audio does not automatically switch from speaker to headphones when headphones are plugged in (and vice versa), so the callback should use playdate.sound.setOutputsActive() to change the output if needed.
+--- Returns a pair of booleans (headphone, mic) indicating whether headphones are plugged in, and if so whether they have a microphone attached. If `changeCallback` is a function, it will be called every time the headphone state changes, until it is cleared by calling playdate.sound.getHeadphoneState(nil). If a change callback is set, the audio does not automatically switch from speaker to headphones when headphones are plugged in (and vice versa), so the callback should use playdate.sound.setOutputsActive() to change the output if needed.
 --- 
 --- Equivalent to playdate->sound->getHeadphoneState() in the C API.
 ---@field getHeadphoneState fun(changeCallback: nil | (fun(boolean, boolean))): (boolean, boolean)
@@ -1887,33 +1887,33 @@ kTextAlignment = kTextAlignment
 ---@class pd_string_lib
 --- Generates a random string of uppercase letters
 ---@field UUID fun(length: number)
---- Returns a string with the whitespace removed from the beginning and ending of string.
+--- Returns a string with the whitespace removed from the beginning and ending of `string`.
 ---@field trimWhitespace fun(string: string): string
---- Returns a string with the whitespace removed from the beginning of string.
+--- Returns a string with the whitespace removed from the beginning of `string`.
 ---@field trimLeadingWhitespace fun(string: string): string
---- Returns a string with the whitespace removed from the ending of string.
+--- Returns a string with the whitespace removed from the ending of `string`.
 ---@field trimTrailingWhitespace fun(string: string): string
 
 ---@class pd_timer_lib
 --- This should be called from the main playdate.update() loop to drive the timers.
 ---@field updateTimers fun()
 --- ### Overload 1 ###
---- Returns a new playdate.timer that will run for duration milliseconds. callback is a function closure that will be called when the timer is complete.
+--- Returns a new playdate.timer that will run for `duration` milliseconds. `callback` is a function closure that will be called when the timer is complete.
 --- 
 --- Accepts a variable number of arguments that will be passed to the callback function when it is called. If arguments are not provided, the timer itself will be passed to the callback instead.
 --- 
 --- By default, timers start upon instantiation. To modify the behavior of a timer, see common timer methods and properties.
 --- 
 --- ### Overload 2 ###
---- Returns a new playdate.timer that will run for duration milliseconds. If not specified, startValue and endValue will be 0, and a linear easing function will be used.
+--- Returns a new playdate.timer that will run for `duration` milliseconds. If not specified, `startValue` and `endValue` will be 0, and a linear easing function will be used.
 --- 
 --- By default, timers start upon instantiation. To modify the behavior of a timer, see common timer methods and properties.
 ---@field new (fun(duration: number, callback: fun(...), ...): pd_timer) | (fun(duration: number, startValue?: number, endValue?: number, easingFunction?: (fun(number, number, number, number): number)): pd_timer)
---- Performs the function callback after delay milliseconds. Accepts a variable number of arguments that will be passed to the callback function when it is called. If arguments are not provided, the timer itself will be passed to the callback instead.
+--- Performs the function `callback` after `delay` milliseconds. Accepts a variable number of arguments that will be passed to the callback function when it is called. If arguments are not provided, the timer itself will be passed to the callback instead.
 ---@field performAfterDelay fun(delay: number, callback: fun(...), ...)
---- keyRepeatTimer() returns a timer that fires at key-repeat intervals. The function callback will be called immediately, then again after 300 milliseconds, then repeatedly at 100 millisecond intervals. If you wish to customize these millisecond intervals, use keyRepeatTimerWithDelay().
+--- keyRepeatTimer() returns a timer that fires at key-repeat intervals. The function `callback` will be called immediately, then again after 300 milliseconds, then repeatedly at 100 millisecond intervals. If you wish to customize these millisecond intervals, use keyRepeatTimerWithDelay().
 ---@field keyRepeatTimer fun(callback: fun(...), ...): pd_timer
---- keyRepeatTimer() returns a timer that fires at key-repeat intervals. The function callback will be called immediately, then again after 300 milliseconds, then repeatedly at 100 millisecond intervals. If you wish to customize these millisecond intervals, use keyRepeatTimerWithDelay().
+--- keyRepeatTimer() returns a timer that fires at key-repeat intervals. The function `callback` will be called immediately, then again after 300 milliseconds, then repeatedly at 100 millisecond intervals. If you wish to customize these millisecond intervals, use keyRepeatTimerWithDelay().
 ---@field keyRepeatTimerWithDelay fun(delayAfterInitialFiring: number, delayAfterSecondFiring: number, callback: fun(...), ...): pd_timer
 --- Returns an array listing all running timers.
 --- 
@@ -1923,17 +1923,17 @@ kTextAlignment = kTextAlignment
 ---@class pd_timer
 --- Current value calculated from the start and end values, the time elapsed, and the easing function.
 ---@field value number
---- The function used to calculate value. The function should be of the form function(t, b, c, d), where t is elapsed time, b is the beginning value, c is the change (or end value - start value), and d is the duration. Many such functions are available in playdate.easingFunctions.
+--- The function used to calculate `value`. The function should be of the form `function(t, b, c, d)`, where `t` is elapsed time, `b` is the beginning value, `c` is the change (or end value - start value), and `d` is the duration. Many such functions are available in playdate.easingFunctions.
 ---@field easingFunction (fun(number, number, number, number): number)
---- For easing functions that take additional amplitude and period arguments (such as inOutElastic), set these to the desired values.
+--- For easing functions that take additional amplitude and period arguments (such as `inOutElastic`), set these to the desired values.
 ---@field easingAmplitude number
---- For easing functions that take additional amplitude and period arguments (such as inOutElastic), set these to the desired values.
+--- For easing functions that take additional amplitude and period arguments (such as `inOutElastic`), set these to the desired values.
 ---@field easingPeriod number
---- Set to provide an easing function to be used for the reverse portion of the timer. The function should be of the form function(t, b, c, d), where t is elapsed time, b is the beginning value, c is the change (or end value - start value), and d is the duration. Many such functions are available in playdate.easingFunctions.
+--- Set to provide an easing function to be used for the reverse portion of the timer. The function should be of the form `function(t, b, c, d)`, where `t` is elapsed time, `b` is the beginning value, `c` is the change (or end value - start value), and `d` is the duration. Many such functions are available in playdate.easingFunctions.
 ---@field reverseEasingFunction (fun(number, number, number, number): number)
---- Start value used when calculating value.
+--- Start value used when calculating `value`.
 ---@field startValue number
---- End values used when calculating value.
+--- End values used when calculating `value`.
 ---@field endValue number
 --- Pauses a timer. (There is no need to call :start() on a newly-instantiated timer: timers start automatically.)
 ---@field pause fun(self: pd_timer)
@@ -1957,35 +1957,35 @@ kTextAlignment = kTextAlignment
 ---@field timeLeft number
 --- If true, the timer starts over from the beginning when it completes. Defaults to false.
 ---@field repeats boolean
---- If true, the timer plays in reverse once it has completed. The time to complete both the forward and reverse will be duration x 2. Defaults to false.
+--- If true, the timer plays in reverse once it has completed. The time to complete both the forward and reverse will be `duration` x 2. Defaults to false.
 --- 
---- Please note that currentTime will restart at 0 and count up to duration again when the reverse timer starts, but value will be calculated in reverse, from endValue to startValue. The same easing function (as opposed to the inverse of the easing function) will be used for the reverse timer unless an alternate is provided by setting reverseEasingFunction.
+--- Please note that `currentTime` will restart at 0 and count up to `duration` again when the reverse timer starts, but `value` will be calculated in reverse, from `endValue` to `startValue`. The same easing function (as opposed to the inverse of the easing function) will be used for the reverse timer unless an alternate is provided by setting `reverseEasingFunction`.
 ---@field reverses boolean
---- A Function of the form function(timer) or function(...) where "..." corresponds to the values in the table assigned to timerEndedArgs. Called when the timer has completed.
+--- A Function of the form `function(timer)` or `function(...)` where "..." corresponds to the values in the table assigned to `timerEndedArgs`. Called when the timer has completed.
 ---@field timerEndedCallback nil | (fun())
 --- For repeating timers, this function will be called each time the timer completes, before it starts again.
 --- 
---- An array-style table of values that will be passed to the timerEndedCallback function.
+--- An array-style table of values that will be passed to the `timerEndedCallback` function.
 ---@field timerEndedArgs any[]
---- A callback function that will be called on every frame (every time timer.updateAll() is called). If the timer was created with arguments, those will be passed as arguments to the function provided. Otherwise, the timer is passed as the single argument.
+--- A callback function that will be called on every frame (every time `timer.updateAll()` is called). If the timer was created with arguments, those will be passed as arguments to the function provided. Otherwise, the timer is passed as the single argument.
 ---@field updateCallback nil | (fun())
 
 ---@class pd_frameTimer_lib
 --- This should be called from the main playdate.update() loop to drive the frame timers.
 ---@field updateTimers fun()
 --- ### Overload 1 ###
---- Returns a new playdate.frameTimer that will run for duration frames. callback is a function closure that will be called when the timer is complete.
+--- Returns a new playdate.frameTimer that will run for `duration` frames. `callback` is a function closure that will be called when the timer is complete.
 --- 
 --- Accepts a variable number of arguments that will be passed to the callback function when it is called. If arguments are not provided, the timer itself will be passed to the callback instead.
 --- 
 --- By default, frame timers start upon instantiation. To modify the behavior of a frame timer, see common frame timer methods and properties.
 --- 
 --- ### Overload 2 ###
---- Returns a new playdate.frameTimer that will run for duration number of frames. If not specified, startValue and endValue will be 0, and a linear easing function will be used.
+--- Returns a new playdate.frameTimer that will run for `duration` number of frames. If not specified, `startValue` and `endValue` will be 0, and a linear easing function will be used.
 --- 
 --- By default, frame timers start upon instantiation. To modify the behavior of a frame timer, see common frame timer methods and properties.
 ---@field new (fun(duration: number, callback: fun(...), ...): pd_frameTimer) | (fun(duration: number, startValue?: number, endValue?: number, easingFunction?: (fun(number, number, number, number): number)): pd_frameTimer)
---- Performs the function callback after the delay number of frames. Accepts a variable number of arguments that will be passed to the callback function when it is called. If arguments are not provided, the timer itself will be passed to the callback instead.
+--- Performs the function `callback` after the `delay` number of frames. Accepts a variable number of arguments that will be passed to the callback function when it is called. If arguments are not provided, the timer itself will be passed to the callback instead.
 ---@field performAfterDelay fun(delay: number, callback: fun(...), ...)
 --- Returns an array listing all running frameTimers.
 --- 
@@ -1995,17 +1995,17 @@ kTextAlignment = kTextAlignment
 ---@class pd_frameTimer
 --- Current value calculated from the start and end values, the current frame, and the easing function.
 ---@field value number
---- Start value used when calculating value.
+--- Start value used when calculating `value`.
 ---@field startValue number
---- End value used when calculating value.
+--- End value used when calculating `value`.
 ---@field endValue number
---- The function used to calculate value. The function should be of the form function(t, b, c, d), where t is elapsed time, b is the beginning value, c is the change (or endValue - startValue), and d is the duration.
+--- The function used to calculate `value`. The function should be of the form `function(t, b, c, d)`, where `t` is elapsed time, `b` is the beginning value, `c` is the change (or `endValue - startValue`), and `d` is the duration.
 ---@field easingFunction (fun(number, number, number, number): number)
---- For easing functions in CoreLibs/easing that take additional amplitude and period arguments (such as inOutElastic), set these to desired values.
+--- For easing functions in `CoreLibs/easing` that take additional amplitude and period arguments (such as `inOutElastic`), set these to desired values.
 ---@field easingAmplitude number
---- For easing functions in CoreLibs/easing that take additional amplitude and period arguments (such as inOutElastic), set these to desired values.
+--- For easing functions in `CoreLibs/easing` that take additional amplitude and period arguments (such as `inOutElastic`), set these to desired values.
 ---@field easingPeriod number
---- Set to provide an easing function to be used for the reverse portion of the timer. The function should be of the form function(t, b, c, d), where t is elapsed time, b is the beginning value, c is the change (or endValue - startValue), and d is the duration.
+--- Set to provide an easing function to be used for the reverse portion of the timer. The function should be of the form `function(t, b, c, d)`, where `t` is elapsed time, `b` is the beginning value, `c` is the change (or `endValue - startValue`), and `d` is the duration.
 ---@field reverseEasingFunction (fun(number, number, number, number): number)
 --- Pauses a timer. (There is no need to call :start() on a newly-instantiated frame timer: frame timers start automatically.)
 ---@field pause fun(self: pd_frameTimer)
@@ -2025,15 +2025,15 @@ kTextAlignment = kTextAlignment
 ---@field frame number
 --- If true, the timer starts over from the beginning when it completes. Defaults to false.
 ---@field repeats boolean
---- If true, the timer plays in reverse once it has completed. The number of frames to complete both the forward and reverse will be duration x 2. Defaults to false.
+--- If true, the timer plays in reverse once it has completed. The number of frames to complete both the forward and reverse will be `duration x 2`. Defaults to false.
 --- 
---- Please note that the frame counter will restart at 0 and count up to duration again when the reverse timer starts, but value will be calculated in reverse, from endValue to startValue. The same easing function (as opposed to the inverse of the easing function) will be used for the reverse timer unless an alternate is provided by setting reverseEasingFunction.
+--- Please note that the frame counter will restart at 0 and count up to `duration` again when the reverse timer starts, but `value` will be calculated in reverse, from `endValue` to `startValue`. The same easing function (as opposed to the inverse of the easing function) will be used for the reverse timer unless an alternate is provided by setting `reverseEasingFunction`.
 ---@field reverses boolean
---- A Function of the form function(timer) or function(...) where "..." corresponds to the values in the table assigned to timerEndedArgs. Called when the timer has completed.
+--- A Function of the form `function(timer)` or `function(...)` where "..." corresponds to the values in the table assigned to `timerEndedArgs`. Called when the timer has completed.
 ---@field timerEndedCallback nil | (fun())
 --- For repeating timers, this function will be called each time the timer completes, before it starts again.
 --- 
---- An array-style table of values that will be passed to the timerEndedCallback function.
+--- An array-style table of values that will be passed to the `timerEndedCallback` function.
 ---@field timerEndedArgs any[]
 --- A function to be called on every frame update. If the frame timer was created with arguments, those will be passed as arguments to the function provided. Otherwise, the timer is passed as the single argument.
 ---@field updateCallback nil | (fun())
@@ -2086,7 +2086,7 @@ kTextAlignment = kTextAlignment
 ---@field flush fun(self: pd_file_file)
 --- Returns the next line of the file, delimited by either \n or \r\n. The returned string does not include newline characters.
 ---@field readline fun(self: pd_file_file): string
---- Returns a buffer containing up to numberOfBytes bytes from the file, and the number of bytes read. If the read failed, the function returns nil and a second value describing the error.
+--- Returns a buffer containing up to `numberOfBytes` bytes from the file, and the number of bytes read. If the read failed, the function returns nil and a second value describing the error.
 --- 
 --- Equivalent to playdate->file->read() in the C API.
 ---@field read fun(self: pd_file_file, numberOfBytes: number): pd_UNDOCUMENTED
@@ -2116,57 +2116,57 @@ kTextAlignment = kTextAlignment
 ---@field invert fun(self: pd_affineTransform)
 --- Mutates the the caller, changing it to an identity transform matrix.
 ---@field reset fun(self: pd_affineTransform)
---- Mutates the the caller. The affine transform af is concatenated to the caller.
+--- Mutates the the caller. The affine transform `af` is concatenated to the caller.
 --- 
 --- Concatenation combines two affine transformation matrices by multiplying them together. You might perform several concatenations in order to create a single affine transform that contains the cumulative effects of several transformations.
 --- 
 --- Note that matrix operations are not commutative — the order in which you concatenate matrices is important. That is, the result of multiplying matrix t1 by matrix t2 does not necessarily equal the result of multiplying matrix t2 by matrix t1.
 ---@field concat fun(self: pd_affineTransform, af: pd_affineTransform)
---- Mutates the caller by applying a translate transformation. x values are moved by dx, y values by dy.
+--- Mutates the caller by applying a translate transformation. x values are moved by `dx`, y values by `dy`.
 ---@field translate fun(self: pd_affineTransform, dx: number, dy: number)
 --- Returns a copy of the calling affine transform with a translate transformation appended.
 ---@field translatedBy fun(self: pd_affineTransform, dx: number, dy: number): pd_affineTransform
 --- Mutates the caller by applying a scaling transformation.
 --- 
---- If both parameters are passed, sx is used to scale the x values of the transform, sy is used to scale the y values.
+--- If both parameters are passed, `sx` is used to scale the x values of the transform, `sy` is used to scale the y values.
 --- 
 --- If only one parameter is passed, it is used to scale both x and y values.
 ---@field scale fun(self: pd_affineTransform, sx: number, sy?: number)
 --- Returns a copy of the calling affine transform with a scaling transformation appended.
 --- 
---- If both parameters are passed, sx is used to scale the x values of the transform, sy is used to scale the y values.
+--- If both parameters are passed, `sx` is used to scale the x values of the transform, `sy` is used to scale the y values.
 --- 
 --- If only one parameter is passed, it is used to scale both x and y values.
 ---@field scaledBy fun(self: pd_affineTransform, sx: number, sy?: number): pd_affineTransform
 --- Mutates the caller by applying a rotation transformation.
 --- 
---- angle is the value, in degrees, by which to rotate the affine transform. A positive value specifies clockwise rotation and a negative value specifies counterclockwise rotation. If the optional x and y arguments or point point are given, the transform rotates around (x,y) or point instead of (0,0).
+--- `angle` is the value, in degrees, by which to rotate the affine transform. A positive value specifies clockwise rotation and a negative value specifies counterclockwise rotation. If the optional `x` and `y` arguments or point `point` are given, the transform rotates around (`x`,`y`) or `point` instead of (0,0).
 ---@field rotate (fun(self: pd_affineTransform, angle: number, x?: number, y?: number)) | (fun(self: pd_affineTransform, angle: number, point?: pd_point))
 --- Returns a copy of the calling affine transform with a rotate transformation appended.
 --- 
---- angle is the value, in degrees, by which to rotate the affine transform. A positive value specifies clockwise rotation and a negative value specifies counterclockwise rotation. If the optional x and y arguments or point point are given, the transform rotates around (x,y) or point instead of (0,0).
+--- `angle` is the value, in degrees, by which to rotate the affine transform. A positive value specifies clockwise rotation and a negative value specifies counterclockwise rotation. If the optional `x` and `y` arguments or point `point` are given, the transform rotates around (`x`,`y`) or `point` instead of (0,0).
 ---@field rotatedBy (fun(self: pd_affineTransform, angle: number, x?: number, y?: number): pd_affineTransform) | (fun(self: pd_affineTransform, angle: number, point?: pd_point): pd_affineTransform)
---- Mutates the caller, appending a skew transformation. sx is the value by which to skew the x axis, and sy the value for the y axis. Values are in degrees.
+--- Mutates the caller, appending a skew transformation. `sx` is the value by which to skew the x axis, and `sy` the value for the y axis. Values are in degrees.
 ---@field skew fun(self: pd_affineTransform, sx: number, sy: number)
---- Returns the given transform with a skew transformation appended. sx is the value by which to skew the x axis, and sy the value for the y axis. Values are in degrees.
+--- Returns the given transform with a skew transformation appended. `sx` is the value by which to skew the x axis, and `sy` the value for the y axis. Values are in degrees.
 ---@field skewedBy fun(self: pd_affineTransform, sx: number, sy: number): pd_affineTransform
---- Modifies the point p by applying the affine transform.
+--- Modifies the point `p` by applying the affine transform.
 ---@field transformPoint fun(self: pd_affineTransform, p: pd_point)
---- As above, but returns a new point rather than modifying p.
+--- As above, but returns a new point rather than modifying `p`.
 ---@field transformedPoint fun(self: pd_affineTransform, p: pd_point): pd_point
---- Returns two values calculated by applying the affine transform to the point (x, y)
+--- Returns two values calculated by applying the affine transform to the point (`x`, `y`)
 ---@field transformXY fun(self: pd_affineTransform, x: number, y: number): (number, number)
---- Modifies the line segment ls by applying the affine transform.
+--- Modifies the line segment `ls` by applying the affine transform.
 ---@field transformLineSegment fun(self: pd_affineTransform, ls: pd_lineSegment)
---- As above, but returns a new line segment rather than modifying ls.
+--- As above, but returns a new line segment rather than modifying `ls`.
 ---@field transformedLineSegment fun(self: pd_affineTransform, ls: pd_lineSegment): pd_lineSegment
---- Modifies the axis aligned bounding box r (a rect) by applying the affine transform.
+--- Modifies the axis aligned bounding box `r` (a rect) by applying the affine transform.
 ---@field transformAABB fun(self: pd_affineTransform, r: pd_rect)
---- As above, but returns a new rect rather than modifying r.
+--- As above, but returns a new rect rather than modifying `r`.
 ---@field transformedAABB fun(self: pd_affineTransform, r: pd_rect): pd_rect
---- Modifies the polygon p by applying the affine transform.
+--- Modifies the polygon `p` by applying the affine transform.
 ---@field transformPolygon fun(self: pd_affineTransform, p: pd_polygon)
---- As above, but returns a new polygon rather than modifying p.
+--- As above, but returns a new polygon rather than modifying `p`.
 ---@field transformedPolygon fun(self: pd_affineTransform, p: pd_polygon): pd_polygon
 
 ---@class pd_arc_lib
@@ -2174,7 +2174,7 @@ kTextAlignment = kTextAlignment
 ---@class pd_arc
 --- Returns a new playdate.geometry.arc. Angles should be specified in degrees. Zero degrees represents the top of the circle.
 --- 
---- If specified, direction should be true for clockwise, false for counterclockwise. If not specified, the direction is inferred from the start and end angles.
+--- If specified, `direction` should be true for clockwise, false for counterclockwise. If not specified, the direction is inferred from the start and end angles.
 ---@field new fun(x: number, y: number, radius: number, startAngle: number, endAngle: number, direction?: boolean): pd_arc
 --- Returns a new copy of the arc.
 ---@field copy fun(self: pd_arc): pd_arc
@@ -2192,19 +2192,19 @@ kTextAlignment = kTextAlignment
 ---@field new fun(x1: number, y1: number, x2: number, y2: number): pd_lineSegment
 --- For use in inner loops where speed is the priority.
 --- 
---- Returns true if there is an intersection between the line segments defined by (x1, y1), (x2, y2) and (x3, y3), (x4, y4). If there is an intersection, x, y values representing the intersection point are also returned.
+--- Returns true if there is an intersection between the line segments defined by `(x1, y1)`, `(x2, y2)` and `(x3, y3)`, `(x4, y4)`. If there is an intersection, `x, y` values representing the intersection point are also returned.
 ---@field fast_intersection fun(x1: number, y1: number, x2: number, y2: number, x3: number, y3: number, x4: number, y4: number): boolean
 
 ---@class pd_lineSegment
 --- Returns a new copy of the line segment.
 ---@field copy fun(self: pd_lineSegment): pd_lineSegment
---- Returns the values x1, y1, x2, y2.
+--- Returns the values `x1, y1, x2, y2`.
 ---@field unpack fun(self: pd_lineSegment): (number, number, number, number)
 --- Returns the length of the line segment.
 ---@field length fun(self: pd_lineSegment): number
---- Modifies the line segment, offsetting its values by dx, dy.
+--- Modifies the line segment, offsetting its values by `dx`, `dy`.
 ---@field offset fun(self: pd_lineSegment, dx: number, dy: number)
---- Returns a new line segment, the given segment offset by dx, dy.
+--- Returns a new line segment, the given segment offset by `dx`, `dy`.
 ---@field offsetBy fun(self: pd_lineSegment, dx: number, dy: number): pd_lineSegment
 --- Returns a playdate.geometry.point representing the mid point of the line segment.
 ---@field midPoint fun(self: pd_lineSegment): pd_point
@@ -2212,23 +2212,23 @@ kTextAlignment = kTextAlignment
 ---@field pointOnLine fun(self: pd_lineSegment, distance: number, extend?: boolean): pd_point
 --- Returns a playdate.geometry.vector2D representation of the line segment.
 ---@field segmentVector fun(self: pd_lineSegment): pd_vector2D
---- Returns a playdate.geometry.point that is the closest point to point p that is on the line segment.
+--- Returns a playdate.geometry.point that is the closest point to point `p` that is on the line segment.
 ---@field closestPointOnLineToPoint fun(self: pd_lineSegment, p: pd_point): pd_point
---- Returns true if there is an intersection between the caller and the line segment ls.
+--- Returns true if there is an intersection between the caller and the line segment `ls`.
 --- 
 --- If there is an intersection, a playdate.geometry.point representing that point is also returned.
 ---@field intersectsLineSegment fun(self: pd_lineSegment, ls: pd_lineSegment): boolean
---- Returns the values (intersects, intersectionPoints).
+--- Returns the values (`intersects`, `intersectionPoints`).
 --- 
---- intersects is true if there is at least one intersection between the caller and poly.
+--- `intersects` is true if there is at least one intersection between the caller and poly.
 --- 
---- intersectionPoints is an array of playdate.geometry.points containing all intersection points between the caller and poly.
+--- `intersectionPoints` is an array of playdate.geometry.points containing all intersection points between the caller and poly.
 ---@field intersectsPolygon fun(self: pd_lineSegment, poly: pd_polygon): (boolean, pd_point[])
---- Returns the values (intersects, intersectionPoints).
+--- Returns the values (`intersects`, `intersectionPoints`).
 --- 
---- intersects is true if there is at least one intersection between the caller and rect.
+--- `intersects` is true if there is at least one intersection between the caller and rect.
 --- 
---- intersectionPoints is an array of playdate.geometry.points containing all intersection points between the caller and rect.
+--- `intersectionPoints` is an array of playdate.geometry.points containing all intersection points between the caller and rect.
 ---@field intersectsRect fun(self: pd_lineSegment, rect: pd_rect): (boolean, pd_point[])
 
 ---@class pd_point_lib
@@ -2238,23 +2238,23 @@ kTextAlignment = kTextAlignment
 ---@class pd_point
 --- Returns a new copy of the point.
 ---@field copy fun(self: pd_point): pd_point
---- Returns the values x, y.
+--- Returns the values `x, y`.
 ---@field unpack fun(self: pd_point): (number, number)
---- Modifies the point, offsetting its values by dx, dy.
+--- Modifies the point, offsetting its values by `dx`, `dy`.
 ---@field offset fun(self: pd_point, dx: number, dy: number)
---- Returns a new point object, the given point offset by dx, dy.
+--- Returns a new point object, the given point offset by `dx`, `dy`.
 ---@field offsetBy fun(self: pd_point, dx: number, dy: number): pd_point
---- Returns the square of the distance to point p.
+--- Returns the square of the distance to point `p`.
 ---@field squaredDistanceToPoint fun(self: pd_point, p: pd_point): number
---- Returns the distance to point p.
+--- Returns the distance to point `p`.
 ---@field distanceToPoint fun(self: pd_point, p: pd_point): number
 
 ---@class pd_polygon_lib
---- new(x1, y1, x2, y2, ..., xn, yn) returns a new playdate.geometry.polygon with vertices (x1, y1) through (xn, yn). The Lua function table.unpack() can be used to turn an array into function arguments.
+--- new(x1, y1, x2, y2, ..., xn, yn) returns a new playdate.geometry.polygon with vertices `(x1, y1)` through `(xn, yn)`. The Lua function table.unpack() can be used to turn an array into function arguments.
 --- 
 --- new(p1, p2, ..., pn) does the same, except the points are expressed via point objects.
 --- 
---- new(numberOfVertices) returns a new playdate.geometry.polygon with space allocated for numberOfVertices vertices. All vertices are initially (0, 0). Vertex coordinates can be set with playdate.geometry.polygon:setPointAt().
+--- new(numberOfVertices) returns a new playdate.geometry.polygon with space allocated for `numberOfVertices` vertices. All vertices are initially (0, 0). Vertex coordinates can be set with playdate.geometry.polygon:setPointAt().
 --- 
 --- If the polygon’s first and last points are coincident, the polygon will be considered closed. Alternatively, you may call :close() to automatically close the polygon.
 --- To draw a polygon, use playdate.graphics.drawPolygon().
@@ -2267,11 +2267,11 @@ kTextAlignment = kTextAlignment
 ---@field close fun(self: pd_polygon)
 --- Returns true if the polygon is closed, false if not.
 ---@field isClosed fun(self: pd_polygon): boolean
---- Returns a boolean value, true if the point p or the point at (x, y) is contained within the caller polygon.
+--- Returns a boolean value, true if the point `p` or the point at `(x, y)` is contained within the caller polygon.
 --- 
---- fillrule is an optional argument that can be one of the values defined in playdate.graphics.setPolygonFillRule. By default playdate.graphics.kPolygonFillEvenOdd is used.
+--- fillrule is an optional argument that can be one of the values defined in playdate.graphics.setPolygonFillRule. By default `playdate.graphics.kPolygonFillEvenOdd` is used.
 ---@field containsPoint (fun(self: pd_polygon, p: pd_point, fillRule?: pd_polygon_fill_rule): boolean) | (fun(self: pd_polygon, x: number, y: number, fillRule?: pd_polygon_fill_rule): boolean)
---- Returns multiple values (x, y, width, height) giving the axis-aligned bounding box for the polygon.
+--- Returns multiple values (`x`, `y`, `width`, `height`) giving the axis-aligned bounding box for the polygon.
 ---@field getBounds fun(self: pd_polygon): (number, number, number, number)
 --- Returns the axis-aligned bounding box for the given polygon as a playdate.geometry.rect object.
 ---@field getBoundsRect fun(self: pd_polygon): pd_rect
@@ -2279,15 +2279,15 @@ kTextAlignment = kTextAlignment
 ---@field count fun(self: pd_polygon): number
 --- Returns the total length of all line segments in the polygon.
 ---@field length fun(self: pd_polygon): number
---- Sets the polygon’s n-th point to (x, y).
+--- Sets the polygon’s `n`-th point to (`x`, `y`).
 ---@field setPointAt fun(self: pd_polygon, n: number, x: number, y: number)
---- Returns the polygon’s n-th point.
+--- Returns the polygon’s `n`-th point.
 ---@field getPointAt fun(self: pd_polygon, n: number): pd_point
---- Returns true if the given polygon intersects the polygon p.
+--- Returns true if the given polygon intersects the polygon `p`.
 ---@field intersects fun(self: pd_polygon, p: pd_polygon): boolean
 --- Returns a playdate.geometry.point on one of the polygon’s line segments, distance pixels from the start of the polygon. If extend is true, the point is allowed to project past the polygon’s ends; otherwise, it is constrained to the polygon’s initial point if distance is negative, or the last point if distance is greater than the polygon’s length.
 ---@field pointOnPolygon fun(self: pd_polygon, distance: number, extend?: boolean): pd_point
---- Translates each point on the polygon by dx, dy pixels.
+--- Translates each point on the polygon by `dx`, `dy` pixels.
 ---@field translate fun(self: pd_polygon, dx: number, dy: number)
 
 ---@class pd_rect_lib
@@ -2295,11 +2295,11 @@ kTextAlignment = kTextAlignment
 ---@field new fun(x: number, y: number, width: number, height: number): pd_rect
 --- For use in inner loops where speed is the priority. About 3x faster than intersection.
 --- 
---- Returns multiple values (x, y, width, height) representing the overlapping portion of the two rects defined by x1, y1, w1, h1 and x2, y2, w2, h2. If there is no intersection, (0, 0, 0, 0) is returned.
+--- Returns multiple values (`x, y, width, height`) representing the overlapping portion of the two rects defined by `x1, y1, w1, h1` and `x2, y2, w2, h2`. If there is no intersection, (0, 0, 0, 0) is returned.
 ---@field fast_intersection fun(x1: number, y1: number, w1: number, h1: number, x2: number, y2: number, w2: number, h2: number): (number, number, number, number)
 --- For use in inner loops where speed is the priority. About 3x faster than union.
 --- 
---- Returns multiple values (x, y, width, height) representing the smallest possible rect that contains the two rects defined by x1, y1, w1, h1 and x2, y2, w2, h2.
+--- Returns multiple values (`x, y, width, height`) representing the smallest possible rect that contains the two rects defined by `x1, y1, w1, h1` and `x2, y2, w2, h2`.
 ---@field fast_union fun(x1: number, y1: number, w1: number, h1: number, x2: number, y2: number, w2: number, h2: number): (number, number, number, number)
 
 ---@class pd_rect
@@ -2307,51 +2307,51 @@ kTextAlignment = kTextAlignment
 ---@field copy fun(self: pd_rect): pd_rect
 --- Returns a new playdate.geometry.polygon version of the rect.
 ---@field toPolygon fun(self: pd_rect): pd_rect
---- Returns x, y, width and height as individual values.
+--- Returns `x`, `y`, `width` and `height` as individual values.
 ---@field unpack fun(self: pd_rect): (number, number, number, number)
 --- Returns true if a rectangle has zero width or height.
 ---@field isEmpty fun(self: pd_rect): boolean
---- Returns true if the x, y, width, and height values of the caller and r2 are all equal.
+--- Returns true if the `x`, `y`, `width`, and `height` values of the caller and `r2` are all equal.
 ---@field isEqual fun(self: pd_rect, r2: pd_rect): boolean
---- Returns true if r2 intersects the caller.
+--- Returns true if `r2` intersects the caller.
 ---@field intersects fun(self: pd_rect, r2: pd_rect): boolean
---- Returns a rect representing the overlapping portion of the caller and r2.
+--- Returns a rect representing the overlapping portion of the caller and `r2`.
 ---@field intersection fun(self: pd_rect, r2: pd_rect): pd_rect
---- Returns the smallest possible rect that contains both the source rect and r2.
+--- Returns the smallest possible rect that contains both the source rect and `r2`.
 ---@field union fun(self: pd_rect, r2: pd_rect): pd_rect
---- Insets the rect by the given dx and dy.
+--- Insets the rect by the given `dx` and `dy`.
 ---@field inset fun(self: pd_rect, dx: number, dy: number)
---- Returns a rect that is inset by the given dx and dy, with the same center point.
+--- Returns a rect that is inset by the given `dx` and `dy`, with the same center point.
 ---@field insetBy fun(self: pd_rect, dx: number, dy: number): pd_rect
---- Offsets the rect by the given dx and dy.
+--- Offsets the rect by the given `dx` and `dy`.
 ---@field offset fun(self: pd_rect, dx: number, dy: number)
---- Returns a rect with its origin point offset by dx, dy.
+--- Returns a rect with its origin point offset by `dx`, `dy`.
 ---@field offsetBy fun(self: pd_rect, dx: number, dy: number): pd_rect
 --- ### Overload 1 ###
---- Returns true if the rect r2 is contained within the caller rect.
+--- Returns true if the rect `r2` is contained within the caller rect.
 --- 
 --- ### Overload 2 ###
---- Returns true if the rect defined by (x, y, width, height) is contained within the caller rect.
+--- Returns true if the rect defined by `(x, y, width, height)` is contained within the caller rect.
 ---@field containsRect (fun(self: pd_rect, r2: pd_rect): boolean) | (fun(self: pd_rect, x: number, y: number, width: number, height: number): boolean)
 --- ### Overload 1 ###
---- Returns true if the point p is contained within the caller rect.
+--- Returns true if the point `p` is contained within the caller rect.
 --- 
 --- ### Overload 2 ###
---- Returns true if the point at (x, y) is contained within the caller rect.
+--- Returns true if the point at `(x, y)` is contained within the caller rect.
 ---@field containsPoint (fun(self: pd_rect, p: pd_point): boolean) | (fun(self: pd_rect, x: number, y: number): boolean)
 --- Returns a point at the center of the caller.
 ---@field centerPoint fun(self: pd_rect): pd_point
---- Flips the caller about the center of rect r2.
+--- Flips the caller about the center of rect `r2`.
 --- 
---- flip should be one of the following constants:
+--- `flip` should be one of the following constants:
 --- 
---- playdate.geometry.kUnflipped
+--- `playdate.geometry.kUnflipped`
 --- 
---- playdate.geometry.kFlippedX
+--- `playdate.geometry.kFlippedX`
 --- 
---- playdate.geometry.kFlippedY
+--- `playdate.geometry.kFlippedY`
 --- 
---- playdate.geometry.kFlippedXY
+--- `playdate.geometry.kFlippedXY`
 ---@field flipRelativeToRect fun(self: pd_rect, r2: pd_rect, flip: pd_flip)
 
 ---@class pd_size_lib
@@ -2361,7 +2361,7 @@ kTextAlignment = kTextAlignment
 ---@class pd_size
 --- Returns a new copy of the size.
 ---@field copy fun(self: pd_size): pd_size
---- Returns the values width, height.
+--- Returns the values `width, height`.
 ---@field unpack fun(self: pd_size): (number, number)
 
 ---@class pd_vector2D_lib
@@ -2373,29 +2373,29 @@ kTextAlignment = kTextAlignment
 ---@class pd_vector2D
 --- Returns a new copy of the vector2D.
 ---@field copy fun(self: pd_vector2D): pd_vector2D
---- Returns the values dx, dy.
+--- Returns the values `dx, dy`.
 ---@field unpack fun(self: pd_vector2D): (number, number)
---- Modifies the caller by adding vector v.
+--- Modifies the caller by adding vector `v`.
 ---@field addVector fun(self: pd_vector2D, v: pd_vector2D)
---- Modifies the caller, scaling it by amount s.
+--- Modifies the caller, scaling it by amount `s`.
 ---@field scale fun(self: pd_vector2D, s: number)
---- Returns the given vector scaled by s.
+--- Returns the given vector scaled by `s`.
 ---@field scaledBy fun(self: pd_vector2D, s: number): pd_vector2D
 --- Modifies the caller by normalizing it so that its length is 1. If the vector is (0,0), the vector is unchanged.
 ---@field normalize fun(self: pd_vector2D)
 --- Returns a new vector by normalizing the given vector.
 ---@field normalized fun(self: pd_vector2D): pd_vector2D
---- Returns the dot product of the caller and the vector v.
+--- Returns the dot product of the caller and the vector `v`.
 ---@field dotProduct fun(self: pd_vector2D, v: pd_vector2D): number
 --- Returns the magnitude of the caller.
 ---@field magnitude fun(self: pd_vector2D): number
 --- Returns the square of the magnitude of the caller.
 ---@field magnitudeSquared fun(self: pd_vector2D): number
---- Modifies the caller by projecting it along the vector v.
+--- Modifies the caller by projecting it along the vector `v`.
 ---@field projectAlong fun(self: pd_vector2D, v: pd_vector2D)
---- Returns a new vector created by projecting the given vector along the vector v.
+--- Returns a new vector created by projecting the given vector along the vector `v`.
 ---@field projectedAlong fun(self: pd_vector2D, v: pd_vector2D): pd_vector2D
---- Returns the angle between the caller and the vector v.
+--- Returns the angle between the caller and the vector `v`.
 ---@field angleBetween fun(self: pd_vector2D, v: pd_vector2D): number
 --- Returns a vector that is the left normal of the caller.
 ---@field leftNormal fun(self: pd_vector2D): pd_vector2D
@@ -2404,10 +2404,10 @@ kTextAlignment = kTextAlignment
 
 ---@class pd_image_lib
 --- ### Overload 1 ###
---- Creates a new blank image of the given width and height. The image can be drawn on using playdate.graphics.pushContext() or playdate.graphics.lockFocus(). The optional bgcolor argument is one of the color constants as used in playdate.graphics.setColor(), defaulting to kColorClear.
+--- Creates a new blank image of the given width and height. The image can be drawn on using playdate.graphics.pushContext() or playdate.graphics.lockFocus(). The optional `bgcolor` argument is one of the color constants as used in playdate.graphics.setColor(), defaulting to `kColorClear`.
 --- 
 --- ### Overload 2 ###
---- Returns a playdate.graphics.image object from the data at path. If there is no file at path, the function returns nil and a second value describing the error.
+--- Returns a playdate.graphics.image object from the data at `path`. If there is no file at `path`, the function returns nil and a second value describing the error.
 ---@field new (fun(width: number, height: number, bgcolor?: pd_color): pd_image) | (fun(path: string): pd_image)
 ---@field kDitherTypeNone pd_dither_type
 ---@field kDitherTypeDiagonalLine pd_dither_type
@@ -2422,168 +2422,168 @@ kTextAlignment = kTextAlignment
 ---@field kDitherTypeAtkinson pd_dither_type
 
 ---@class pd_image
---- Loads a new image from the data at path into an already-existing image, without allocating additional memory. The image at path must be of the same dimensions as the original.
+--- Loads a new image from the data at `path` into an already-existing image, without allocating additional memory. The image at `path` must be of the same dimensions as the original.
 --- 
---- Returns (success, [error]). If the boolean success is false, error is also returned.
+--- Returns `(success, [error])`. If the boolean `success` is false, `error` is also returned.
 ---@field load fun(self: pd_image, path: string): (boolean, string?)
 --- Returns a new playdate.graphics.image that is an exact copy of the original.
 ---@field copy fun(self: pd_image): pd_image
---- Returns the pair (width, height)
+--- Returns the pair (`width`, `height`)
 ---@field getSize fun(self: pd_image): (number, number)
---- Draws the image with its upper-left corner at location (x, y) or playdate.geometry.point p.
+--- Draws the image with its upper-left corner at location (`x`, `y`) or playdate.geometry.point `p`.
 --- 
---- The optional flip argument can be one of the following:
+--- The optional `flip` argument can be one of the following:
 --- 
---- playdate.graphics.kImageUnflipped: the image is drawn normally
+--- `playdate.graphics.kImageUnflipped`: the image is drawn normally
 --- 
---- playdate.graphics.kImageFlippedX: the image is flipped left to right
+--- `playdate.graphics.kImageFlippedX`: the image is flipped left to right
 --- 
---- playdate.graphics.kImageFlippedY: the image is flipped top to bottom
+--- `playdate.graphics.kImageFlippedY`: the image is flipped top to bottom
 --- 
---- playdate.graphics.kImageFlippedXY: the image if flipped both ways; i.e., rotated 180 degrees
+--- `playdate.graphics.kImageFlippedXY`: the image if flipped both ways; i.e., rotated 180 degrees
 --- 
---- Alternately, one of the strings "flipX", "flipY", or "flipXY" can be used for the flip argument.
+--- Alternately, one of the strings "flipX", "flipY", or "flipXY" can be used for the `flip` argument.
 --- 
---- sourceRect, if specified, will cause only the part of the image within sourceRect to be drawn. sourceRect should be relative to the image’s bounds and can be a playdate.geometry.rect or four integers, (x, y, w, h), representing the rect.
+--- `sourceRect`, if specified, will cause only the part of the image within sourceRect to be drawn. `sourceRect` should be relative to the image’s bounds and can be a playdate.geometry.rect or four integers, (`x`, `y`, `w`, `h`), representing the rect.
 ---@field draw (fun(self: pd_image, x: number, y: number, flip?: pd_image_flip, sourceRect?: pd_rect)) | (fun(self: pd_image, p: pd_point, flip?: pd_image_flip, sourceRect?: pd_rect))
---- Draws the image at location (x, y) centered at the point within the image represented by (ax, ay) in unit coordinate space. For example, values of ax = 0.0, ay = 0.0 represent the image’s top-left corner, ax = 1.0, ay = 1.0 represent the bottom-right, and ax = 0.5, ay = 0.5 represent the center of the image.
+--- Draws the image at location `(x, y)` centered at the point within the image represented by `(ax, ay)` in unit coordinate space. For example, values of `ax = 0.0`, `ay = 0.0` represent the image’s top-left corner, `ax = 1.0`, `ay = 1.0` represent the bottom-right, and `ax = 0.5`, `ay = 0.5` represent the center of the image.
 --- 
---- The flip argument is optional; see playdate.graphics.image:draw() for valid values.
+--- The `flip` argument is optional; see playdate.graphics.image:draw() for valid values.
 --- 
---- You must import CoreLibs/graphics to use this method.
+--- You must import `CoreLibs/graphics` to use this method.
 ---@field drawAnchored fun(self: pd_image, x: number, y: number, ax: number, ay: number, flip?: pd_image_flip)
---- Draws the image centered at location (x, y).
+--- Draws the image centered at location `(x, y)`.
 --- 
---- The flip argument is optional; see playdate.graphics.image:draw() for valid values.
+--- The `flip` argument is optional; see playdate.graphics.image:draw() for valid values.
 --- 
---- You must import CoreLibs/graphics to use this method.
+--- You must import `CoreLibs/graphics` to use this method.
 ---@field drawCentered fun(self: pd_image, x: number, y: number, flip?: pd_image_flip)
 --- Draws the image ignoring the currently-set drawOffset.
 ---@field drawIgnoringOffset (fun(self: pd_image, x: number, y: number, flip?: pd_image_flip)) | (fun(self: pd_image, p: pd_point, flip?: pd_image_flip))
---- Erases the contents of the image, setting all pixels to white if color is playdate.graphics.kColorWhite, black if it’s playdate.graphics.kColorBlack, or clear if it’s playdate.graphics.kColorClear. If the image is cleared to black or white, the mask (if it exists) is set to fully opaque. If the image is cleared to kColorClear and the image doesn’t have a mask, a mask is added to it.
+--- Erases the contents of the image, setting all pixels to white if `color` is `playdate.graphics.kColorWhite`, black if it’s `playdate.graphics.kColorBlack`, or clear if it’s `playdate.graphics.kColorClear`. If the image is cleared to black or white, the mask (if it exists) is set to fully opaque. If the image is cleared to kColorClear and the image doesn’t have a mask, a mask is added to it.
 ---@field clear fun(self: pd_image, color: pd_color)
---- Returns playdate.graphics.kColorWhite if the image is white at (x, y), playdate.graphics.kColorBlack if it’s black, or playdate.graphics.kColorClear if it’s transparent.
+--- Returns `playdate.graphics.kColorWhite` if the image is white at (`x`, `y`), `playdate.graphics.kColorBlack` if it’s black, or `playdate.graphics.kColorClear` if it’s transparent.
 --- 
---- The upper-left pixel of the image is at coordinate (0, 0).
+--- The upper-left pixel of the image is at coordinate `(0, 0)`.
 ---@field sample fun(self: pd_image, x: number, y: number): pd_color
---- Draws this image centered at point (x,y) at (clockwise) angle degrees, scaled by optional argument scale, with an optional separate scaling for the y axis.
+--- Draws this image centered at point `(x,y)` at (clockwise) `angle` degrees, scaled by optional argument `scale`, with an optional separate scaling for the y axis.
 ---@field drawRotated fun(self: pd_image, x: number, y: number, angle: number, scale?: number, yscale?: number)
---- Returns a new image containing this image rotated by (clockwise) angle degrees, scaled by optional argument scale, with an optional separate scaling for the y axis.
+--- Returns a new image containing this image rotated by (clockwise) `angle` degrees, scaled by optional argument `scale`, with an optional separate scaling for the y axis.
 --- 
 --- Unless rotating by a multiple of 180 degrees, the new image will have different dimensions than the original.
 ---@field rotatedImage fun(self: pd_image, angle: number, scale?: number, yscale?: number): pd_image
---- Draws this image with its upper-left corner at point (x,y), scaled by amount scale, with an optional separate scaling for the y axis.
+--- Draws this image with its upper-left corner at point `(x,y)`, scaled by amount `scale`, with an optional separate scaling for the y axis.
 ---@field drawScaled fun(self: pd_image, x: number, y: number, scale: number, yscale?: number)
---- Returns a new image containing this image scaled by amount scale, with an optional separate scaling for the y axis.
+--- Returns a new image containing this image scaled by amount `scale`, with an optional separate scaling for the y axis.
 ---@field scaledImage fun(self: pd_image, scale: number, yscale?: number): pd_image
---- Draws this image centered at point (x,y) with the transform xform applied.
+--- Draws this image centered at point `(x,y)` with the transform `xform` applied.
 ---@field drawWithTransform fun(self: pd_image, xform: pd_affineTransform, x: number, y: number)
---- Returns a new image containing the image with the transform xform applied.
+--- Returns a new image containing the image with the transform `xform` applied.
 ---@field transformedImage fun(self: pd_image, xform: pd_affineTransform): pd_image
 --- Draws the image as if it’s mapped onto a tilted plane, transforming the target coordinates to image coordinates using an affine transform:
 --- 
 --- x' = dxx * x + dyx * y + dx
 --- y' = dxy * x + dyy * y + dy
 --- 
---- x, y, width, height: The rectangle to fill
+--- `x, y, width, height`: The rectangle to fill
 --- 
---- centerx, centery: The point in the above rectangle [in (0,1)x(0,1) coordinates] for the center of the transform
+--- `centerx, centery`: The point in the above rectangle [in (0,1)x(0,1) coordinates] for the center of the transform
 --- 
---- dxx, dyx, dxy, dyy, dx, dy: Defines an affine transform from geometry coordinates to image coordinates
+--- `dxx, dyx, dxy, dyy, dx, dy`: Defines an affine transform from geometry coordinates to image coordinates
 --- 
---- z: The distance from the viewer to the target plane — lower z means more exaggerated perspective
+--- `z`: The distance from the viewer to the target plane — lower z means more exaggerated perspective
 --- 
---- tiltAngle: The tilt of the target plane about the x axis, in degrees
+--- `tiltAngle`: The tilt of the target plane about the x axis, in degrees
 --- 
---- tile: A boolean, indicating whether the image is tiled on the target plane
+--- `tile`: A boolean, indicating whether the image is tiled on the target plane
 --- 
---- The Mode7Driver demo in the /Examples folder of the SDK demonstrates the usage of this function.
+--- The `Mode7Driver` demo in the `/Examples` folder of the SDK demonstrates the usage of this function.
 ---@field drawSampled fun(self: pd_image, x: number, y: number, width: number, height: number, centerx: number, centery: number, dxx: number, dyx: number, dxy: number, dyy: number, dx: number, dy: number, z: number, tiltAngle: number, tile: boolean)
---- Sets the image’s mask to a copy of maskImage.
+--- Sets the image’s mask to a copy of `maskImage`.
 ---@field setMaskImage fun(self: pd_image, maskImage: pd_image)
 --- If the image has a mask, returns the mask as a separate image. Otherwise, returns nil.
 --- 
 --- The returned image references the original’s data, so drawing into this image alters the original image’s mask.
 ---@field getMaskImage fun(self: pd_image): pd_image
---- Adds a mask to the image if it doesn’t already have one. If opaque is true, the image will be set to entirely opaque. Otherwise, or if not specified, the image will be completely transparent.
+--- Adds a mask to the image if it doesn’t already have one. If `opaque` is true, the image will be set to entirely opaque. Otherwise, or if not specified, the image will be completely transparent.
 ---@field addMask fun(self: pd_image, opaque?: boolean)
 --- Removes the mask from the image if it has one.
 ---@field removeMask fun(self: pd_image)
---- Returns true if the image has a mask.
+--- Returns `true` if the image has a mask.
 ---@field hasMask fun(self: pd_image): boolean
---- Erases the contents of the image’s mask, so that the image is entirely opaque if opaque is 1, transparent otherwise. This function has no effect if the image doesn’t have a mask.
+--- Erases the contents of the image’s mask, so that the image is entirely opaque if `opaque` is 1, transparent otherwise. This function has no effect if the image doesn’t have a mask.
 ---@field clearMask fun(self: pd_image, opaque?: boolean)
 --- Tiles the image into the given rectangle, using either listed dimensions or a playdate.geometry.rect object, and the optional flip style.
 ---@field drawTiled (fun(self: pd_image, x: number, y: number, width: number, height: number, flip?: pd_image_flip)) | (fun(self: pd_image, rect: pd_rect, flip?: pd_image_flip))
---- Draws a blurred version of the image at (x, y).
+--- Draws a blurred version of the image at (`x`, `y`).
 --- 
---- radius: A bigger radius means a more blurred result. Processing time is independent of the radius.
+--- `radius`: A bigger radius means a more blurred result. Processing time is independent of the radius.
 --- 
---- numPasses: A box blur is used to blur the image. The more passes, the more closely the blur approximates a gaussian blur. However, higher values will take more time to process.
+--- `numPasses`: A box blur is used to blur the image. The more passes, the more closely the blur approximates a gaussian blur. However, higher values will take more time to process.
 --- 
---- ditherType: The algorithm to use when blurring the image, must be one of the values listed in playdate.graphics.image:blurredImage()
+--- `ditherType`: The algorithm to use when blurring the image, must be one of the values listed in playdate.graphics.image:blurredImage()
 --- 
---- flip: optional; see playdate.graphics.image:draw() for valid values.
+--- `flip`: optional; see playdate.graphics.image:draw() for valid values.
 --- 
---- xPhase, yPhase: optional; integer values that affect the appearance of playdate.graphics.image.kDitherTypeDiagonalLine, playdate.graphics.image.kDitherTypeVerticalLine, playdate.graphics.image.kDitherTypeHorizontalLine, playdate.graphics.image.kDitherTypeScreen, playdate.graphics.image.kDitherTypeBayer2x2, playdate.graphics.image.kDitherTypeBayer4x4, and playdate.graphics.image.kDitherTypeBayer8x8.
+--- `xPhase`, `yPhase`: optional; integer values that affect the appearance of `playdate.graphics.image.kDitherTypeDiagonalLine`, `playdate.graphics.image.kDitherTypeVerticalLine`, `playdate.graphics.image.kDitherTypeHorizontalLine`, `playdate.graphics.image.kDitherTypeScreen`, `playdate.graphics.image.kDitherTypeBayer2x2`, `playdate.graphics.image.kDitherTypeBayer4x4`, and `playdate.graphics.image.kDitherTypeBayer8x8`.
 ---@field drawBlurred fun(self: pd_image, x: number, y: number, radius: number, numPasses: number, ditherType: pd_dither_type, flip?: pd_image_flip, xPhase?: number, yPhase?: number)
---- Draws a partially transparent image with its upper-left corner at location (x, y)
+--- Draws a partially transparent image with its upper-left corner at location (`x`, `y`)
 --- 
---- alpha: The alpha value used to draw the image, with 1 being fully opaque, and 0 being completely transparent.
+--- `alpha`: The alpha value used to draw the image, with 1 being fully opaque, and 0 being completely transparent.
 --- 
---- ditherType: The caller is faded using one of the dithering algorithms listed in playdate.graphics.image:blurredImage()
+--- `ditherType`: The caller is faded using one of the dithering algorithms listed in playdate.graphics.image:blurredImage()
 ---@field drawFaded fun(self: pd_image, x: number, y: number, alpha: number, ditherType: pd_dither_type)
---- If flag is true, the image will be drawn with its colors inverted. If the image is being used as a stencil, its behavior is reversed: pixels are drawn where the stencil is black, nothing is drawn where the stencil is white.
+--- If `flag` is true, the image will be drawn with its colors inverted. If the image is being used as a stencil, its behavior is reversed: pixels are drawn where the stencil is black, nothing is drawn where the stencil is white.
 ---@field setInverted fun(self: pd_image, flag: boolean)
 --- Returns a color-inverted copy of the caller.
 ---@field invertedImage fun(self: pd_image): pd_image
---- Returns an image that is a blend between the caller and image.
+--- Returns an image that is a blend between the caller and `image`.
 --- 
---- image: the playdate.graphics.image to be blended with the caller.
+--- `image`: the playdate.graphics.image to be blended with the caller.
 --- 
---- alpha: The alpha value assigned to the caller. image will have an alpha of (1 - alpha).
+--- `alpha`: The alpha value assigned to the caller. `image` will have an alpha of (1 - `alpha`).
 --- 
---- ditherType: The caller and image are blended into a greyscale image and dithered with one of the dithering algorithms listed in playdate.graphics.image:blurredImage()
+--- `ditherType`: The caller and `image` are blended into a greyscale image and dithered with one of the dithering algorithms listed in playdate.graphics.image:blurredImage()
 ---@field blendWithImage fun(self: pd_image, image: pd_image, alpha: number, ditherType: pd_dither_type): pd_image
 --- Returns a blurred copy of the caller.
 --- 
---- radius: A bigger radius means a more blurred result. Processing time is independent of the radius.
+--- `radius`: A bigger radius means a more blurred result. Processing time is independent of the radius.
 --- 
---- numPasses: A box blur is used to blur the image. The more passes, the more closely the blur approximates a gaussian blur. However, higher values will take more time to process.
+--- `numPasses`: A box blur is used to blur the image. The more passes, the more closely the blur approximates a gaussian blur. However, higher values will take more time to process.
 --- 
---- ditherType: The original image is blurred into a greyscale image then dithered back to 1-bit using one of the following dithering algorithms:
+--- `ditherType`: The original image is blurred into a greyscale image then dithered back to 1-bit using one of the following dithering algorithms:
 --- 
---- playdate.graphics.image.kDitherTypeNone
+--- `playdate.graphics.image.kDitherTypeNone`
 --- 
---- playdate.graphics.image.kDitherTypeDiagonalLine
+--- `playdate.graphics.image.kDitherTypeDiagonalLine`
 --- 
---- playdate.graphics.image.kDitherTypeVerticalLine
+--- `playdate.graphics.image.kDitherTypeVerticalLine`
 --- 
---- playdate.graphics.image.kDitherTypeHorizontalLine
+--- `playdate.graphics.image.kDitherTypeHorizontalLine`
 --- 
---- playdate.graphics.image.kDitherTypeScreen
+--- `playdate.graphics.image.kDitherTypeScreen`
 --- 
---- playdate.graphics.image.kDitherTypeBayer2x2
+--- `playdate.graphics.image.kDitherTypeBayer2x2`
 --- 
---- playdate.graphics.image.kDitherTypeBayer4x4
+--- `playdate.graphics.image.kDitherTypeBayer4x4`
 --- 
---- playdate.graphics.image.kDitherTypeBayer8x8
+--- `playdate.graphics.image.kDitherTypeBayer8x8`
 --- 
---- playdate.graphics.image.kDitherTypeFloydSteinberg
+--- `playdate.graphics.image.kDitherTypeFloydSteinberg`
 --- 
---- playdate.graphics.image.kDitherTypeBurkes
+--- `playdate.graphics.image.kDitherTypeBurkes`
 --- 
---- playdate.graphics.image.kDitherTypeAtkinson
+--- `playdate.graphics.image.kDitherTypeAtkinson`
 --- 
---- padEdges: Boolean indicating whether the edges of the images should be padded to accommodate the blur radius. Defaults to false.
+--- `padEdges`: Boolean indicating whether the edges of the images should be padded to accommodate the blur radius. Defaults to false.
 --- 
---- xPhase, yPhase: optional; integer values that affect the appearance of playdate.graphics.image.kDitherTypeDiagonalLine, playdate.graphics.image.kDitherTypeVerticalLine, playdate.graphics.image.kDitherTypeHorizontalLine, playdate.graphics.image.kDitherTypeScreen, playdate.graphics.image.kDitherTypeBayer2x2, playdate.graphics.image.kDitherTypeBayer4x4, and playdate.graphics.image.kDitherTypeBayer8x8.
+--- `xPhase`, `yPhase`: optional; integer values that affect the appearance of `playdate.graphics.image.kDitherTypeDiagonalLine`, `playdate.graphics.image.kDitherTypeVerticalLine`, `playdate.graphics.image.kDitherTypeHorizontalLine`, `playdate.graphics.image.kDitherTypeScreen`, `playdate.graphics.image.kDitherTypeBayer2x2`, `playdate.graphics.image.kDitherTypeBayer4x4`, and `playdate.graphics.image.kDitherTypeBayer8x8`.
 ---@field blurredImage fun(self: pd_image, radius: number, numPasses: number, ditherType: pd_dither_type, padEdges?: boolean, xPhase?: number, yPhase?: number): pd_image
 --- Returns a faded version of the caller.
 --- 
---- alpha: The alpha value assigned to the caller, in the range 0.0 - 1.0. If an image mask already exists it is multiplied by alpha.
+--- `alpha`: The alpha value assigned to the caller, in the range 0.0 - 1.0. If an image mask already exists it is multiplied by `alpha`.
 --- 
---- ditherType: The caller is faded into a greyscale image and dithered with one of the dithering algorithms listed in playdate.graphics.image:blurredImage()
+--- `ditherType`: The caller is faded into a greyscale image and dithered with one of the dithering algorithms listed in playdate.graphics.image:blurredImage()
 ---@field fadedImage fun(self: pd_image, alpha: number, ditherType: pd_dither_type): pd_image
 --- Returns an image created by applying a VCR pause effect to the calling image.
 ---@field vcrPauseFilterImage fun(self: pd_image): pd_image
@@ -2593,9 +2593,9 @@ kTextAlignment = kTextAlignment
 ---@field new fun(imagePath: string, innerX: number, innerY: number, innerWidth: number, innerHeight: number): pd_nineSlice
 
 ---@class pd_nineSlice
---- Returns the size of the 9 slice image as a pair (width, height).
+--- Returns the size of the 9 slice image as a pair `(width, height)`.
 ---@field getSize fun(self: pd_nineSlice): (number, number)
---- Returns the minimum size of the 9 slice image as a pair (width, height).
+--- Returns the minimum size of the 9 slice image as a pair `(width, height)`.
 ---@field getMinSize fun(self: pd_nineSlice): (number, number)
 --- Draws the 9 slice image at the desired coordinates by stretching the defined region to achieve the width and height inputs.
 ---@field drawInRect (fun(self: pd_nineSlice, x: number, y: number, width: number, height: number)) | (fun(self: pd_nineSlice, rect: pd_rect))
@@ -2608,16 +2608,16 @@ kTextAlignment = kTextAlignment
 --- ### Overload 1 ###
 --- Animates between two number or playdate.geometry.point values.
 --- 
---- duration is the total time of the animation in milliseconds.
+--- `duration` is the total time of the animation in milliseconds.
 --- 
---- startValue and endValue should be either numbers or playdate.geometry.point
+--- `startValue` and `endValue` should be either numbers or playdate.geometry.point
 --- 
---- easingFunction, if supplied, should be a value from playdate.easingFunctions. If your easing function requires additional variables s, a, or p, set them on the animator directly after creation. For example:
+--- `easingFunction`, if supplied, should be a value from playdate.easingFunctions. If your easing function requires additional variables `s`, `a`, or `p`, set them on the animator directly after creation. For example:
 --- 
 --- local a = playdate.graphics.animator.new(1000, 0, 100, playdate.easingFunctions.inBack)
 --- a.s = 1.9
 --- 
---- startTimeOffset, if supplied, will shift the start time of the animation by the specified number of milliseconds. (If positive, the animation will be delayed. If negative, the animation will effectively have started before the moment the animator is instantiated.)
+--- `startTimeOffset`, if supplied, will shift the start time of the animation by the specified number of milliseconds. (If positive, the animation will be delayed. If negative, the animation will effectively have started before the moment the animator is instantiated.)
 --- 
 --- ### Overload 2 ###
 --- Creates a new Animator that will animate along the provided playdate.geometry.lineSegment
@@ -2629,13 +2629,13 @@ kTextAlignment = kTextAlignment
 --- Creates a new Animator that will animate along the provided playdate.geometry.polygon
 --- 
 --- ### Overload 5 ###
---- Creates a new Animator that will animate along each of the items in the parts array in order, which should be comprised of playdate.geometry.lineSegment, playdate.geometry.arc, or playdate.geometry.polygon objects.
+--- Creates a new Animator that will animate along each of the items in the `parts` array in order, which should be comprised of playdate.geometry.lineSegment, playdate.geometry.arc, or playdate.geometry.polygon objects.
 --- 
---- durations should be an array of durations, one for each item in parts.
+--- `durations` should be an array of durations, one for each item in `parts`.
 --- 
---- easingFunctions should be an array of playdate.easingFunctions, one for each item in parts.
+--- `easingFunctions` should be an array of playdate.easingFunctions, one for each item in `parts`.
 --- 
---- By default, animators do not repeat. If you would like them to, set a value for repeatCount representing the number of times the animation should repeat. It can be set to any positive number or -1 to indicate the animation should repeat forever. A repeat count of 1 means the animation will play twice - once for the initial animation plus one repeat.
+--- By default, animators do not repeat. If you would like them to, set a value for `repeatCount` representing the number of times the animation should repeat. It can be set to any positive number or -1 to indicate the animation should repeat forever. A repeat count of 1 means the animation will play twice - once for the initial animation plus one repeat.
 ---@field new (fun(duration: number, startValue: number, endValue: number, easingFunction?: (fun(number, number, number, number): number), startTimeOffset?: number): pd_animator) | (fun(duration: number, lineSegment: pd_lineSegment, easingFunction?: (fun(number, number, number, number): number), startTimeOffset?: number): pd_animator) | (fun(duration: number, arc: pd_arc, easingFunction?: (fun(number, number, number, number): number), startTimeOffset?: number): pd_animator) | (fun(duration: number, polygon: pd_polygon, easingFunction?: (fun(number, number, number, number): number), startTimeOffset?: number): pd_animator) | (fun(durations: number[], parts: (pd_lineSegment|pd_arc|pd_polygon)[], easingFunctions: (fun(number, number, number, number): number), startTimeOffset?: number): pd_animator)
 
 ---@class pd_animator
@@ -2649,42 +2649,42 @@ kTextAlignment = kTextAlignment
 ---@field reset fun(self: pd_animator, duration?: number)
 --- Returns true if the animation is completed. Only returns true if this function or currentValue() has been called since the animation ended in order to allow animations to fully finish before true is returned.
 ---@field ended fun(self: pd_animator): boolean
---- For easing functions that take additional amplitude (such as inOutElastic), set these values on animator instances to the desired values.
+--- For easing functions that take additional amplitude (such as `inOutElastic`), set these values on animator instances to the desired values.
 ---@field easingAmplitude number
---- For easing functions that take additional period arguments (such as inOutElastic), set these values on animator instances to the desired values.
+--- For easing functions that take additional period arguments (such as `inOutElastic`), set these values on animator instances to the desired values.
 ---@field easingPeriod number
 --- Indicates the number of times after the initial animation the animator should repeat; i.e., if repeatCount is set to 2, the animation will play through 3 times.
 ---@field repeatCount number
---- If set to true, after the animation reaches the end, it runs in reverse from the end to the start. The time to complete both the forward and reverse will be duration x 2. Defaults to false.
+--- If set to true, after the animation reaches the end, it runs in reverse from the end to the start. The time to complete both the forward and reverse will be `duration` x 2. Defaults to false.
 ---@field reverses boolean
 
 ---@class pd_imagetable_lib
 --- ### Overload 1 ###
---- Returns a playdate.graphics.imagetable object from the data at path. If there is no file at path, the function returns nil and a second value describing the error. If the file at path is an animated GIF, successive frames of the GIF will be loaded as consecutive bitmaps in the imagetable. Any timing data in the animated GIF will be ignored.
+--- Returns a playdate.graphics.imagetable object from the data at `path`. If there is no file at `path`, the function returns nil and a second value describing the error. If the file at `path` is an animated GIF, successive frames of the GIF will be loaded as consecutive bitmaps in the imagetable. Any timing data in the animated GIF will be ignored.
 --- 
 --- To load a matrix image table defined in frames-table-16-16.png, you call playdate.graphics.imagetable.new("frames").
 --- To load a sequential image table defined with the files frames-table-1.png, frames-table-2.png, etc., you call playdate.graphics.imagetable.new("frames").
 --- 
 --- ### Overload 2 ###
---- Returns an empty image table for loading images into via imagetable:load() or setting already-loaded images into with imagetable:setImage(). If set, cellsWide is used to locate images by x,y position. The optional cellSize argument gives the allocation size for the images, if load() will be used. (This is a weird technical detail, so ask us if you need guidance here.)
+--- Returns an empty image table for loading images into via imagetable:load() or setting already-loaded images into with imagetable:setImage(). If set, `cellsWide` is used to locate images by x,y position. The optional `cellSize` argument gives the allocation size for the images, if load() will be used. (This is a weird technical detail, so ask us if you need guidance here.)
 ---@field new (fun(path: string): pd_imagetable) | (fun(count: number, cellsWide?: number, cellSize?: number): pd_imagetable)
 
 ---@class pd_imagetable
 --- ### Overload 1 ###
---- Returns the n-th playdate.graphics.image in the table (ordering left-to-right, top-to-bottom). The first image is at index 1. If .n_ or (x,y) is out of bounds, the function returns nil. See also imagetable[n].
+--- Returns the `n`-th playdate.graphics.image in the table (ordering left-to-right, top-to-bottom). The first image is at index 1. If .n_ or (`x`,`y`) is out of bounds, the function returns nil. See also imagetable[n].
 --- 
 --- ### Overload 2 ###
---- Returns the image in cell (x,y) in the original bitmap. The first image is at index 1. If n or (x,y) is out of bounds, the function returns nil. See also imagetable[n].
+--- Returns the image in cell (`x`,`y`) in the original bitmap. The first image is at index 1. If `n` or (`x`,`y`) is out of bounds, the function returns nil. See also imagetable[n].
 ---@field getImage (fun(self: pd_imagetable, n: integer): pd_image) | (fun(self: pd_imagetable, x: number, y: number): pd_image)
---- Sets the image at slot n in the image table by creating a reference to the data in image.
+--- Sets the image at slot `n` in the image table by creating a reference to the data in `image`.
 ---@field setImage fun(self: pd_imagetable, n: integer, image: pd_image)
---- Loads a new image from the data at path into an already-existing image table, without allocating additional memory. The image table at path must contain images of the same dimensions as the previous.
+--- Loads a new image from the data at `path` into an already-existing image table, without allocating additional memory. The image table at `path` must contain images of the same dimensions as the previous.
 --- 
 --- Returns (success, [error]). If the boolean success is false, error is also returned.
 ---@field load fun(self: pd_imagetable, path: string): (boolean, string?)
 --- Returns the number of images in the table. See also #imagetable.
 ---@field getLength fun(self: pd_imagetable): number
---- Returns the pair (cellsWide, cellsHigh).
+--- Returns the pair (`cellsWide`, `cellsHigh`).
 ---@field getSize fun(self: pd_imagetable): (number, number)
 --- Equivalent to graphics.imagetable:getImage(n):draw(x,y,[flip]).
 ---@field drawImage fun(self: pd_imagetable, n: integer, x: number, y: number, flip?: pd_image_flip)
@@ -2694,39 +2694,39 @@ kTextAlignment = kTextAlignment
 ---@field new fun(): pd_tilemap
 
 ---@class pd_tilemap
---- Sets the tilemap’s playdate.graphics.imagetable to table, a playdate.graphics.imagetable.
+--- Sets the tilemap’s playdate.graphics.imagetable to `table`, a playdate.graphics.imagetable.
 ---@field setImageTable fun(self: pd_tilemap, table: pd_imagetable)
---- Sets the tilemap’s width to width, then populates the tilemap with data, which should be a flat, one-dimensional array-like table containing index values to the tilemap’s imagetable.
+--- Sets the tilemap’s width to `width`, then populates the tilemap with `data`, which should be a flat, one-dimensional array-like table containing index values to the tilemap’s imagetable.
 ---@field setTiles fun(self: pd_tilemap, data: integer[], width: number)
---- Returns data, width
---- data is a flat, one-dimensional array-like table containing index values to the tilemap’s imagetable.
---- width is the width of the tile map, in number of tiles.
+--- Returns `data`, `width`
+--- `data` is a flat, one-dimensional array-like table containing index values to the tilemap’s imagetable.
+--- `width` is the width of the tile map, in number of tiles.
 ---@field getTiles fun(self: pd_tilemap): (integer[], integer)
---- Draws the tile map at screen coordinate (x, y).
+--- Draws the tile map at screen coordinate (`x`, `y`).
 --- 
---- sourceRect, if specified, will cause only the part of the tilemap within sourceRect to be drawn. sourceRect should be relative to the tilemap’s bounds and can be a playdate.geometry.rect or four integers, (x, y, w, h), representing the rect.
+--- `sourceRect`, if specified, will cause only the part of the tilemap within sourceRect to be drawn. `sourceRect` should be relative to the tilemap’s bounds and can be a playdate.geometry.rect or four integers, (`x`, `y`, `w`, `h`), representing the rect.
 ---@field draw fun(self: pd_tilemap, x: number, y: number, sourceRect?: pd_rect)
 --- Draws the tilemap ignoring the currently-set drawOffset.
 ---@field drawIgnoringOffset fun(self: pd_tilemap, x: number, y: number, sourceRect?: pd_rect)
---- Sets the index of the tile at tilemap position (x, y). index is the (1-based) index of the image in the tilemap’s playdate.graphics.imagetable.
+--- Sets the index of the tile at tilemap position (`x`, `y`). `index` is the (1-based) index of the image in the tilemap’s playdate.graphics.imagetable.
 --- 
 --- Tilemaps and imagetables, like Lua arrays, are 1-based, not 0-based. tilemap:setTileAtPosition(1, 1, 2) will set the index of the tile in the top-leftmost position to 2.
 ---@field setTileAtPosition fun(self: pd_tilemap, x: number, y: number, index: integer)
---- Returns the image index of the tile at the given x and y coordinate. If x or y is out of bounds, returns nil.
+--- Returns the image index of the tile at the given `x` and `y` coordinate. If `x` or `y` is out of bounds, returns nil.
 --- 
 --- Tilemaps and imagetables, like Lua arrays, are 1-based, not 0-based. tilemap:getTileAtPosition(1, 1) will return the index of the top-leftmost tile.
 ---@field getTileAtPosition fun(self: pd_tilemap, x: number, y: number): integer?
 --- Sets the tilemap’s width and height, in number of tiles.
 ---@field setSize fun(self: pd_tilemap, width: number, height: number)
---- Returns the size of the tile map, in tiles, as a pair, (width, height).
+--- Returns the size of the tile map, in tiles, as a pair, (`width`, `height`).
 ---@field getSize fun(self: pd_tilemap): (number, number)
---- Returns the size of the tilemap in pixels; that is, the size of the image multiplied by the number of rows and columns in the map. Returns multiple values (width, height).
+--- Returns the size of the tilemap in pixels; that is, the size of the image multiplied by the number of rows and columns in the map. Returns multiple values (`width`, `height`).
 ---@field getPixelSize fun(self: pd_tilemap): (number, number)
---- Returns multiple values (width, height), the pixel width and height of an individual tile.
+--- Returns multiple values (`width`, `height`), the pixel width and height of an individual tile.
 ---@field getTileSize fun(self: pd_tilemap): (number, number)
 --- This function returns an array of playdate.geometry.rect objects that describe the areas of the tilemap that should trigger collisions. You can also think of them as the "impassable" rects of your tilemap. These rects will be in tilemap coordinates, not pixel coordinates.
 --- 
---- emptyIDs is an array that contains the tile IDs of "empty" (or "passable") tiles in the tilemap — in other words, tile IDs that should not trigger a collision. Tiles with default IDs of 0 are treated as empty by default, so you do not need to include 0 in the array.
+--- `emptyIDs` is an array that contains the tile IDs of "empty" (or "passable") tiles in the tilemap — in other words, tile IDs that should not trigger a collision. Tiles with default IDs of 0 are treated as empty by default, so you do not need to include 0 in the array.
 --- 
 --- For example, if you have a tilemap describing terrain, where tile ID 1 represents grass the player can walk over, and tile ID 2 represents mountains that the player can’t cross, you’d pass an array containing just the value 1. You’ll get a back an array of a minimal number of rects describing the areas where there are mountain tiles.
 --- 
@@ -2740,17 +2740,17 @@ kTextAlignment = kTextAlignment
 --- 
 --- To see your sprite onscreen, you will need to call :add() on your sprite to add it to the display list.
 ---@field new fun(image_or_tilemap?: pd_image|pd_tilemap): pd_sprite
---- You must import CoreLibs/sprites to use this function.
+--- You must import `CoreLibs/sprites` to use this function.
 --- 
---- A conveneince function that creates a sprite with an image of text, as generated by imageWithText().
+--- A conveneince function that creates a sprite with an image of `text`, as generated by imageWithText().
 --- 
 --- The arguments are the same as those in imageWithText().
 --- 
---- Returns sprite, textWasTruncated
+--- Returns `sprite`, `textWasTruncated`
 --- 
---- sprite is a newly-created sprite with its image set to an image of the text specified. The sprite’s dimensions may be smaller than maxWidth, maxHeight.
+--- `sprite` is a newly-created sprite with its image set to an image of the text specified. The sprite’s dimensions may be smaller than `maxWidth`, `maxHeight`.
 --- 
---- textWasTruncated indicates if the text was truncated to fit within the specified width and height.
+--- `textWasTruncated` indicates if the text was truncated to fit within the specified width and height.
 ---@field spriteWithText fun(text: string, maxWidth: number, maxHeight: number, backgroundColor?: pd_color, leadingAdjustment?: number, truncationString?: string, alignment?: pd_text_alignment, font?: pd_font): (pd_sprite, boolean)
 --- This class method (note the "." syntax rather than ":") calls the update() function on every sprite in the global sprite list and redraws all of the dirty rects.
 --- 
@@ -2761,15 +2761,15 @@ kTextAlignment = kTextAlignment
 ---@field addSprite fun(sprite: pd_sprite)
 --- Removes the given sprite from the display list.
 ---@field removeSprite fun(sprite: pd_sprite)
---- You must import CoreLibs/sprites to use this function.
+--- You must import `CoreLibs/sprites` to use this function.
 --- 
 --- A convenience function for drawing a background image behind your sprites.
 --- 
---- drawCallback is a routine you specify that implements your background drawing. The callback should be a function taking the arguments x, y, width, height, where x, y, width, height specify the region (in screen coordinates, not world coordinates) of the background region that needs to be updated.
+--- `drawCallback` is a routine you specify that implements your background drawing. The callback should be a function taking the arguments x, y, width, height, where `x, y, width, height` specify the region (in screen coordinates, not world coordinates) of the background region that needs to be updated.
 --- 
---- Some implementation details: setBackgroundDrawingCallback() creates a screen-sized sprite with a z-index set to the lowest possible value so it will draw behind other sprites, and adds the sprite to the display list so that it is drawn in the current scene. The background sprite ignores the drawOffset, and will not be automatically redrawn when the draw offset changes; use playdate.graphics.sprite.redrawBackground() if necessary in this case. drawCallback will be called from the newly-created background sprite’s playdate.graphics.sprite:draw() callback function and is where you should do your background drawing. This function returns the newly created playdate.graphics.sprite.
+--- Some implementation details: setBackgroundDrawingCallback() creates a screen-sized sprite with a z-index set to the lowest possible value so it will draw behind other sprites, and adds the sprite to the display list so that it is drawn in the current scene. The background sprite ignores the drawOffset, and will not be automatically redrawn when the draw offset changes; use playdate.graphics.sprite.redrawBackground() if necessary in this case. `drawCallback` will be called from the newly-created background sprite’s playdate.graphics.sprite:draw() callback function and is where you should do your background drawing. This function returns the newly created playdate.graphics.sprite.
 ---@field setBackgroundDrawingCallback fun(drawCallback: fun(number, number, number, number))
---- You must import CoreLibs/sprites to use this function.
+--- You must import `CoreLibs/sprites` to use this function.
 --- 
 --- Marks the background sprite dirty, forcing the drawing callback to be run when playdate.graphics.sprite.update() is called.
 ---@field redrawBackground fun()
@@ -2783,9 +2783,9 @@ kTextAlignment = kTextAlignment
 ---@field getAlwaysRedraw fun()
 --- Returns an array of all sprites in the display list.
 ---@field getAllSprites fun(): pd_sprite[]
---- You must import CoreLibs/sprites to use this function.
+--- You must import `CoreLibs/sprites` to use this function.
 --- 
---- Performs the function f on all sprites in the display list. f should take one argument, which will be a sprite.
+--- Performs the function `f` on all sprites in the display list. `f` should take one argument, which will be a sprite.
 ---@field performOnAllSprites fun(f: fun(pd_sprite))
 --- Returns the number of sprites in the display list.
 ---@field spriteCount fun(): number
@@ -2809,31 +2809,31 @@ kTextAlignment = kTextAlignment
 ---@field querySpritesInRect (fun(x: number, y: number, width: number, height: number): pd_sprite[]) | (fun(rect: pd_rect): pd_sprite[])
 --- Returns all sprites with collision rects intersecting the line segment.
 ---@field querySpritesAlongLine (fun(x1: number, y1: number, x2: number, y2: number): pd_sprite[]) | (fun(lineSegment: pd_lineSegment): pd_sprite[])
---- Similar to querySpritesAlongLine(), but instead of sprites returns an array of collisionInfo tables containing information about sprites intersecting the line segment, and len, which is the number of collisions found. If you don’t need this information, use querySpritesAlongLine() as it will be faster.
+--- Similar to `querySpritesAlongLine()`, but instead of sprites returns an array of `collisionInfo` tables containing information about sprites intersecting the line segment, and `len`, which is the number of collisions found. If you don’t need this information, use `querySpritesAlongLine()` as it will be faster.
 --- 
---- Each collisionInfo table contains:
+--- Each `collisionInfo` table contains:
 --- 
---- sprite: the sprite being intersected by the segment.
+--- `sprite`: the sprite being intersected by the segment.
 --- 
---- entryPoint: a point representing the coordinates of the first intersection between sprite and the line segment.
+--- `entryPoint`: a point representing the coordinates of the first intersection between sprite and the line segment.
 --- 
---- exitPoint: a point representing the coordinates of the second intersection between sprite and the line segment.
+--- `exitPoint`: a point representing the coordinates of the second intersection between sprite and the line segment.
 --- 
---- ti1 & ti2: numbers between 0 and 1 which indicate how far from the starting point of the line segment the collision happened; t1 for the entry point, t2 for the exit point. This can be useful for things like having a laser cause more damage if the impact is close.
+--- `ti1` & `ti2`: numbers between 0 and 1 which indicate how far from the starting point of the line segment the collision happened; t1 for the entry point, t2 for the exit point. This can be useful for things like having a laser cause more damage if the impact is close.
 ---@field querySpriteInfoAlongLine (fun(x1: number, y1: number, x2: number, y2: number): pd_line_collision_info[]) | (fun(lineSegment: pd_lineSegment): pd_line_collision_info[])
---- You must import CoreLibs/sprites to use this function.
+--- You must import `CoreLibs/sprites` to use this function.
 --- 
---- This convenience function adds an invisible sprite defined by the rectangle x, y, w, h (or the playdate.geometry.rect r) for the purpose of triggering collisions. This is useful for making areas impassable, triggering an event when a sprite enters a certain area, and so on.
+--- This convenience function adds an invisible sprite defined by the rectangle `x`, `y`, `w`, `h` (or the playdate.geometry.rect `r`) for the purpose of triggering collisions. This is useful for making areas impassable, triggering an event when a sprite enters a certain area, and so on.
 ---@field addEmptyCollisionSprite (fun(r: pd_rect)) | (fun(x: number, y: number, w: number, h: number))
---- You must import CoreLibs/sprites to use this function.
+--- You must import `CoreLibs/sprites` to use this function.
 --- 
 --- This convenience function automatically adds empty collision sprites necessary to restrict movement within a tilemap.
 --- 
---- tilemap is a playdate.graphics.tilemap.
+--- `tilemap` is a playdate.graphics.tilemap.
 --- 
---- emptyIDs is an array of tile IDs that should be considered "passable" — in other words, not walls. Tiles with default IDs of 0 are treated as passable by default, so you do not need to include 0 in the array.
+--- `emptyIDs` is an array of tile IDs that should be considered "passable" — in other words, not walls. Tiles with default IDs of 0 are treated as passable by default, so you do not need to include 0 in the array.
 --- 
---- xOffset, yOffset optionally indicate the distance the new sprites should be offset from (0,0).
+--- `xOffset, yOffset` optionally indicate the distance the new sprites should be offset from (0,0).
 --- 
 --- Returns an array-style table of the newly created sprites.
 --- 
@@ -2857,13 +2857,13 @@ kTextAlignment = kTextAlignment
 --- 
 --- See also .x, .y, .width, .height, for direct access to these properties.
 ---@field moveTo fun(self: pd_sprite, x: number, y: number)
---- Returns the sprite’s current x, y position as multiple values (x, y).
+--- Returns the sprite’s current x, y position as multiple values (`x`, `y`).
 --- 
 --- See also .x, .y, .width, .height, for direct access to these properties.
 ---@field getPosition fun(self: pd_sprite): (number, number)
---- Moves the sprite by x, y pixels relative to its current position.
+--- Moves the sprite by `x`, `y` pixels relative to its current position.
 ---@field moveBy fun(self: pd_sprite, x: number, y: number)
---- Sets the Z-index of the given sprite. Sprites with higher Z-indexes are drawn on top of those with lower Z-indexes. Valid values for z are in the range (-32768, 32767).
+--- Sets the Z-index of the given sprite. Sprites with higher Z-indexes are drawn on top of those with lower Z-indexes. Valid values for `z` are in the range (-32768, 32767).
 ---@field setZIndex fun(self: pd_sprite, z: number)
 --- Returns the Z-index of the given sprite.
 ---@field getZIndex fun(self: pd_sprite): number
@@ -2871,7 +2871,7 @@ kTextAlignment = kTextAlignment
 ---@field setVisible fun(self: pd_sprite, flag: boolean)
 --- Sprites that aren’t visible don’t get their draw() method called.
 ---@field isVisible fun(self: pd_sprite): boolean
---- Sets the sprite’s drawing center as a fraction (ranging from 0.0 to 1.0) of the height and width. Default is 0.5, 0.5 (the center of the sprite). This means that when you call :moveTo(x, y), the center of your sprite will be positioned at x, y. If you want x and y to represent the upper left corner of your sprite, specify the center as 0, 0.
+--- Sets the sprite’s drawing center as a fraction (ranging from 0.0 to 1.0) of the height and width. Default is 0.5, 0.5 (the center of the sprite). This means that when you call :moveTo(x, y), the center of your sprite will be positioned at `x`, `y`. If you want x and y to represent the upper left corner of your sprite, specify the center as 0, 0.
 ---@field setCenter fun(self: pd_sprite, x: number, y: number)
 --- Returns multiple values (x, y) representing the sprite’s drawing center as a fraction (ranging from 0.0 to 1.0) of the height and width.
 ---@field getCenter fun(self: pd_sprite): (number, number)
@@ -2879,11 +2879,11 @@ kTextAlignment = kTextAlignment
 ---@field getCenterPoint fun(self: pd_sprite): pd_point
 --- Sets the sprite’s size. The method has no effect if the sprite has an image set.
 ---@field setSize fun(self: pd_sprite, width: number, height: number)
---- Returns multiple values (width, height), the current size of the sprite.
+--- Returns multiple values `(width, height)`, the current size of the sprite.
 ---@field getSize fun(self: pd_sprite): (number, number)
 --- Sets the scaling factor for the sprite, with an optional separate scaling for the y axis. If setImage() is called after this, the scale factor is applied to the new image. Only affects sprites that have an image set.
 ---@field setScale fun(self: pd_sprite, scale: number, yScale?: number)
---- Returns multiple values (xScale, yScale), the current scaling of the sprite.
+--- Returns multiple values `(xScale, yScale)`, the current scaling of the sprite.
 ---@field getScale fun(self: pd_sprite): (number, number)
 --- Sets the rotation for the sprite, in degrees clockwise, with an optional scaling factor. If setImage() is called after this, the rotation and scale is applied to the new image. Only affects sprites that have an image set. This function should be used with discretion, as it’s likely to be slow on the hardware. Consider pre-rendering rotated images for your sprites instead.
 ---@field setRotation fun(self: pd_sprite, angle: number, scale?: number, yScale?: number)
@@ -2891,9 +2891,9 @@ kTextAlignment = kTextAlignment
 ---@field getRotation fun(self: pd_sprite): number
 --- Returns a copy of the caller.
 ---@field copy fun(self: pd_sprite): pd_sprite
---- The sprite’s updatesEnabled flag (defaults to true) determines whether a sprite’s update() method will be called. By default, a sprite’s update method does nothing; however, you may choose to have your sprite do something on every frame by implementing an update method on your sprite instance, or implementing it in your sprite subclass.
+--- The sprite’s `updatesEnabled` flag (defaults to true) determines whether a sprite’s update() method will be called. By default, a sprite’s update method does nothing; however, you may choose to have your sprite do something on every frame by implementing an update method on your sprite instance, or implementing it in your sprite subclass.
 ---@field setUpdatesEnabled fun(self: pd_sprite, flag: boolean)
---- The sprite’s updatesEnabled flag (defaults to true) determines whether a sprite’s update() method will be called. By default, a sprite’s update method does nothing; however, you may choose to have your sprite do something on every frame by implementing an update method on your sprite instance, or implementing it in your sprite subclass.
+--- The sprite’s `updatesEnabled` flag (defaults to true) determines whether a sprite’s update() method will be called. By default, a sprite’s update method does nothing; however, you may choose to have your sprite do something on every frame by implementing an update method on your sprite instance, or implementing it in your sprite subclass.
 ---@field updatesEnabled fun(self: pd_sprite)
 --- Sets the sprite’s tag, an integer value in the range of 0 to 255, useful for identifying sprites later, particularly when working with collisions.
 ---@field setTag fun(self: pd_sprite, tag: integer)
@@ -2903,25 +2903,25 @@ kTextAlignment = kTextAlignment
 ---@field setImageDrawMode fun(self: pd_sprite, mode: pd_draw_mode)
 --- Flips the bitmap. See playdate.graphics.image:draw() for valid flip values.
 --- 
---- If true is passed for the optional flipCollideRect argument, the sprite’s collideRect will be flipped as well.
+--- If true is passed for the optional `flipCollideRect` argument, the sprite’s collideRect will be flipped as well.
 --- 
 --- Calling setImage() will reset the sprite to its default, non-flipped orientation. So, if you call both setImage() and setImageFlip(), call setImage() first.
 ---@field setImageFlip fun(self: pd_sprite, flip: pd_image_flip, flipCollideRect?: pd_rect)
 --- Returns one of the values listed at playdate.graphics.image:draw().
 ---@field getImageFlip fun(self: pd_sprite): pd_image
---- When set to true, the sprite will draw in screen coordinates, ignoring the currently-set drawOffset.
+--- When set to `true`, the sprite will draw in screen coordinates, ignoring the currently-set `drawOffset`.
 --- 
 --- This only affects drawing, and should not be used on sprites being used for collisions, which will still happen in world-space.
 ---@field setIgnoresDrawOffset fun(self: pd_sprite, flag: boolean)
 --- ### Overload 1 ###
---- setBounds() positions and sizes the sprite, used for drawing and for calculating dirty rects. upper-left-x and upper-left-y are relative to the overall display coordinate system. (If an image is attached to the sprite, the size will be defined by that image, and not by the width and height parameters passed in to setBounds().)
+--- setBounds() positions and sizes the sprite, used for drawing and for calculating dirty rects. `upper-left-x` and `upper-left-y` are relative to the overall display coordinate system. (If an image is attached to the sprite, the size will be defined by that image, and not by the `width` and `height` parameters passed in to setBounds().)
 --- 
---- In setBounds(), x and y always correspond to the upper left corner of the sprite, regardless of how a sprite’s center is defined. This makes it different from sprite:moveTo(), where x and y honor the sprite’s defined center (by default, at a point 50% along the sprite’s width and height.)
+--- In setBounds(), `x` and `y` always correspond to the upper left corner of the sprite, regardless of how a sprite’s center is defined. This makes it different from sprite:moveTo(), where `x` and `y` honor the sprite’s defined center (by default, at a point 50% along the sprite’s width and height.)
 --- 
 --- ### Overload 2 ###
 --- setBounds(rect) sets the bounds of the sprite with a playdate.geometry.rect object.
 ---@field setBounds (fun(self: pd_sprite, upper-left-x: number, upper-left-y: number, width: number, height: number)) | (fun(self: pd_sprite, rect: pd_rect))
---- getBounds() returns multiple values (x, y, width, height).
+--- getBounds() returns multiple values (`x`, `y`, `width`, `height`).
 ---@field getBounds fun(self: pd_sprite): (number, number, number, number)
 --- getBoundsRect() returns the sprite bounds as a playdate.geometry.rect object.
 ---@field getBoundsRect fun(self: pd_sprite): pd_rect
@@ -2935,13 +2935,13 @@ kTextAlignment = kTextAlignment
 ---@field isOpaque fun(self: pd_sprite): boolean
 --- Sets the sprite’s contents to the given tilemap. Useful if you want to automate drawing of your tilemap, especially if interleaved by depth with other sprites being drawn.
 ---@field setTilemap fun(self: pd_sprite, tilemap: pd_tilemap)
---- You must import CoreLibs/sprites to use the setAnimator method.
+--- You must import `CoreLibs/sprites` to use the setAnimator method.
 --- 
 --- setAnimator assigns an playdate.graphics.animator to the sprite, which will cause the sprite to automatically update its position each frame while the animator is active.
 --- 
---- movesWithCollisions, if provided and true will cause the sprite to move with collisions. A collision rect must be set on the sprite prior to passing true for this argument.
+--- `movesWithCollisions`, if provided and true will cause the sprite to move with collisions. A collision rect must be set on the sprite prior to passing true for this argument.
 --- 
---- removeOnCollision, if provided and true will cause the animator to be removed from the sprite when a collision occurs.
+--- `removeOnCollision`, if provided and true will cause the animator to be removed from the sprite when a collision occurs.
 --- 
 --- setAnimator should be called only after any custom update method has been set on the sprite.
 ---@field setAnimator fun(self: pd_sprite, animator: pd_animator, moveWithCollisions?: boolean, removeOnCollision?: boolean)
@@ -2951,9 +2951,9 @@ kTextAlignment = kTextAlignment
 ---@field setClipRect (fun(self: pd_sprite, x: number, y: number, width: number, height: number)) | (fun(self: pd_sprite, rect: pd_rect))
 --- Clears the sprite’s current clipping rectangle.
 ---@field clearClipRect fun(self: pd_sprite)
---- Specifies a stencil image to be set on the frame buffer before the sprite is drawn. If tile is set, the the stencil will be tiled; in this case, the image width must be a multiple of 32 pixels.
+--- Specifies a stencil image to be set on the frame buffer before the sprite is drawn. If `tile` is set, the the stencil will be tiled; in this case, the image width must be a multiple of 32 pixels.
 ---@field setStencilImage fun(self: pd_sprite, stencil: pd_image, tile?: boolean)
---- Sets the sprite’s stencil to a dither pattern specified by level and optional ditherType (defaults to playdate.graphics.image.kDitherTypeBayer8x8).
+--- Sets the sprite’s stencil to a dither pattern specified by `level` and optional `ditherType` (defaults to playdate.graphics.image.kDitherTypeBayer8x8).
 ---@field setStencilPattern fun(self: pd_sprite, level: number, ditherType?: pd_dither_type)
 --- Clears the sprite’s stencil.
 ---@field clearStencil fun(self: pd_sprite)
@@ -2980,7 +2980,7 @@ kTextAlignment = kTextAlignment
 --- 
 --- This function return coordinates relative to the sprite itself; the sprite’s position has no bearing on these values.
 ---@field getCollideRect fun(self: pd_sprite): pd_rect
---- Returns the sprite’s collide rect as multiple values, (x, y, width, height).
+--- Returns the sprite’s collide rect as multiple values, (`x`, `y`, `width`, `height`).
 --- 
 --- This function return coordinates relative to the sprite itself; the sprite’s position has no bearing on these values.
 ---@field getCollideBounds fun(self: pd_sprite): (number, number, number, number)
@@ -2992,11 +2992,11 @@ kTextAlignment = kTextAlignment
 --- 
 --- This method may be used in conjunction with the standard collision architecture. Say, if overlappingSprites() or moveWithCollisions() report a collision of two sprite’s bounding rects, alphaCollision() could then be used to discern if a pixel-level collision occurred.
 ---@field alphaCollision fun(self: pd_sprite, anotherSprite: pd_sprite): boolean
---- The sprite’s collisionsEnabled flag (defaults to true) can be set to false in order to temporarily keep a sprite from colliding with any other sprite.
+--- The sprite’s `collisionsEnabled` flag (defaults to true) can be set to false in order to temporarily keep a sprite from colliding with any other sprite.
 ---@field setCollisionsEnabled fun(self: pd_sprite, flag: boolean)
---- The sprite’s collisionsEnabled flag (defaults to true) can be set to false in order to temporarily keep a sprite from colliding with any other sprite.
+--- The sprite’s `collisionsEnabled` flag (defaults to true) can be set to false in order to temporarily keep a sprite from colliding with any other sprite.
 ---@field collisionsEnabled fun(self: pd_sprite)
---- Adds the sprite to one or more collision groups. A group is a collection of sprites that exhibit similar collision behavior. (An example: in Atari’s Asteroids, asteroid sprites would all be added to the same group, while the player’s spaceship might be in a different group.) Use setCollidesWithGroups() to define which groups a sprite should collide with.
+--- Adds the sprite to one or more collision groups. A group is a collection of sprites that exhibit similar collision behavior. (An example: in Atari’s `Asteroids`, asteroid sprites would all be added to the same group, while the player’s spaceship might be in a different group.) Use setCollidesWithGroups() to define which groups a sprite should collide with.
 --- 
 --- There are 32 groups, each defined by the integer 1 through 32. To add a sprite to only groups 1 and 3, for example, call mySprite:setGroups({1, 3}).
 --- 
@@ -3012,7 +3012,7 @@ kTextAlignment = kTextAlignment
 ---@field setGroupMask fun(self: pd_sprite, mask: integer)
 --- getGroupMask() returns the integer value of the sprite’s group bitmask.
 ---@field getGroupMask fun(self: pd_sprite): integer
---- Sets the sprite’s collides-with-groups bitmask, which is 32 bits. The mask specifies which other sprite groups this sprite can collide with. Sprites only collide if the moving sprite’s collidesWithGroupsMask matches at least one group of a potential collision sprite (i.e. a bitwise AND (&) between the moving sprite’s collidesWithGroupsMask and a potential collision sprite’s groupMask != zero) or if the moving sprite’s collidesWithGroupsMask and the other sprite’s groupMask are both set to 0x00000000 (the default values).
+--- Sets the sprite’s collides-with-groups bitmask, which is 32 bits. The mask specifies which other sprite groups this sprite can collide with. Sprites only collide if the moving sprite’s `collidesWithGroupsMask` matches at least one group of a potential collision sprite (i.e. a bitwise AND (&) between the moving sprite’s `collidesWithGroupsMask` and a potential collision sprite’s `groupMask` != zero) or if the moving sprite’s `collidesWithGroupsMask` and the other sprite’s `groupMask` are both set to 0x00000000 (the default values).
 --- 
 --- For large mask numbers, pass the number as a hex value, eg. 0xFFFFFFFF to work around limitations in Lua’s integer sizes.
 ---@field setCollidesWithGroupsMask fun(self: pd_sprite, mask: integer)
@@ -3023,118 +3023,118 @@ kTextAlignment = kTextAlignment
 --- Resets the sprite’s collides-with-groups mask to 0x00000000.
 ---@field resetCollidesWithGroupsMask fun(self: pd_sprite)
 --- ### Overload 1 ###
---- Moves the sprite towards goalX, goalY taking collisions into account, which means the sprite’s final position may not be the same as goalX, goalY.
+--- Moves the sprite towards `goalX`, `goalY` taking collisions into account, which means the sprite’s final position may not be the same as `goalX`, `goalY`.
 --- 
---- Returns actualX, actualY, collisions, length.
+--- Returns `actualX`, `actualY`, `collisions`, `length`.
 --- 
---- actualX, actualY
+--- `actualX`, `actualY`
 --- 
 --- 	
 --- 
---- the final position of the sprite. If no collisions occurred, this will be the same as goalX, goalY.
+--- the final position of the sprite. If no collisions occurred, this will be the same as `goalX`, `goalY`.
 --- 
 --- 
 --- 
 --- 
---- collisions
+--- `collisions`
 --- 
 --- 	
 --- 
 --- an array of userdata objects containing information about all collisions that occurred. Each item in the array contains values for the following indices:
 --- 
---- - sprite: The sprite being moved.
+--- - `sprite`: The sprite being moved.
 --- 
---- - other: The sprite colliding with the sprite being moved.
+--- - `other`: The sprite colliding with the sprite being moved.
 --- 
---- - type: The result of collisionResponse.
+--- - `type`: The result of `collisionResponse`.
 --- 
---- - overlaps: Boolean. True if the sprite was overlapping other when the collision started. False if it didn’t overlap but tunneled through other.
+--- - `overlaps`: Boolean. True if the sprite was overlapping `other` when the collision started. False if it didn’t overlap but tunneled through `other`.
 --- 
---- - ti: A number between 0 and 1 indicating how far along the movement to the goal the collision occurred.
+--- - `ti`: A number between 0 and 1 indicating how far along the movement to the goal the collision occurred.
 --- 
---- - move: playdate.geometry.vector2D. The difference between the original coordinates and the actual ones when the collision happened.
+--- - `move`: playdate.geometry.vector2D. The difference between the original coordinates and the actual ones when the collision happened.
 --- 
---- - normal: playdate.geometry.vector2D. The collision normal; usually -1, 0, or 1 in x and y. Use this value to determine things like if your character is touching the ground.
+--- - `normal`: playdate.geometry.vector2D. The collision normal; usually -1, 0, or 1 in `x` and `y`. Use this value to determine things like if your character is touching the ground.
 --- 
---- - touch: playdate.geometry.point. The coordinates where the sprite started touching other.
+--- - `touch`: playdate.geometry.point. The coordinates where the sprite started touching `other`.
 --- 
---- - spriteRect: playdate.geometry.rect. The rectangle the sprite occupied when the touch happened.
+--- - `spriteRect`: playdate.geometry.rect. The rectangle the sprite occupied when the touch happened.
 --- 
---- - otherRect: playdate.geometry.rect. The rectangle other occupied when the touch happened.
+--- - `otherRect`: playdate.geometry.rect. The rectangle other occupied when the touch happened.
 --- 
---- If the collision type was playdate.graphics.sprite.kCollisionTypeBounce the table also contains bounce, a playdate.geometry.point indicating the coordinates to which the sprite attempted to bounce (could be different than actualX, actualY if further collisions occurred).
+--- If the collision type was `playdate.graphics.sprite.kCollisionTypeBounce` the table also contains `bounce`, a playdate.geometry.point indicating the coordinates to which the sprite attempted to bounce (could be different than `actualX`, `actualY` if further collisions occurred).
 --- 
---- If the collision type was playdate.graphics.sprite.kCollisionTypeSlide the table also contains slide, a playdate.geometry.point indicating the coordinates to which the sprite attempted to slide.
---- 
---- 
+--- If the collision type was `playdate.graphics.sprite.kCollisionTypeSlide` the table also contains `slide`, a playdate.geometry.point indicating the coordinates to which the sprite attempted to slide.
 --- 
 --- 
---- length
+--- 
+--- 
+--- `length`
 --- 
 --- 	
 --- 
---- the length of the collisions array, equal to #collisions
+--- the length of the collisions array, equal to `#collisions`
 --- 
---- Note that the collision info items are only valid until the next call of moveWithCollisions or checkCollisions. To save collision information for later, the data should be copied out of the collision info userdata object.
+--- Note that the collision info items are only valid until the next call of `moveWithCollisions` or `checkCollisions`. To save collision information for later, the data should be copied out of the collision info userdata object.
 --- 
 --- See also checkCollisions() to check for collisions without actually moving the sprite.
 --- 
 --- ### Overload 2 ###
---- Moves the sprite towards goalPoint taking collisions into account, which means the sprite’s final position may not be the same as goalPoint.
+--- Moves the sprite towards `goalPoint` taking collisions into account, which means the sprite’s final position may not be the same as `goalPoint`.
 --- 
---- Returns actualX, actualY, collisions, length.
+--- Returns `actualX`, `actualY`, `collisions`, `length`.
 --- 
---- actualX, actualY
+--- `actualX`, `actualY`
 --- 
 --- 	
 --- 
---- the final position of the sprite. If no collisions occurred, this will be the same as goalX, goalY.
+--- the final position of the sprite. If no collisions occurred, this will be the same as `goalX`, `goalY`.
 --- 
 --- 
 --- 
 --- 
---- collisions
+--- `collisions`
 --- 
 --- 	
 --- 
 --- an array of userdata objects containing information about all collisions that occurred. Each item in the array contains values for the following indices:
 --- 
---- - sprite: The sprite being moved. - other: The sprite colliding with the sprite being moved. - type: The result of collisionResponse. - overlaps: Boolean. True if the sprite was overlapping other when the collision started. False if it didn’t overlap but tunneled through other. - ti: A number between 0 and 1 indicating how far along the movement to the goal the collision occurred. - move: playdate.geometry.vector2D. The difference between the original coordinates and the actual ones when the collision happened. - normal: playdate.geometry.vector2D. The collision normal; usually -1, 0, or 1 in x and y. Use this value to determine things like if your character is touching the ground. - touch: playdate.geometry.point. The coordinates where the sprite started touching other. - spriteRect: playdate.geometry.rect. The rectangle the sprite occupied when the touch happened. - otherRect: playdate.geometry.rect. The rectangle other occupied when the touch happened.
+--- - `sprite`: The sprite being moved. - `other`: The sprite colliding with the sprite being moved. - `type`: The result of `collisionResponse`. - `overlaps`: Boolean. True if the sprite was overlapping `other` when the collision started. False if it didn’t overlap but tunneled through `other`. - `ti`: A number between 0 and 1 indicating how far along the movement to the goal the collision occurred. - `move`: playdate.geometry.vector2D. The difference between the original coordinates and the actual ones when the collision happened. - `normal`: playdate.geometry.vector2D. The collision normal; usually -1, 0, or 1 in `x` and `y`. Use this value to determine things like if your character is touching the ground. - `touch`: playdate.geometry.point. The coordinates where the sprite started touching `other`. - `spriteRect`: playdate.geometry.rect. The rectangle the sprite occupied when the touch happened. - `otherRect`: playdate.geometry.rect. The rectangle other occupied when the touch happened.
 --- 
---- If the collision type was playdate.graphics.sprite.kCollisionTypeBounce the table also contains bounce, a playdate.geometry.point indicating the coordinates to which the sprite attempted to bounce (could be different than actualX, actualY if further collisions occurred).
+--- If the collision type was `playdate.graphics.sprite.kCollisionTypeBounce` the table also contains `bounce`, a playdate.geometry.point indicating the coordinates to which the sprite attempted to bounce (could be different than `actualX`, `actualY` if further collisions occurred).
 --- 
---- If the collision type was playdate.graphics.sprite.kCollisionTypeSlide the table also contains slide, a playdate.geometry.point indicating the coordinates to which the sprite attempted to slide.
---- 
---- 
+--- If the collision type was `playdate.graphics.sprite.kCollisionTypeSlide` the table also contains `slide`, a playdate.geometry.point indicating the coordinates to which the sprite attempted to slide.
 --- 
 --- 
---- length
+--- 
+--- 
+--- `length`
 --- 
 --- 	
 --- 
---- the length of the collisions array, equal to #collisions
+--- the length of the collisions array, equal to `#collisions`
 --- 
---- Note that the collision info items are only valid until the next call of moveWithCollisions or checkCollisions. To save collision information for later, the data should be copied out of the collision info userdata object.
+--- Note that the collision info items are only valid until the next call of `moveWithCollisions` or `checkCollisions`. To save collision information for later, the data should be copied out of the collision info userdata object.
 --- 
 --- See also checkCollisions() to check for collisions without actually moving the sprite.
 ---@field moveWithCollisions (fun(self: pd_sprite, goalX: number, goalY: number): (number, number, pd_sprite_collision_info[], integer)) | (fun(self: pd_sprite, goalPoint: pd_point): (number, number, pd_sprite_collision_info[], integer))
 --- Returns the same values as moveWithCollisions() but does not actually move the sprite.
 ---@field checkCollisions (fun(self: pd_sprite, x: number, y: number): (number, number, pd_sprite_collision_info[], integer)) | (fun(self: pd_sprite, point: pd_point): (number, number, pd_sprite_collision_info[], integer))
---- A callback that can be defined on a sprite to control the type of collision response that should happen when a collision with other occurs. This callback should return one of the following four values:
+--- A callback that can be defined on a sprite to control the type of collision response that should happen when a collision with `other` occurs. This callback should return one of the following four values:
 --- 
---- playdate.graphics.sprite.kCollisionTypeSlide: Use for collisions that should slide over other objects, like Super Mario does over a platform or the ground.
+--- `playdate.graphics.sprite.kCollisionTypeSlide`: Use for collisions that should slide over other objects, like Super Mario does over a platform or the ground.
 --- 
---- playdate.graphics.sprite.kCollisionTypeFreeze: Use for collisions where the sprite should stop moving as soon as it collides with other, such as an arrow hitting a wall.
+--- `playdate.graphics.sprite.kCollisionTypeFreeze`: Use for collisions where the sprite should stop moving as soon as it collides with `other`, such as an arrow hitting a wall.
 --- 
---- playdate.graphics.sprite.kCollisionTypeOverlap: Use for collisions in which you want to know about the collision but it should not impact the movement of the sprite, such as when collecting a coin.
+--- `playdate.graphics.sprite.kCollisionTypeOverlap`: Use for collisions in which you want to know about the collision but it should not impact the movement of the sprite, such as when collecting a coin.
 --- 
---- playdate.graphics.sprite.kCollisionTypeBounce: Use when the sprite should move away from other, like the ball in Pong or Arkanoid.
+--- `playdate.graphics.sprite.kCollisionTypeBounce`: Use when the sprite should move away from `other`, like the ball in Pong or Arkanoid.
 --- 
 --- The strings "slide", "freeze", "overlap", and "bounce" can be used instead of the constants.
 --- 
---- Feel free to return different values based on the value of other. For example, if other is a wall sprite, you may want to return "slide" or "bounce", but if it’s a coin you might return "overlap".
+--- Feel free to return different values based on the value of `other`. For example, if `other` is a wall sprite, you may want to return "slide" or "bounce", but if it’s a coin you might return "overlap".
 --- 
---- If the callback is not present, or returns nil, kCollisionTypeFreeze is used.
+--- If the callback is not present, or returns nil, `kCollisionTypeFreeze` is used.
 --- 
 --- Instead of defining a callback, the collisionResponse property of a sprite can be set directly to one of the four collision response types. This will be faster, as the lua function will not need to be called, but does not allow for dynamic behavior.
 --- 
@@ -3142,9 +3142,9 @@ kTextAlignment = kTextAlignment
 ---@field collisionResponse nil | ((fun(self: pd_sprite, other: pd_sprite): pd_collision_type) | (pd_collision_type))
 
 ---@class pd_font_lib
---- Returns a playdate.graphics.font object from the data at path. If there is no file at path, the function returns nil.
+--- Returns a playdate.graphics.font object from the data at `path`. If there is no file at `path`, the function returns nil.
 ---@field new fun(path: string): pd_font
---- Returns a font family table from the font files specified in fontPaths. fontPaths should be a table with the following format:
+--- Returns a font family table from the font files specified in `fontPaths`. `fontPaths` should be a table with the following format:
 --- 
 --- local fontPaths = {
 ---  [playdate.graphics.font.kVariantNormal] = "path/to/normalFont",
@@ -3160,15 +3160,15 @@ kTextAlignment = kTextAlignment
 ---@class pd_font
 --- Draws a string at the specified x, y coordinate using this particular font instance. (Compare to playdate.graphics.drawText(text, x, y), which draws the string with whatever the "current font", as defined by playdate.graphics.setFont(font)).
 --- 
---- The optional leadingAdjustment may be used to modify the spacing between lines of text. Pass nil to use the default leading for the font.
+--- The optional `leadingAdjustment` may be used to modify the spacing between lines of text. Pass nil to use the default leading for the font.
 --- 
---- Returns width, height, indicating the size in pixels of the drawn text.
+--- Returns `width`, `height`, indicating the size in pixels of the drawn text.
 --- 
 --- font:drawText() does not support inline styles like bold and italics. Instead use playdate.graphics.drawText().
 ---@field drawText fun(self: pd_font, text: string, x: number, y: number, leadingAdjustment?: number): (number, number)
---- You must import CoreLibs/graphics to use this function.
+--- You must import `CoreLibs/graphics` to use this function.
 --- 
---- Draws the string text aligned to the left, right, or centered on the x coordinate. Pass one of kTextAlignment.left, kTextAlignment.center, kTextAlignment.right for the alignment parameter. (Compare to playdate.graphics.drawTextAligned(text, x, y, alignment), which draws the string with the "current font", as defined by playdate.graphics.setFont(font)).
+--- Draws the string `text` aligned to the left, right, or centered on the `x` coordinate. Pass one of `kTextAlignment.left`, `kTextAlignment.center`, `kTextAlignment.right` for the `alignment` parameter. (Compare to playdate.graphics.drawTextAligned(text, x, y, alignment), which draws the string with the "current font", as defined by playdate.graphics.setFont(font)).
 ---@field drawTextAligned fun(self: pd_font, text: string, x: number, y: number, alignment: pd_text_alignment, leadingAdjustment?: number)
 --- Returns the pixel height of this font.
 ---@field getHeight fun(self: pd_font): number
@@ -3186,15 +3186,15 @@ kTextAlignment = kTextAlignment
 ---@field setLeading fun(self: pd_font, pixels: number)
 --- Returns the leading (spacing between lines) of this font, in pixels.
 ---@field getLeading fun(self: pd_font): number
---- Returns the playdate.graphics.image containing the requested glyph. character can either be a string or a unicode codepoint number.
+--- Returns the playdate.graphics.image containing the requested glyph. `character` can either be a string or a unicode codepoint number.
 ---@field getGlyph fun(self: pd_font, character: string|number): pd_image
 
 ---@class pd_video_lib
---- Returns a playdate.graphics.video object from the pdv file at path. If the file at path can’t be opened, the function returns nil.
+--- Returns a playdate.graphics.video object from the pdv file at `path`. If the file at `path` can’t be opened, the function returns nil.
 ---@field new fun(path: string): pd_video
 
 ---@class pd_video
---- Returns the width and height of the video as multiple vlaues (width, height).
+--- Returns the width and height of the video as multiple vlaues (`width`, `height`).
 ---@field getSize fun(self: pd_video): (number, number)
 --- Returns the number of frames in the video.
 ---@field getFrameCount fun(self: pd_video): number
@@ -3216,45 +3216,45 @@ kTextAlignment = kTextAlignment
 --- 
 --- coordinates, if supplied, should be a table containing tables of x, y values, indexed by node IDs. For example, {{10, 10}, {50, 30}, {20, 100}, {100, 120}, {160, 130}}.
 ---@field new fun(nodeCount?: number, coordinates?: table<1|2, number>[]): pd_graph
---- Convenience function that returns a new playdate.pathfinder.graph object containing nodes for for each grid position, even if not connected to any other nodes. This allows for easier graph modification once the graph is generated. Weights for connections between nodes are set to 10 for horizontal and vertical connections and 14 for diagonal connections (if included), as this tends to produce nicer paths than using uniform weights. Nodes have their indexes set from 1 to width * height, and have their x, y values set appropriately for the node’s position.
+--- Convenience function that returns a new playdate.pathfinder.graph object containing nodes for for each grid position, even if not connected to any other nodes. This allows for easier graph modification once the graph is generated. Weights for connections between nodes are set to 10 for horizontal and vertical connections and 14 for diagonal connections (if included), as this tends to produce nicer paths than using uniform weights. Nodes have their indexes set from 1 to `width` * `height`, and have their `x, y` values set appropriately for the node’s position.
 --- 
---- width: The width of the grid to be created.
+--- `width`: The width of the grid to be created.
 --- 
---- height: The height of the grid to be created.
+--- `height`: The height of the grid to be created.
 --- 
---- allowDiagonals: If true, diagonal connections will also be created.
+--- `allowDiagonals`: If true, diagonal connections will also be created.
 --- 
---- includedNodes: A one-dimensional array of length width * height. Each entry should be a 1 or a 0 to indicate nodes that should be connected to their neighbors and nodes that should not have any connections added. If not provided, all nodes will be connected to their neighbors.
+--- `includedNodes`: A one-dimensional array of length `width` * `height`. Each entry should be a 1 or a 0 to indicate nodes that should be connected to their neighbors and nodes that should not have any connections added. If not provided, all nodes will be connected to their neighbors.
 ---@field new2DGrid fun(width: number, height: number, allowDiagonals?: boolean, includedNodes?: integer[]): pd_graph
 
 ---@class pd_graph
 --- Creates a new playdate.pathfinder.node and adds it to the graph.
 --- 
---- id: id value for the new node.
+--- `id`: id value for the new node.
 --- 
---- x: Optional x value for the node.
+--- `x`: Optional x value for the node.
 --- 
---- y: Optional y value for the node.
+--- `y`: Optional y value for the node.
 --- 
---- connectedNodes: Array of existing nodes to create connections to from the new node.
+--- `connectedNodes`: Array of existing nodes to create connections to from the new node.
 --- 
---- weights: Array of weights for the new connections. Array must be the same length as connectedNodes. Weights affect the path the A* algorithm will solve for. A longer, lighter-weighted path will be chosen over a shorter heavier path, if available.
+--- `weights`: Array of weights for the new connections. Array must be the same length as `connectedNodes`. Weights affect the path the A* algorithm will solve for. A longer, lighter-weighted path will be chosen over a shorter heavier path, if available.
 --- 
---- addReciprocalConnections: If true, connections will also be added in the reverse direction for each node.
+--- `addReciprocalConnections`: If true, connections will also be added in the reverse direction for each node.
 ---@field addNewNode fun(self: pd_graph, id: integer, x?: number, y?: number, connectedNodes?: pd_node[], weights?: number[], addReciprocalConnections?: boolean)
---- Creates count new nodes, adding them to the graph, and returns them in an array-style table. The new node’s id_s will be assigned values 1 through _count-1.
+--- Creates `count` new nodes, adding them to the graph, and returns them in an array-style table. The new node’s `id_s will be assigned values 1 through _count`-1.
 --- 
 --- This method is useful to improve performance if many nodes need to be allocated at once rather than one at a time, for example when creating a new graph.
 ---@field addNewNodes fun(self: pd_graph, count: number): pd_node[]
 --- Adds an already-existing node to the graph. The node must have originally belonged to the same graph.
 --- 
---- node: Node to be added to the graph.
+--- `node`: Node to be added to the graph.
 --- 
---- connectedNodes: Array of existing nodes to create connections to from the new node.
+--- `connectedNodes`: Array of existing nodes to create connections to from the new node.
 --- 
---- weights: Array of weights for the new connections. Array must be the same length as connectedNodes. Weights affect the path the A* algorithm will solve for. A longer, lighter-weighted path will be chosen over a shorter heavier path, if available.
+--- `weights`: Array of weights for the new connections. Array must be the same length as `connectedNodes`. Weights affect the path the A* algorithm will solve for. A longer, lighter-weighted path will be chosen over a shorter heavier path, if available.
 --- 
---- addReciprocalConnections: If true, connections will also be added in the reverse direction for each connection added.
+--- `addReciprocalConnections`: If true, connections will also be added in the reverse direction for each connection added.
 ---@field addNode fun(self: pd_graph, node: pd_node, connectedNodes?: pd_node[], weights?: number[], addReciprocalConnections?: boolean)
 --- Adds an array of already-existing nodes to the graph.
 ---@field addNodes fun(self: pd_graph, nodes: pd_node[])
@@ -3262,13 +3262,13 @@ kTextAlignment = kTextAlignment
 ---@field allNodes fun(self: pd_graph): pd_node[]
 --- Removes node from the graph. Also removes all connections to and from the node.
 ---@field removeNode fun(self: pd_graph, node: pd_node)
---- Returns the first node found with coordinates matching x, y, after removing it from the graph and removing all connections to and from the node.
+--- Returns the first node found with coordinates matching `x, y`, after removing it from the graph and removing all connections to and from the node.
 ---@field removeNodeWithXY fun(self: pd_graph, x: number, y: number): pd_node
---- Returns the first node found with a matching id, after removing it from the graph and removing all connections to and from the node.
+--- Returns the first node found with a matching `id`, after removing it from the graph and removing all connections to and from the node.
 ---@field removeNodeWithID fun(self: pd_graph, id: integer): pd_node
---- Returns the first node found in the graph with a matching id, or nil if no such node is found.
+--- Returns the first node found in the graph with a matching `id`, or nil if no such node is found.
 ---@field nodeWithID fun(self: pd_graph, id: integer): pd_node?
---- Returns the first node found in the graph with matching x and y values, or nil if no such node is found.
+--- Returns the first node found in the graph with matching `x` and `y` values, or nil if no such node is found.
 ---@field nodeWithXY fun(self: pd_graph, x: number, y: number): pd_node?
 --- connections should be a table of array-style tables. The keys of the outer table should correspond to node IDs, while the inner array should be a series if connecting node ID and weight combinations that will be assigned to that node. For example, {[1]={2, 10, 3, 12}, [2]={1, 20}, [3]={1, 20, 2, 10}} will create a connection from node ID 1 to node ID 2 with a weight of 10, and a connection to node ID 3 with a weight of 12, and so on for the other entries.
 ---@field addConnections fun(self: pd_graph, connections: number[][])
@@ -3280,11 +3280,11 @@ kTextAlignment = kTextAlignment
 --- 
 --- If removeIncoming is true, all connections from other nodes to the calling node are also removed. False by default. Please note: this can signficantly increase the time this function takes as it requires a full search of the graph - O(1) vs O(n)).
 ---@field removeAllConnectionsFromNodeWithID fun(self: pd_graph, id: integer, removeIncoming?: boolean)
---- Returns an array of nodes representing the path from startNode to goalNode, or nil if no path can be found.
+--- Returns an array of nodes representing the path from `startNode` to `goalNode`, or `nil` if no path can be found.
 --- 
---- heuristicFunction: If provided, this function should be of the form function(startNode, goalNode) and should return an integer value estimate or underestimate of the distance from startNode to goalNode. If not provided, a manhattan distance function will be used to calculate the estimate. This requires that the x, y values of the nodes in the graph have been set properly.
+--- `heuristicFunction`: If provided, this function should be of the form `function(startNode, goalNode)` and should return an integer value estimate or underestimate of the distance from `startNode` to `goalNode`. If not provided, a manhattan distance function will be used to calculate the estimate. This requires that the `x, y` values of the nodes in the graph have been set properly.
 --- 
---- findPathToGoalAdjacentNodes: If true, a path will be found to any node adjacent to the goal node, based on the x, y values of those nodes and the goal node. This does not rely on connections between adjacent nodes and the goal node, which can be entirely disconnected from the rest of the graph.
+--- `findPathToGoalAdjacentNodes`: If true, a path will be found to any node adjacent to the goal node, based on the `x, y` values of those nodes and the goal node. This does not rely on connections between adjacent nodes and the goal node, which can be entirely disconnected from the rest of the graph.
 ---@field findPath fun(self: pd_graph, startNode: pd_node, goalNode: pd_node, heuristicFunction?: nil | (fun(pd_node, pd_node): number), findPathToGoalAdjacentNodes?: boolean): pd_node[]?
 --- Works the same as findPath, but looks up nodes to find a path between using startNodeID and goalNodeID and returns a list of nodeIDs rather than the nodes themselves.
 ---@field findPathWithIDs fun(self: pd_graph, startNodeID: integer, goalNodeID: integer, heuristicFunction?: nil | (fun(pd_node, pd_node): number), findPathToGoalAdjacentNodes?: boolean): integer[]?
@@ -3296,35 +3296,35 @@ kTextAlignment = kTextAlignment
 ---@class pd_node
 --- Adds a new connection between nodes.
 --- 
---- node: The node the new connection will point to.
+--- `node`: The node the new connection will point to.
 --- 
---- weight: Weight for the new connection. Weights affect the path the A* algorithm will solve for. A longer, lighter-weighted path will be chosen over a shorter heavier path, if available.
+--- `weight`: Weight for the new connection. Weights affect the path the A* algorithm will solve for. A longer, lighter-weighted path will be chosen over a shorter heavier path, if available.
 --- 
---- addReciprocalConnection: If true, a second connection will be created with the same weight in the opposite direction.
+--- `addReciprocalConnection`: If true, a second connection will be created with the same weight in the opposite direction.
 ---@field addConnection fun(self: pd_node, node: pd_node, weight: number, addReciprocalConnection: boolean)
 --- Adds a new connection to each node in the nodes array.
 --- 
---- nodes: An array of nodes which the new connections will point to.
+--- `nodes`: An array of nodes which the new connections will point to.
 --- 
---- weights: An array of weights for the new connections. Must be of the same length as the nodes array. Weights affect the path the A* algorithm will solve for. A longer, lighter-weighted path will be chosen over a shorter heavier path, if available.
+--- `weights`: An array of weights for the new connections. Must be of the same length as the nodes array. Weights affect the path the A* algorithm will solve for. A longer, lighter-weighted path will be chosen over a shorter heavier path, if available.
 --- 
---- addReciprocalConnections: If true, connections will also be added in the reverse direction for each node.
+--- `addReciprocalConnections`: If true, connections will also be added in the reverse direction for each node.
 ---@field addConnections fun(self: pd_node, nodes: pd_node[], weights: number[], addReciprocalConnections: boolean)
---- Adds a connection to the first node found with matching x and y values, if it exists.
+--- Adds a connection to the first node found with matching `x` and `y` values, if it exists.
 --- 
---- weight: The weight for the new connection. Weights affect the path the A* algorithm will solve for. A longer, lighter-weighted path will be chosen over a shorter heavier path, if available.
+--- `weight`: The weight for the new connection. Weights affect the path the A* algorithm will solve for. A longer, lighter-weighted path will be chosen over a shorter heavier path, if available.
 --- 
---- addReciprocalConnections: If true, a connection will also be added in the reverse direction, from the node at x, y to the caller.
+--- `addReciprocalConnections`: If true, a connection will also be added in the reverse direction, from the node at x, y to the caller.
 ---@field addConnectionToNodeWithXY fun(self: pd_node, x: number, y: number, weight: number, addReciprocalConnection: boolean)
 --- Returns an array of nodes that have been added as connections to this node.
 ---@field connectedNodes fun(self: pd_node): pd_node[]
---- Removes a connection to node, if it exists. If removeReciprocal is true the reverse connection will also be removed, if it exists.
+--- Removes a connection to node, if it exists. If `removeReciprocal` is true the reverse connection will also be removed, if it exists.
 ---@field removeConnection fun(self: pd_node, node: pd_node, removeReciprocal?: boolean)
 --- Removes all connections from the calling node.
 --- 
 --- If removeIncoming is true, all connections from other nodes to the calling node are also removed. False by default. Please note: this can signficantly increase the time this function takes as it requires a full search of the graph - O(1) vs O(n)).
 ---@field removeAllConnections fun(self: pd_node, removeIncoming?: boolean)
---- Sets the x and y values for the node.
+--- Sets the `x` and `y` values for the node.
 ---@field setXY fun(self: pd_node, x: number, y: number)
 --- You can directly read or write x, y and id values on a playdate.pathfinder.node.
 ---@field x number
@@ -3344,19 +3344,19 @@ kTextAlignment = kTextAlignment
 ---@class pd_sampleplayer
 --- Returns a new playdate.sound.sampleplayer with the same sample, volume, and rate as the given sampleplayer.
 ---@field copy fun(self: pd_sampleplayer): pd_sampleplayer
---- Starts playing the sample. If repeatCount is greater than one, it loops the given number of times. If zero, it loops endlessly until it is stopped with playdate.sound.sampleplayer:stop(). If rate is set, the sample will be played at the given rate instead of the rate previous set with playdate.sound.sampleplayer.setRate().
+--- Starts playing the sample. If `repeatCount` is greater than one, it loops the given number of times. If zero, it loops endlessly until it is stopped with playdate.sound.sampleplayer:stop(). If `rate` is set, the sample will be played at the given rate instead of the rate previous set with playdate.sound.sampleplayer.setRate().
 ---@field play fun(self: pd_sampleplayer, repeatCount?: number, rate?: number)
---- Schedules the sound for playing at device time when. If vol is specified, the sample will be played at level vol (with optional separate right channel volume rightvol). If when is less than the current device time, the sample is played immediately. If rate is set, the sample will be played at the given rate instead of the rate previous set with playdate.sound.sampleplayer.setRate().
+--- Schedules the sound for playing at device time `when`. If `vol` is specified, the sample will be played at level `vol` (with optional separate right channel volume `rightvol`). If `when` is less than the current device time, the sample is played immediately. If `rate` is set, the sample will be played at the given rate instead of the rate previous set with playdate.sound.sampleplayer.setRate().
 --- 
 --- The function returns true if the sample was successfully added to the sound channel, otherwise false (i.e., if the channel is full).
 ---@field playAt fun(self: pd_sampleplayer, when: number, vol?: number, rightvol?: number, rate?: number): boolean
---- Sets the playback volume (0.0 - 1.0) for left and right channels. If the optional right argument is omitted, it is the same as left.
+--- Sets the playback volume (0.0 - 1.0) for left and right channels. If the optional `right` argument is omitted, it is the same as `left`.
 ---@field setVolume fun(self: pd_sampleplayer, left: number, right?: number)
 --- Returns the playback volume for the sampleplayer, a single value for mono sources or a pair of values (left, right) for stereo sources.
 ---@field getVolume fun(self: pd_sampleplayer): number
---- Sets a function to be called every time the sample loops. The sample object is passed to this function as the first argument, and the optional arg argument is passed as the second.
+--- Sets a function to be called every time the sample loops. The sample object is passed to this function as the first argument, and the optional `arg` argument is passed as the second.
 ---@field setLoopCallback fun(self: pd_sampleplayer, callback: fun(pd_sample, any), arg?: any)
---- Sets the range of the sample to play. start and end are frame offsets from the beginning of the sample.
+--- Sets the range of the sample to play. `start` and `end` are frame offsets from the beginning of the sample.
 ---@field setPlayRange fun(self: pd_sampleplayer, start: number, end: number)
 --- Pauses or resumes playback.
 ---@field setPaused fun(self: pd_sampleplayer, flag: boolean)
@@ -3364,7 +3364,7 @@ kTextAlignment = kTextAlignment
 ---@field isPlaying fun(self: pd_sampleplayer): boolean
 --- Stops playing the sample.
 ---@field stop fun(self: pd_sampleplayer)
---- Sets a function to be called when playback has completed. The sample object is passed to this function as the first argument, and the optional arg argument is passed as the second.
+--- Sets a function to be called when playback has completed. The sample object is passed to this function as the first argument, and the optional `arg` argument is passed as the second.
 ---@field setFinishCallback fun(self: pd_sampleplayer, func: fun(pd_sample, any), arg?: any)
 --- Sets the sample to be played.
 ---@field setSample fun(self: pd_sampleplayer, sample: pd_sample)
@@ -3387,20 +3387,20 @@ kTextAlignment = kTextAlignment
 --- ### Overload 1 ###
 --- Returns a fileplayer object, which can stream samples from disk. The file to play is set with the playdate.sound.fileplayer:load() function.
 --- 
---- If given, buffersize specifies the size in seconds of the fileplayer’s data buffer. A shorter value reduces the latency of a playdate.sound.fileplayer:setOffset() call, but increases the chance of a buffer underrun.
+--- If given, `buffersize` specifies the size in seconds of the fileplayer’s data buffer. A shorter value reduces the latency of a playdate.sound.fileplayer:setOffset() call, but increases the chance of a buffer underrun.
 --- 
 --- ### Overload 2 ###
---- Returns a fileplayer object for streaming samples from the file at path. Note that the file isn’t loaded until playdate.sound.fileplayer:play() or playdate.sound.fileplayer:setBufferSize() is called, in order to reduce initialization overhead.
+--- Returns a fileplayer object for streaming samples from the file at `path`. Note that the file isn’t loaded until playdate.sound.fileplayer:play() or playdate.sound.fileplayer:setBufferSize() is called, in order to reduce initialization overhead.
 --- 
---- If given, buffersize specifies the size in seconds of the fileplayer’s data buffer. A shorter value reduces the latency of a playdate.sound.fileplayer:setOffset() call, but increases the chance of a buffer underrun.
+--- If given, `buffersize` specifies the size in seconds of the fileplayer’s data buffer. A shorter value reduces the latency of a playdate.sound.fileplayer:setOffset() call, but increases the chance of a buffer underrun.
 ---@field new (fun(buffersize?: number): pd_fileplayer) | (fun(path: string, buffersize?: number): pd_fileplayer)
 
 ---@class pd_fileplayer
---- Instructs the fileplayer to load the file at path when play() is called on it. The fileplayer must not be playing when this function is called. The fileplayer’s play offset is reset to the beginning of the file, and its loop range is cleared.
+--- Instructs the fileplayer to load the file at `path` when play() is called on it. The fileplayer must not be playing when this function is called. The fileplayer’s play offset is reset to the beginning of the file, and its loop range is cleared.
 ---@field load fun(self: pd_fileplayer, path: string)
 --- Opens and starts playing the file, first creating and filling a 1/4 second playback buffer if a buffer size hasn’t been set yet.
 --- 
---- If repeatCount is set, playback repeats when it reaches the end of the file or the end of the loop range if one is set. After the loop has run repeatCount times, it continues playing to the end of the file. A repeatCount of zero loops endlessly. If repeatCount is not set, the file plays once.
+--- If repeatCount is set, playback repeats when it reaches the end of the file or the end of the loop range if one is set. After the loop has run `repeatCount` times, it continues playing to the end of the file. A `repeatCount` of zero loops endlessly. If repeatCount is not set, the file plays once.
 --- 
 --- The function returns true if the file was successfully opened and the fileplayer added to the sound channel, otherwise false and a string describing the error.
 ---@field play fun(self: pd_fileplayer, repeatCount?: number): boolean
@@ -3412,11 +3412,11 @@ kTextAlignment = kTextAlignment
 ---@field isPlaying fun(self: pd_fileplayer): boolean
 --- Returns the length, in seconds, of the audio file.
 ---@field getLength fun(self: pd_fileplayer): number
---- Sets a function to be called when playback has completed. The fileplayer is passed as the first argument to func. The optional argument arg is passed as the second.
+--- Sets a function to be called when playback has completed. The fileplayer is passed as the first argument to `func`. The optional argument `arg` is passed as the second.
 ---@field setFinishCallback fun(self: pd_fileplayer, func: fun(pd_fileplayer, any), arg?: any)
 --- Returns the fileplayer’s underrun flag, indicating that the player ran out of data. This can be checked in the finish callback function to check for an underrun error.
 ---@field didUnderrun fun(self: pd_fileplayer): boolean
---- By default, the fileplayer stops playback if it can’t provide data fast enough. Setting the flag to false tells the fileplayer to restart playback (after an audible stutter) as soon as data is available.
+--- By default, the fileplayer stops playback if it can’t provide data fast enough. Setting the flag to `false` tells the fileplayer to restart playback (after an audible stutter) as soon as data is available.
 ---@field setStopOnUnderrun fun(self: pd_fileplayer, flag: boolean)
 --- Provides a way to loop a portion of an audio file. In the following code:
 --- 
@@ -3426,15 +3426,15 @@ kTextAlignment = kTextAlignment
 --- 
 --- …the fileplayer will start playing from the beginning of the audio file, loop the 10-20 second range three times, and then stop playing.
 --- 
---- start and end are specified in seconds. If end is omitted, the end of the file is used. If the function loopCallback is provided, it is called every time the player loops, with the fileplayer as the first argument and the optional arg argument as the second.
+--- `start` and `end` are specified in seconds. If `end` is omitted, the end of the file is used. If the function `loopCallback` is provided, it is called every time the player loops, with the fileplayer as the first argument and the optional `arg` argument as the second.
 --- 
---- The fileplayer:play([repeatCount]) call needs to be invoked with a repeatCount value of 0 (infinite looping), or 2 or greater in order for the looping action to happen.
+--- The fileplayer:play([repeatCount]) call needs to be invoked with a `repeatCount` value of 0 (infinite looping), or 2 or greater in order for the looping action to happen.
 ---@field setLoopRange fun(self: pd_fileplayer, start: number, end?: number, loopCallback?: fun(pd_fileplayer, any), arg?: any)
---- Sets a function to be called every time the fileplayer loops. The fileplayer object is passed to this function as the first argument, and arg as the second.
+--- Sets a function to be called every time the fileplayer loops. The fileplayer object is passed to this function as the first argument, and `arg` as the second.
 --- 
---- The fileplayer:play([repeatCount]) call needs to be invoked with a repeatCount value of 0 (infinite looping), or 2 or greater in order for the loop callback to be invoked.
+--- The fileplayer:play([repeatCount]) call needs to be invoked with a `repeatCount` value of 0 (infinite looping), or 2 or greater in order for the loop callback to be invoked.
 ---@field setLoopCallback fun(self: pd_fileplayer, callback: fun(pd_fileplayer, any), arg?: any)
---- Sets the buffer size for the fileplayer, in seconds. Larger buffers protect against buffer underruns, but consume more memory. Calling this function also fills the output buffer if a source file has been set. On success, the function returns true; otherwise it returns false and a string describing the error.
+--- Sets the buffer size for the fileplayer, in seconds. Larger buffers protect against buffer underruns, but consume more memory. Calling this function also fills the output buffer if a source file has been set. On success, the function returns `true`; otherwise it returns `false` and a string describing the error.
 ---@field setBufferSize fun(self: pd_fileplayer, seconds: number): boolean
 --- Sets the playback rate for the file. 1.0 is normal speed, 0.5 is down an octave, 2.0 is up an octave, etc. Unlike sampleplayers, fileplayers can’t play in reverse (i.e., rate < 0).
 ---@field setRate fun(self: pd_fileplayer, rate: number)
@@ -3442,7 +3442,7 @@ kTextAlignment = kTextAlignment
 ---@field getRate fun(self: pd_fileplayer): number
 --- Sets the signal to use as a rate modulator, added to the rate set with playdate.sound.fileplayer:setRate().
 ---@field setRateMod fun(self: pd_fileplayer, signal: pd_signal)
---- Sets the playback volume (0.0 - 1.0). If a single value is passed in, both left side and right side volume are set to the given value. If two values are given, volumes are set separately. The optional fadeSeconds specifies the time it takes to fade from the current volume to the specified volume, in seconds. If the function fadeCallback is given, it is called when the volume fade has completed. The fileplayer object is passed as the first argument to the callback, and the optional arg argument is passed as the second.
+--- Sets the playback volume (0.0 - 1.0). If a single value is passed in, both left side and right side volume are set to the given value. If two values are given, volumes are set separately. The optional `fadeSeconds` specifies the time it takes to fade from the current volume to the specified volume, in seconds. If the function `fadeCallback` is given, it is called when the volume fade has completed. The fileplayer object is passed as the first argument to the callback, and the optional `arg` argument is passed as the second.
 ---@field setVolume fun(self: pd_fileplayer, left: number, right?: number, fadeSeconds?: number, fadeCallback?: fun(pd_fileplayer, any), arg?: any)
 --- Returns the current volume for the fileplayer, a single value for mono sources or a pair of values (left, right) for stereo sources.
 ---@field getVolume fun(self: pd_fileplayer): number
@@ -3456,25 +3456,25 @@ kTextAlignment = kTextAlignment
 --- Returns a new playdate.sound.sample object, with the sound data loaded in memory. If the sample can’t be loaded, the function returns nil and a second value containing the error.
 --- 
 --- ### Overload 2 ###
---- Returns a new playdate.sound.sample object, with a buffer size of seconds in the given format. If format is not specified, it defaults to playdate.sound.kFormat16bitStereo. When used with playdate.sound.sample:load(), this allows you to swap in a different sample without re-allocating the buffer, which could lead to memory fragmentation.
+--- Returns a new playdate.sound.sample object, with a buffer size of `seconds` in the given format. If `format` is not specified, it defaults to playdate.sound.kFormat16bitStereo. When used with playdate.sound.sample:load(), this allows you to swap in a different sample without re-allocating the buffer, which could lead to memory fragmentation.
 ---@field new (fun(path: string): pd_sample) | (fun(seconds: number, format?: pd_sound_format): pd_sample)
 
 ---@class pd_sample
 --- Returns a new subsample containing a subrange of the given sample. Offset values are in frames, not bytes.
 ---@field getSubsample fun(self: pd_sample, startOffset: number, endOffset: number): pd_sample
---- Loads the sound data from the file at path into an existing sample buffer. If there is no file at path, the function returns nil.
+--- Loads the sound data from the file at `path` into an existing sample buffer. If there is no file at `path`, the function returns nil.
 ---@field load fun(self: pd_sample, path: string): pd_UNDOCUMENTED?
 --- Returns the sample rate as an integer, such as 44100 or 22050.
 ---@field getSampleRate fun(self: pd_sample): number
 --- Returns the format of the sample, one of
 --- 
---- playdate.sound.kFormat8bitMono
+--- `playdate.sound.kFormat8bitMono`
 --- 
---- playdate.sound.kFormat8bitStereo
+--- `playdate.sound.kFormat8bitStereo`
 --- 
---- playdate.sound.kFormat16bitMono
+--- `playdate.sound.kFormat16bitMono`
 --- 
---- playdate.sound.kFormat16bitStereo
+--- `playdate.sound.kFormat16bitStereo`
 ---@field getFormat fun(self: pd_sample): pd_sound_format
 --- Returns two values, the length of the available sample data and the size of the allocated buffer. Both values are measured in seconds. For a sample loaded from disk, these will be the same; for a sample used for recording, the available data may be less than the allocated size.
 ---@field getLength fun(self: pd_sample): (number, number)
@@ -3524,21 +3524,21 @@ kTextAlignment = kTextAlignment
 ---@field copy fun(self: pd_synth): pd_synth
 --- Plays a note with the current waveform or sample.
 --- 
---- pitch: the pitch value is in Hertz. If a sample is playing, pitch=261.63 (C4) plays at normal speed
+--- `pitch`: the pitch value is in Hertz. If a sample is playing, pitch=261.63 (C4) plays at normal speed
 --- 
 --- in either function, a string like Db3 can be used instead of a number
 --- 
---- volume: 0 to 1, defaults to 1
+--- `volume`: 0 to 1, defaults to 1
 --- 
---- length: in seconds. If omitted, note will play until you call noteOff()
+--- `length`: in seconds. If omitted, note will play until you call noteOff()
 --- 
---- when: seconds since the sound engine started (see playdate.sound.getCurrentTime). Defaults to the current time.
+--- `when`: seconds since the sound engine started (see playdate.sound.getCurrentTime). Defaults to the current time.
 --- 
 --- The function returns true if the synth was successfully added to the sound channel, otherwise false (i.e., if the channel is full).
 --- 
---- If pitch is zero, this function calls noteOff() instead of potentially adding a non-zero sample, or DC offset, to the output.
+--- If `pitch` is zero, this function calls noteOff() instead of potentially adding a non-zero sample, or DC offset, to the output.
 --- 
---- Synths currently only have a buffer of one note event. If you call playNote() while another note is waiting to play, it will replace that note. To create a sequence of notes to play over a period of time, see playdate.sound.sequence.
+--- Synths currently only have a buffer of one note event. If you call `playNote()` while another note is waiting to play, it will replace that note. To create a sequence of notes to play over a period of time, see playdate.sound.sequence.
 ---@field playNote fun(self: pd_synth, pitch: number, volume?: number, length?: number, when?: number): boolean
 --- Identical to playNote but uses a note name like "C4", or MIDI note number (60=C4, 61=C#4, etc.). In the latter case, fractional values are allowed.
 ---@field playMIDINote fun(self: pd_synth, note: string|number, volume?: number, length?: number, when?: number)
@@ -3570,7 +3570,7 @@ kTextAlignment = kTextAlignment
 ---@field setFrequencyMod fun(self: pd_synth, signal: pd_signal)
 --- Sets whether to use legato phrasing for the synth. If the legato flag is set and a new note starts while a previous note is still playing, the synth’s envelope remains in the sustain phase instead of starting a new attack.
 ---@field setLegato fun(self: pd_synth, flag: boolean)
---- Some synth types have extra parameters: The square wave’s one parameter is its duty cycle; the TE synths each have two parameters that change some quality of the sound. Parameter numbers start at 1. value ranges from 0 to 1.
+--- Some synth types have extra parameters: The square wave’s one parameter is its duty cycle; the TE synths each have two parameters that change some quality of the sound. Parameter numbers start at 1. `value` ranges from 0 to 1.
 ---@field setParameter fun(self: pd_synth, parameter: integer, value: number)
 --- Sets the signal to modulate the parameter.
 ---@field setParameterMod fun(self: pd_synth, parameter: number, signal: pd_signal)
@@ -3582,23 +3582,23 @@ kTextAlignment = kTextAlignment
 --- 
 --- Volume values are between 0.0 and 1.0.
 ---@field getVolume fun(self: pd_synth): number
---- Sets the waveform or Sample the synth plays. If a sample is given, its data must be uncompressed PCM, not ADPCM. Otherwise waveform should be one of the following constants:
+--- Sets the waveform or Sample the synth plays. If a sample is given, its data must be uncompressed PCM, not ADPCM. Otherwise `waveform` should be one of the following constants:
 --- 
---- playdate.sound.kWaveSine
+--- `playdate.sound.kWaveSine`
 --- 
---- playdate.sound.kWaveSquare
+--- `playdate.sound.kWaveSquare`
 --- 
---- playdate.sound.kWaveSawtooth
+--- `playdate.sound.kWaveSawtooth`
 --- 
---- playdate.sound.kWaveTriangle
+--- `playdate.sound.kWaveTriangle`
 --- 
---- playdate.sound.kWaveNoise
+--- `playdate.sound.kWaveNoise`
 --- 
---- playdate.sound.kWavePOPhase
+--- `playdate.sound.kWavePOPhase`
 --- 
---- playdate.sound.kWavePODigital
+--- `playdate.sound.kWavePODigital`
 --- 
---- playdate.sound.kWavePOVosim
+--- `playdate.sound.kWavePOVosim`
 ---@field setWaveform fun(self: pd_synth, waveform: pd_waveform|pd_sample)
 
 ---@class pd_signal_lib
@@ -3616,17 +3616,17 @@ kTextAlignment = kTextAlignment
 ---@class pd_lfo : pd_signal
 --- Sets the waveform of the LFO. Valid values are
 --- 
---- playdate.sound.kLFOSquare
+--- `playdate.sound.kLFOSquare`
 --- 
---- playdate.sound.kLFOSawtoothUp
+--- `playdate.sound.kLFOSawtoothUp`
 --- 
---- playdate.sound.kLFOSawtoothDown
+--- `playdate.sound.kLFOSawtoothDown`
 --- 
---- playdate.sound.kLFOTriangle
+--- `playdate.sound.kLFOTriangle`
 --- 
---- playdate.sound.kLFOSine
+--- `playdate.sound.kLFOSine`
 --- 
---- playdate.sound.kLFOSampleAndHold
+--- `playdate.sound.kLFOSampleAndHold`
 ---@field setType fun(self: pd_lfo, type: pd_lfo_type)
 --- Sets the LFO type to arpeggio, where the given values are in half-steps from the center note. For example, the sequence (0, 4, 7, 12) plays the notes of a major chord.
 ---@field setArpeggio fun(self: pd_lfo, note1: number, ...)
@@ -3650,13 +3650,13 @@ kTextAlignment = kTextAlignment
 ---@field new fun(attack?: number, decay?: number, sustain?: number, release?: number): pd_envelope
 
 ---@class pd_envelope : pd_signal
---- Sets the envelope attack time to attack, in seconds.
+--- Sets the envelope attack time to `attack`, in seconds.
 ---@field setAttack fun(self: pd_envelope, attack: number)
---- Sets the envelope decay time to decay, in seconds.
+--- Sets the envelope decay time to `decay`, in seconds.
 ---@field setDecay fun(self: pd_envelope, decay: number)
---- Sets the envelope sustain level to sustain, as a proportion of the maximum. For example, if the sustain level is 0.5, the signal value rises to its full value over the attack phase of the envelope, then drops to half its maximum over the decay phase, and remains there while the envelope is active.
+--- Sets the envelope sustain level to `sustain`, as a proportion of the maximum. For example, if the sustain level is 0.5, the signal value rises to its full value over the attack phase of the envelope, then drops to half its maximum over the decay phase, and remains there while the envelope is active.
 ---@field setSustain fun(self: pd_envelope, sustain: number)
---- Sets the envelope release time to attack, in seconds.
+--- Sets the envelope release time to `attack`, in seconds.
 ---@field setRelease fun(self: pd_envelope, release: number)
 --- Smoothly changes the envelope’s shape from linear (amount=0) to exponential (amount=1).
 ---@field setCurvature fun(self: pd_envelope, amount: number)
@@ -3664,15 +3664,15 @@ kTextAlignment = kTextAlignment
 ---@field setVelocitySensitivity fun(self: pd_envelope, amount: number)
 --- Scales the envelope rate according to the played note. For notes below start, the envelope’s set rate is used; for notes above end envelope rates are scaled by the scaling parameter. Between the two notes the scaling factor is interpolated from 1.0 to scaling. start and end are either MIDI note numbers or names like "C4". If omitted, the default range is C1 (36) to C5 (84).
 ---@field setRateScaling fun(self: pd_envelope, scaling: number, start?: number|string, end?: number|string)
---- Sets scale values to the envelope. The transformed envelope has an initial value of offset and a maximum (minimum if scale is negative) of offset + scale.
+--- Sets scale values to the envelope. The transformed envelope has an initial value of `offset` and a maximum (minimum if `scale` is negative) of `offset` + `scale`.
 ---@field setScale fun(self: pd_envelope, scale: number)
---- Sets scale and offset values to the envelope. The transformed envelope has an initial value of offset and a maximum (minimum if scale is negative) of offset + scale.
+--- Sets scale and offset values to the envelope. The transformed envelope has an initial value of `offset` and a maximum (minimum if `scale` is negative) of `offset` + `scale`.
 ---@field setOffset fun(self: pd_envelope, offset: number)
 --- Sets whether to use legato phrasing for the envelope. If the legato flag is set, when the envelope is re-triggered before it’s released, it remains in the sustain phase instead of jumping back to the attack phase.
 ---@field setLegato fun(self: pd_envelope, flag: boolean)
 --- If retrigger is on, the envelope always starts from 0 when a note starts playing, instead of the current value if it’s active.
 ---@field setRetrigger fun(self: pd_envelope, flag: boolean)
---- Triggers the envelope at the given velocity. If a length parameter is given, the envelope moves to the release phase after the given time. Otherwise, the envelope is held in the sustain phase until the trigger function is called again with velocity equal to zero.
+--- Triggers the envelope at the given `velocity`. If a `length` parameter is given, the envelope moves to the release phase after the given time. Otherwise, the envelope is held in the sustain phase until the trigger function is called again with `velocity` equal to zero.
 ---@field trigger fun(self: pd_envelope, velocity: number, length?: number)
 --- If an envelope is marked global, it is continuously updated whether or not it’s attached to any source.
 ---@field setGlobal fun(self: pd_envelope, flag: boolean)
@@ -3686,7 +3686,7 @@ kTextAlignment = kTextAlignment
 ---@field setMix fun(self: pd_bitcrusher, level: number)
 --- Sets a signal to modulate the mix level.
 ---@field setMixMod fun(self: pd_bitcrusher, signal: pd_signal)
---- Sets the amount of crushing to amt. Valid values are 0 (no effect) to 1 (quantizing output to 1-bit).
+--- Sets the amount of crushing to `amt`. Valid values are 0 (no effect) to 1 (quantizing output to 1-bit).
 ---@field setAmount fun(self: pd_bitcrusher, amt: number)
 --- Sets a signal to modulate the filter level.
 ---@field setAmountMod fun(self: pd_bitcrusher, signal: pd_signal)
@@ -3704,7 +3704,7 @@ kTextAlignment = kTextAlignment
 ---@field setMix fun(self: pd_ringmod, level: number)
 --- Sets a signal to modulate the mix level.
 ---@field setMixMod fun(self: pd_ringmod, signal: pd_signal)
---- Sets the ringmod frequency to f.
+--- Sets the ringmod frequency to `f`.
 ---@field setFrequency fun(self: pd_ringmod, f: number)
 --- Sets a signal to modulate the ringmod frequency.
 ---@field setFrequencyMod fun(self: pd_ringmod, signal: pd_signal)
@@ -3718,27 +3718,27 @@ kTextAlignment = kTextAlignment
 ---@field setMix fun(self: pd_onepolefilter, level: number)
 --- Sets a signal to modulate the mix level.
 ---@field setMixMod fun(self: pd_onepolefilter, signal: pd_signal)
---- Sets the filter’s single parameter (cutoff frequency) to p.
+--- Sets the filter’s single parameter (cutoff frequency) to `p`.
 ---@field setParameter fun(self: pd_onepolefilter, p: number)
 --- Sets a modulator for the filter’s parameter.
 ---@field setParameterMod fun(self: pd_onepolefilter, m: pd_signal)
 
 ---@class pd_twopolefilter_lib
---- Creates a new two pole IIR filter of the given type:
+--- Creates a new two pole IIR filter of the given `type`:
 --- 
---- playdate.sound.kFilterLowPass (or the string "lowpass" or "lopass")
+--- `playdate.sound.kFilterLowPass` (or the string "lowpass" or "lopass")
 --- 
---- playdate.sound.kFilterHighPass (or "highpass" or "hipass")
+--- `playdate.sound.kFilterHighPass` (or "highpass" or "hipass")
 --- 
---- playdate.sound.kFilterBandPass (or "bandpass")
+--- `playdate.sound.kFilterBandPass` (or "bandpass")
 --- 
---- playdate.sound.kFilterNotch (or "notch")
+--- `playdate.sound.kFilterNotch` (or "notch")
 --- 
---- playdate.sound.kFilterPEQ (or "peq")
+--- `playdate.sound.kFilterPEQ` (or "peq")
 --- 
---- playdate.sound.kFilterLowShelf (or "lowshelf" or "loshelf")
+--- `playdate.sound.kFilterLowShelf` (or "lowshelf" or "loshelf")
 --- 
---- playdate.sound.kFilterHighShelf (or "highshelf" or "hishelf")
+--- `playdate.sound.kFilterHighShelf` (or "highshelf" or "hishelf")
 ---@field new fun(type: pd_sound_filter): pd_twopolefilter
 
 ---@class pd_twopolefilter
@@ -3746,17 +3746,17 @@ kTextAlignment = kTextAlignment
 ---@field setMix fun(self: pd_twopolefilter, level: number)
 --- Sets a signal to modulate the mix level.
 ---@field setMixMod fun(self: pd_twopolefilter, signal: pd_signal)
---- Sets the center frequency (in Hz) of the filter to f.
+--- Sets the center frequency (in Hz) of the filter to `f`.
 ---@field setFrequency fun(self: pd_twopolefilter, f: number)
 --- Sets a signal to modulate the filter frequency.
 ---@field setFrequencyMod fun(self: pd_twopolefilter, signal: pd_signal)
---- Sets the resonance of the filter to r. Valid values are in the range 0-1. This parameter has no effect on shelf type filters.
+--- Sets the resonance of the filter to `r`. Valid values are in the range 0-1. This parameter has no effect on shelf type filters.
 ---@field setResonance fun(self: pd_twopolefilter, r: number)
 --- Sets a signal to modulate the filter resonance.
 ---@field setResonanceMod fun(self: pd_twopolefilter, signal: pd_signal)
---- Sets the gain of the filter to g. Gain is only used in PEQ and shelf type filters.
+--- Sets the gain of the filter to `g`. Gain is only used in PEQ and shelf type filters.
 ---@field setGain fun(self: pd_twopolefilter, g: number)
---- Sets the type of the filter to type.
+--- Sets the type of the filter to `type`.
 ---@field setType fun(self: pd_twopolefilter, type: pd_sound_filter)
 
 ---@class pd_overdrive_lib
@@ -3829,7 +3829,7 @@ kTextAlignment = kTextAlignment
 --- Gets the tempo of the sequence, in steps per second.
 ---@field getTempo fun(self: pd_sequence): number
 --- ### Overload 1 ###
---- Sets the looping range of the sequence. If loops is 0 or unset, the loop repeats endlessly.
+--- Sets the looping range of the sequence. If `loops` is 0 or unset, the loop repeats endlessly.
 --- 
 --- ### Overload 2 ###
 --- Same as above, with startStep set to 0 and endStep set to sequence:getLength().
@@ -3868,7 +3868,7 @@ kTextAlignment = kTextAlignment
 --- 
 --- The tables contain values for keys step, note, length, and velocity. If step is given, the function returns only the notes at that step; if both step and endstep are set, it returns the notes between the two steps (including notes at endstep). n.b. The note field in the event tables is always a MIDI note number value, even if the note was added using the string notation.
 ---@field getNotes fun(self: pd_track, step?: integer, endstep?: integer): pd_note_table[]
---- Removes the note event at step playing note.
+--- Removes the note event at `step` playing `note`.
 ---@field removeNote fun(self: pd_track, step: integer, note: string|number)
 --- Clears all notes from the track.
 ---@field clearNotes fun(self: pd_track)
@@ -3894,15 +3894,15 @@ kTextAlignment = kTextAlignment
 ---@class pd_instrument
 --- Creates a new playdate.sound.instrument object. If synth is given, adds it as a voice for the instrument.
 ---@field new fun(synth?: pd_synth): pd_instrument
---- Adds the given playdate.sound.synth to the instrument. If only the note argument is given, the voice is only used for that note, and is transposed to play at normal speed (i.e. rate=1.0 for samples, or C4 for synths). If rangeend is given, the voice is assigned to the range note to rangeend, inclusive, with the first note in the range transposed to rate=1.0/C4. The note and rangeend arguments can be MIDI note numbers or note names like "Db3". The final transpose argument transposes the note played, in half-tone units.
+--- Adds the given playdate.sound.synth to the instrument. If only the `note` argument is given, the voice is only used for that note, and is transposed to play at normal speed (i.e. rate=1.0 for samples, or C4 for synths). If `rangeend` is given, the voice is assigned to the range `note` to `rangeend`, inclusive, with the first note in the range transposed to rate=1.0/C4. The note and rangeend arguments can be MIDI note numbers or note names like "Db3". The final transpose argument transposes the note played, in half-tone units.
 ---@field addVoice fun(self: pd_instrument, v: pd_synth, note?: string|number, rangeend?: string|number, transpose?: number)
---- Transposes all voices in the instrument. halfsteps can be a fractional value.
+--- Transposes all voices in the instrument. `halfsteps` can be a fractional value.
 ---@field setTranspose fun(self: pd_instrument, halfsteps: number)
---- Plays the given note on the instrument. A string like Db3 can be used instead of a pitch/note number. Fractional values are allowed. vel defaults to 1.0, fully on. If length isn’t specified, the note stays on until instrument.noteOff(note) is called. when is the number of seconds in the future to start playing the note, default is immediately.
+--- Plays the given note on the instrument. A string like Db3 can be used instead of a pitch/note number. Fractional values are allowed. `vel` defaults to 1.0, fully on. If `length` isn’t specified, the note stays on until `instrument.noteOff(note)` is called. `when` is the number of seconds in the future to start playing the note, default is immediately.
 ---@field playNote fun(self: pd_instrument, frequency: number, vel?: number, length?: number, when?: number)
---- Plays the given note on the instrument, where note is a MIDI note number: 60=C4, 61=C#4, etc. A string like Db3 can be used instead of a pitch/note number. Fractional values are allowed. vel defaults to 1.0, fully on. If length isn’t specified, the note stays on until instrument.noteOff(note) is called. when is the number of seconds in the future to start playing the note, default is immediately.
+--- Plays the given note on the instrument, where `note` is a MIDI note number: 60=C4, 61=C#4, etc. A string like Db3 can be used instead of a pitch/note number. Fractional values are allowed. `vel` defaults to 1.0, fully on. If `length` isn’t specified, the note stays on until `instrument.noteOff(note)` is called. `when` is the number of seconds in the future to start playing the note, default is immediately.
 ---@field playMIDINote fun(self: pd_instrument, note: string|number, vel?: number, length?: number, when?: number)
---- Stops the instrument voice playing note note. If when is given, the note is stopped when seconds in the future, otherwise it’s stopped immediately.
+--- Stops the instrument voice playing note `note`. If `when` is given, the note is stopped `when` seconds in the future, otherwise it’s stopped immediately.
 ---@field noteOff fun(self: pd_instrument, note: string|number, when?: number)
 --- Sends a stop signal to all playing notes.
 ---@field allNotesOff fun(self: pd_instrument)
@@ -3922,7 +3922,7 @@ kTextAlignment = kTextAlignment
 ---@class pd_controlsignal : pd_signal
 --- The signal’s event list is modified by getting and setting the events property of the object. This is an array of tables, each containing values for keys step and value, and optionally interpolate.
 ---@field events pd_event[]
---- addEvent is a simpler way of adding events one at a time than setting the entire events table. Arguments are either the values themselves in the given order, or a table containing values for step, value, and optionally interpolate.
+--- addEvent is a simpler way of adding events one at a time than setting the entire `events` table. Arguments are either the values themselves in the given order, or a table containing values for step, value, and optionally interpolate.
 ---@field addEvent (fun(self: pd_controlsignal, step: number, value: number, interpolate?: boolean)) | (fun(self: pd_controlsignal, event: pd_event))
 --- Clears all events from the control signal.
 ---@field clearEvents fun(self: pd_controlsignal)
@@ -3932,7 +3932,7 @@ kTextAlignment = kTextAlignment
 ---@field getControllerType fun(self: pd_controlsignal): number
 
 ---@class pd_micinput_lib
---- buffer should be a Sample created with the following code, with secondsToRecord replaced by a number specifying the record duration:
+--- buffer should be a Sample created with the following code, with `secondsToRecord` replaced by a number specifying the record duration:
 --- 
 --- local buffer = playdate.sound.sample.new(_secondsToRecord_, playdate.sound.kFormat16bitMono)
 --- 
@@ -3960,11 +3960,11 @@ kTextAlignment = kTextAlignment
 ---@field clockwise boolean
 
 ---@class pd_gridview_lib
---- Returns a new playdate.ui.gridview with cells sized cellWidth, cellHeight. (Sizes are in pixels.) If cells should span the entire width of the grid (as in a list view), pass zero (0) for cellWidth.
+--- Returns a new playdate.ui.gridview with cells sized `cellWidth`, `cellHeight`. (Sizes are in pixels.) If cells should span the entire width of the grid (as in a list view), pass zero (0) for `cellWidth`.
 ---@field new fun(cellWidth: number, cellHeight: number): pd_gridview
 
 ---@class pd_gridview
---- Override this method to draw the cells in the gridview. selected is a boolean, true if the cell being drawn is the currently-selected cell.
+--- Override this method to draw the cells in the gridview. `selected` is a boolean, true if the cell being drawn is the currently-selected cell.
 ---@field drawCell fun(self: pd_gridview, section: integer, row: number, column: number, selected: boolean, x: number, y: number, width: number, height: number)
 --- Override this method to draw section headers. This function will only be called if the header height has been set to a value greater than zero (0).
 ---@field drawSectionHeader fun(self: pd_gridview, section: integer, x: number, y: number, width: number, height: number)
@@ -3978,9 +3978,9 @@ kTextAlignment = kTextAlignment
 ---@field setNumberOfSections fun(self: pd_gridview, num: integer)
 --- Gets the number of sections in the grid view.
 ---@field getNumberOfSections fun(self: pd_gridview): number
---- Sets the number of rows in section.
+--- Sets the number of rows in `section`.
 ---@field setNumberOfRowsInSection fun(self: pd_gridview, section: integer, num: integer)
---- Gets the number of rows in section.
+--- Gets the number of rows in `section`.
 ---@field getNumberOfRowsInSection fun(self: pd_gridview, section: integer): number
 --- Sets the number of columns in the gridview. 1 by default.
 ---@field setNumberOfColumns fun(self: pd_gridview, num: integer)
@@ -3988,7 +3988,7 @@ kTextAlignment = kTextAlignment
 ---@field getNumberOfColumns fun(self: pd_gridview): number
 --- Convenience method for list-style gridviews, or for setting the number of rows for multiple sections at a time. Pass in a list of numbers of rows for sections starting from section 1.
 ---@field setNumberOfRows fun(self: pd_gridview, count1: integer, ...)
---- Sets the size of the cells in the gridview. If cells should span the entire width of the grid (as in a list view), pass zero (0) for cellWidth.
+--- Sets the size of the cells in the gridview. If cells should span the entire width of the grid (as in a list view), pass zero (0) for `cellWidth`.
 ---@field setCellSize fun(self: pd_gridview, cellWidth: number, cellHeight: number)
 --- Sets the amount of padding around cells.
 ---@field setCellPadding fun(self: pd_gridview, left: number, right: number, top: number, bottom: number)
@@ -3996,7 +3996,7 @@ kTextAlignment = kTextAlignment
 ---@field setContentInset fun(self: pd_gridview, left: number, right: number, top: number, bottom: number)
 --- Returns multiple values (x, y, width, height) representing the bounds of the cell, not including padding, relative to the top-right corner of the grid view.
 --- 
---- If the grid view is configured with zero width cells (see playdate.ui.gridview:new), gridWidth is required, and should be the same value you would pass to playdate.ui.gridview:drawInRect.
+--- If the grid view is configured with zero width cells (see playdate.ui.gridview:new), `gridWidth` is required, and should be the same value you would pass to playdate.ui.gridview:drawInRect.
 ---@field getCellBounds fun(self: pd_gridview, section: integer, row: number, column: number, gridWidth?: number): (number, number, number, number)
 --- Sets the height of the section headers. 0 by default, which causes section headers not to be drawn.
 ---@field setSectionHeaderHeight fun(self: pd_gridview, height: number)
@@ -4014,11 +4014,11 @@ kTextAlignment = kTextAlignment
 ---@field removeHorizontalDividers fun(self: pd_gridview)
 --- Controls the duration of scroll animations. 250ms by default.
 ---@field setScrollDuration fun(self: pd_gridview, ms: number)
---- 'set' scrolls to the coordinate x, y.
+--- 'set' scrolls to the coordinate `x`, `y`.
 --- 
---- If animated is true (or not provided) the new scroll position is animated to using playdate.ui.gridview.scrollEasingFunction and the value set in playdate.ui.gridview:setScrollDuration().
+--- If `animated` is true (or not provided) the new scroll position is animated to using playdate.ui.gridview.scrollEasingFunction and the value set in playdate.ui.gridview:setScrollDuration().
 ---@field setScrollPosition fun(self: pd_gridview, x: number, y: number, animated?: boolean)
---- Returns the current scroll location x, y.
+--- Returns the current scroll location `x`, `y`.
 ---@field getScrollPosition fun(self: pd_gridview): (number, number)
 --- Scrolls to the specified cell, just enough so the cell is visible.
 ---@field scrollToCell fun(self: pd_gridview, section: integer, row: number, column: number, animated?: boolean)
@@ -4030,31 +4030,31 @@ kTextAlignment = kTextAlignment
 ---@field scrollToTop fun(self: pd_gridview, animated?: boolean)
 --- Selects the cell at the given position.
 ---@field setSelection fun(self: pd_gridview, section: integer, row: number, column: number)
---- Returns the currently-selected cell as section, row, column
+--- Returns the currently-selected cell as `section`, `row`, `column`
 ---@field getSelection fun(self: pd_gridview): (integer, integer, integer)
---- Convenience method for list-style gridviews. Selects the cell at row in section 1.
+--- Convenience method for list-style gridviews. Selects the cell at `row` in section 1.
 ---@field setSelectedRow fun(self: pd_gridview, row: number)
---- Convenience method for list-style gridviews. Returns the selected cell at row in section 1.
+--- Convenience method for list-style gridviews. Returns the selected cell at `row` in section 1.
 ---@field getSelectedRow fun(self: pd_gridview): integer
 --- Selects the cell directly below the currently-selected cell.
 --- 
---- If wrapSelection is true, the selection will wrap around to the opposite end of the grid. If scrollToSelection is true (or not provided), the newly-selected cell will be scrolled to. If animate is true (or not provided), the scroll will be animated.
+--- If `wrapSelection` is true, the selection will wrap around to the opposite end of the grid. If `scrollToSelection` is true (or not provided), the newly-selected cell will be scrolled to. If `animate` is true (or not provided), the scroll will be animated.
 ---@field selectNextRow fun(self: pd_gridview, wrapSelection: boolean, scrollToSelection?: boolean, animate?: boolean)
 --- Selects the cell directly above the currently-selected cell.
 --- 
---- If wrapSelection is true, the selection will wrap around to the opposite end of the grid. If scrollToSelection is true (or not provided), the newly-selected cell will be scrolled to. If animate is true (or not provided), the scroll will be animated.
+--- If `wrapSelection` is true, the selection will wrap around to the opposite end of the grid. If `scrollToSelection` is true (or not provided), the newly-selected cell will be scrolled to. If `animate` is true (or not provided), the scroll will be animated.
 ---@field selectPreviousRow fun(self: pd_gridview, wrapSelection: boolean, scrollToSelection?: boolean, animate?: boolean)
 --- Selects the cell directly to the right of the currently-selected cell.
 --- 
---- If the last column is currently selected and wrapSelection is true, the selection will wrap around to the opposite side of the grid. If a wrap occurs and the gridview’s changeRowOnColumnWrap is true the row will also be advanced or moved back.
+--- If the last column is currently selected and `wrapSelection` is true, the selection will wrap around to the opposite side of the grid. If a wrap occurs and the gridview’s changeRowOnColumnWrap is true the row will also be advanced or moved back.
 --- 
---- If scrollToSelection is true (or not provided), the newly-selected cell will be scrolled to. If animate is true (or not provided), the scroll will be animated.
+--- If `scrollToSelection` is true (or not provided), the newly-selected cell will be scrolled to. If `animate` is true (or not provided), the scroll will be animated.
 ---@field selectNextColumn fun(self: pd_gridview, wrapSelection: boolean, scrollToSelection?: boolean, animate?: boolean)
 --- Selects the cell directly to the left of the currently-selected cell.
 --- 
---- If the first column is currently selected and wrapSelection is true, the selection will wrap around to the opposite side of the grid. If a wrap occurs and the gridview’s changeRowOnColumnWrap is true the row will also be advanced or moved back.
+--- If the first column is currently selected and `wrapSelection` is true, the selection will wrap around to the opposite side of the grid. If a wrap occurs and the gridview’s changeRowOnColumnWrap is true the row will also be advanced or moved back.
 --- 
---- If scrollToSelection is true (or not provided), the newly-selected cell will be scrolled to. If animate is true (or not provided), the scroll will be animated.
+--- If `scrollToSelection` is true (or not provided), the newly-selected cell will be scrolled to. If `animate` is true (or not provided), the scroll will be animated.
 ---@field selectPreviousColumn fun(self: pd_gridview, wrapSelection: boolean, scrollToSelection?: boolean, animate?: boolean)
 --- A background image that draws behind the gridview’s cells. This image can be either a playdate.graphics.image which will be tiled or a playdate.nineSlice.
 ---@field backgroundImage pd_image
@@ -4062,9 +4062,9 @@ kTextAlignment = kTextAlignment
 ---@field isScrolling boolean
 --- The easing function used when performing scroll animations. The function should be of the form function(t, b, c, d), where t is elapsed time, b is the beginning value, c is the change, or end value - start value, and d is the duration. Many such functions are available in playdate.easingFunctions. playdate.easingFunctions.outCubic is the default.
 ---@field scrollEasingFunction (fun(number, number, number, number): number)
---- For easing functions that take additional amplitude and period arguments (such as inOutElastic), set these to the desired values.
+--- For easing functions that take additional amplitude and period arguments (such as `inOutElastic`), set these to the desired values.
 ---@field easingAmplitude number
---- For easing functions that take additional amplitude and period arguments (such as inOutElastic), set these to the desired values.
+--- For easing functions that take additional amplitude and period arguments (such as `inOutElastic`), set these to the desired values.
 ---@field easingPeriod number
 --- Controls the behavior of playdate.ui.gridview:selectPreviousColumn() and playdate.ui.gridview:selectNextColumn() if the current selection is at the first or last column, respectively. If set to true, the selection switch to a new row to allow the selection to change. If false, the call will have no effect on the selection. True by default.
 ---@field changeRowOnColumnWrap boolean
@@ -4074,31 +4074,31 @@ kTextAlignment = kTextAlignment
 ---@class pd_loop_lib
 --- Creates a new animation object.
 --- 
---- imageTable should be a playdate.graphics.imagetable, or nil.
+--- `imageTable` should be a playdate.graphics.imagetable, or nil.
 --- 
 --- The following properties can be read or set directly, and have these defaults:
 --- 
---- delay : the value of delay, if passed, or 100ms (the delay before moving to the next frame)
+--- `delay` : the value of `delay`, if passed, or 100ms (the delay before moving to the next frame)
 --- 
---- startFrame : 1 (the value the object resets to when the loop completes)
+--- `startFrame` : 1 (the value the object resets to when the loop completes)
 --- 
---- endFrame : the number of images in imageTable if passed, or 1 (the last frame value in the loop)
+--- `endFrame` : the number of images in `imageTable` if passed, or 1 (the last frame value in the loop)
 --- 
---- frame : 1 (the current frame counter)
+--- `frame` : 1 (the current frame counter)
 --- 
---- step : 1 (the value by which frame increments)
+--- `step` : 1 (the value by which frame increments)
 --- 
---- shouldLoop : the value of shouldLoop, if passed, or true. (whether the object loops when it completes)
+--- `shouldLoop` : the value of `shouldLoop`, if passed, or true. (whether the object loops when it completes)
 --- 
---- paused : false (paused loops don’t change their frame value)
+--- `paused` : false (paused loops don’t change their frame value)
 ---@field new fun(delay?: number, imageTable?: pd_imagetable, shouldLoop?: boolean): pd_loop
 
 ---@class pd_loop
---- Draw’s the loop’s current image at x, y.
+--- Draw’s the loop’s current image at `x`, `y`.
 --- 
---- The flip argument is optional; see playdate.graphics.image:draw() for valid values.
+--- The `flip` argument is optional; see playdate.graphics.image:draw() for valid values.
 ---@field draw fun(self: pd_loop, x: number, y: number, flip?: pd_image_flip)
---- Returns a playdate.graphics.image from the caller’s imageTable if it exists. The image returned will be at the imageTable’s index that matches the caller’s frame.
+--- Returns a playdate.graphics.image from the caller’s `imageTable` if it exists. The image returned will be at the imageTable’s index that matches the caller’s `frame`.
 ---@field image fun(self: pd_loop): pd_image
 --- Returns false if the loop has passed its last frame and does not loop.
 ---@field isValid fun(self: pd_loop): boolean
@@ -4108,23 +4108,23 @@ kTextAlignment = kTextAlignment
 ---@class pd_blinker_lib
 --- Creates a new blinker object. Check the object’s on property to determine whether the blinker is on (true) or off (false). The default properties are:
 --- 
---- onDuration: 200 (the number of milliseconds the blinker is "on")
+--- `onDuration`: 200 (the number of milliseconds the blinker is "on")
 --- 
---- offDuration: 200 (the number of milliseconds the blinker is "off")
+--- `offDuration`: 200 (the number of milliseconds the blinker is "off")
 --- 
---- loop: false (should the blinker restart after completing)
+--- `loop`: false (should the blinker restart after completing)
 --- 
---- cycles: 6 (the number of changes the blinker goes through before it’s complete)
+--- `cycles`: 6 (the number of changes the blinker goes through before it’s complete)
 --- 
---- default: true (the state the blinker will start in. Note: if default is true, blinker.on will return true when the blinker is in its onDuration phase. If default is false, blinker.on will return false when the blinker is in its onDuration phase.)
+--- `default`: true (the state the blinker will start in. Note: if default is true, blinker.on will return true when the blinker is in its `onDuration` phase. If default is false, blinker.on will return false when the blinker is in its `onDuration` phase.)
 --- 
 --- Other informative properties:
 --- 
---- counter: Read this property to see which cycle the blinker is on (counts from n down to zero)
+--- `counter`: Read this property to see which cycle the blinker is on (counts from `n` down to zero)
 --- 
---- on: Read this property to determine the current state of the blinker. The blinker always starts in the state specified by the default property.
+--- `on`: Read this property to determine the current state of the blinker. The blinker always starts in the state specified by the default property.
 --- 
---- running: Read this property to see if the blinker is actively running
+--- `running`: Read this property to see if the blinker is actively running
 ---@field new fun(onDuration?: number, offDuration?: number, loop?: boolean, cycles?: integer, default?: boolean): pd_blinker
 --- Updates the state of all valid blinkers by calling :update() on each.
 --- 
