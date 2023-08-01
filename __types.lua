@@ -11,6 +11,8 @@ json = json
 ---@type table<string, pd_text_alignment>
 kTextAlignment = kTextAlignment
 
+import = require
+
 ---@alias pd_font_family table<pd_font_variant, pd_font>
 
 ---@alias pd_font_family_paths table<pd_font_variant, string>
