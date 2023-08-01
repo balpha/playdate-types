@@ -2446,7 +2446,7 @@ import = require
 --- Alternately, one of the strings "flipX", "flipY", or "flipXY" can be used for the `flip` argument.
 --- 
 --- `sourceRect`, if specified, will cause only the part of the image within sourceRect to be drawn. `sourceRect` should be relative to the image’s bounds and can be a playdate.geometry.rect or four integers, (`x`, `y`, `w`, `h`), representing the rect.
----@field draw (fun(self: pd_image, x: number, y: number, flip?: pd_image_flip, sourceRect?: pd_rect)) | (fun(self: pd_image, p: pd_point, flip?: pd_image_flip, sourceRect?: pd_rect))
+---@field draw (fun(self: pd_image, x: number, y: number, flip?: pd_image_flip, sourceRect?: pd_rect)) | (fun(self: pd_image, p: pd_point, flip?: pd_image_flip, sourceRect?: pd_rect)) | (fun(self: pd_image, x: number, y: number, flip?: pd_image_flip, rx?: number, ry?: number, rw?: number, rh?: number)) | (fun(self: pd_image, p: pd_point, flip?: pd_image_flip, rx?: number, ry?: number, rw?: number, rh?: number))
 --- Draws the image at location `(x, y)` centered at the point within the image represented by `(ax, ay)` in unit coordinate space. For example, values of `ax = 0.0`, `ay = 0.0` represent the image’s top-left corner, `ax = 1.0`, `ay = 1.0` represent the bottom-right, and `ax = 0.5`, `ay = 0.5` represent the center of the image.
 --- 
 --- The `flip` argument is optional; see playdate.graphics.image:draw() for valid values.
@@ -2706,7 +2706,7 @@ import = require
 --- Draws the tile map at screen coordinate (`x`, `y`).
 --- 
 --- `sourceRect`, if specified, will cause only the part of the tilemap within sourceRect to be drawn. `sourceRect` should be relative to the tilemap’s bounds and can be a playdate.geometry.rect or four integers, (`x`, `y`, `w`, `h`), representing the rect.
----@field draw fun(self: pd_tilemap, x: number, y: number, sourceRect?: pd_rect)
+---@field draw (fun(self: pd_tilemap, x: number, y: number, sourceRect?: pd_rect)) | (fun(self: pd_tilemap, x: number, y: number, rx?: number, ry?: number, rw?: number, rh?: number))
 --- Draws the tilemap ignoring the currently-set drawOffset.
 ---@field drawIgnoringOffset fun(self: pd_tilemap, x: number, y: number, sourceRect?: pd_rect)
 --- Sets the index of the tile at tilemap position (`x`, `y`). `index` is the (1-based) index of the image in the tilemap’s playdate.graphics.imagetable.
