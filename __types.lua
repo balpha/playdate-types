@@ -21,6 +21,11 @@ import = require
 
 ---@alias pd_effect pd_bitcrusher | pd_twopolefilter | pd_onepolefilter | pd_ringmod | pd_overdrive | pd_delayline
 
+-- not completely foolproof, but this hack should catch some accidental assignments to read-only properties
+---@class READONLY_number : number
+---@class READONLY_pd_size : pd_size
+---@class READONLY_pd_point : pd_point
+
 ---@class pd_event
 ---@field step number
 ---@field value number
@@ -2187,6 +2192,18 @@ import = require
 ---@field setIsClockwise fun(self: pd_arc, flag: boolean)
 --- Returns a new point on the arc, distance pixels from the arc’s start angle. If extend is true, the returned point is allowed to project past the arc’s endpoints; otherwise, it is constrained to the arc’s initial point if distance is negative, or the end point if distance is greater than the arc’s length.
 ---@field pointOnArc fun(self: pd_arc, distance: number): pd_arc
+--- You can directly read or write the `x`, `y`, `radius`, `startAngle`, `endAngle` and `clockwise` values of an arc.
+---@field x number
+--- You can directly read or write the `x`, `y`, `radius`, `startAngle`, `endAngle` and `clockwise` values of an arc.
+---@field y number
+--- You can directly read or write the `x`, `y`, `radius`, `startAngle`, `endAngle` and `clockwise` values of an arc.
+---@field radius number
+--- You can directly read or write the `x`, `y`, `radius`, `startAngle`, `endAngle` and `clockwise` values of an arc.
+---@field startAngle number
+--- You can directly read or write the `x`, `y`, `radius`, `startAngle`, `endAngle` and `clockwise` values of an arc.
+---@field endAngle number
+--- You can directly read or write the `x`, `y`, `radius`, `startAngle`, `endAngle` and `clockwise` values of an arc.
+---@field clockwise boolean
 
 ---@class pd_lineSegment_lib
 --- Returns a new playdate.geometry.lineSegment.
@@ -2231,6 +2248,14 @@ import = require
 --- 
 --- `intersectionPoints` is an array of playdate.geometry.points containing all intersection points between the caller and rect.
 ---@field intersectsRect fun(self: pd_lineSegment, rect: pd_rect): (boolean, pd_point[])
+--- You can directly read or write `x1`, `y1`, `x2`, or `y2` values to a lineSegment.
+---@field x1 number
+--- You can directly read or write `x1`, `y1`, `x2`, or `y2` values to a lineSegment.
+---@field y1 number
+--- You can directly read or write `x1`, `y1`, `x2`, or `y2` values to a lineSegment.
+---@field x2 number
+--- You can directly read or write `x1`, `y1`, `x2`, or `y2` values to a lineSegment.
+---@field y2 number
 
 ---@class pd_point_lib
 --- Returns a new playdate.geometry.point.
@@ -2249,6 +2274,10 @@ import = require
 ---@field squaredDistanceToPoint fun(self: pd_point, p: pd_point): number
 --- Returns the distance to point `p`.
 ---@field distanceToPoint fun(self: pd_point, p: pd_point): number
+--- You can directly read or write the `x` and `y` values of a point.
+---@field x number
+--- You can directly read or write the `x` and `y` values of a point.
+---@field y number
 
 ---@class pd_polygon_lib
 --- new(x1, y1, x2, y2, ..., xn, yn) returns a new playdate.geometry.polygon with vertices `(x1, y1)` through `(xn, yn)`. The Lua function table.unpack() can be used to turn an array into function arguments.
@@ -2354,6 +2383,26 @@ import = require
 --- 
 --- `playdate.geometry.kFlippedXY`
 ---@field flipRelativeToRect fun(self: pd_rect, r2: pd_rect, flip: pd_flip)
+--- You can directly read or write `x`, `y`, `width`, or `height` values to a rect.
+---@field x number
+--- You can directly read or write `x`, `y`, `width`, or `height` values to a rect.
+---@field y number
+--- You can directly read or write `x`, `y`, `width`, or `height` values to a rect.
+---@field width number
+--- You can directly read or write `x`, `y`, `width`, or `height` values to a rect.
+---@field height number
+--- **READ-ONLY**. While you can directly read or write `x`, `y`, `width`, or `height` values to a rect, the values of `top`, `bottom`, `right`, `left`, `origin`, and `size` are read-only.
+---@field top READONLY_number
+--- **READ-ONLY**. While you can directly read or write `x`, `y`, `width`, or `height` values to a rect, the values of `top`, `bottom`, `right`, `left`, `origin`, and `size` are read-only.
+---@field bottom READONLY_number
+--- **READ-ONLY**. While you can directly read or write `x`, `y`, `width`, or `height` values to a rect, the values of `top`, `bottom`, `right`, `left`, `origin`, and `size` are read-only.
+---@field right READONLY_number
+--- **READ-ONLY**. While you can directly read or write `x`, `y`, `width`, or `height` values to a rect, the values of `top`, `bottom`, `right`, `left`, `origin`, and `size` are read-only.
+---@field left READONLY_number
+--- **READ-ONLY**. While you can directly read or write `x`, `y`, `width`, or `height` values to a rect, the values of `top`, `bottom`, `right`, `left`, `origin`, and `size` are read-only.
+---@field origin READONLY_pd_point
+--- **READ-ONLY**. While you can directly read or write `x`, `y`, `width`, or `height` values to a rect, the values of `top`, `bottom`, `right`, `left`, `origin`, and `size` are read-only.
+---@field size READONLY_pd_size
 
 ---@class pd_size_lib
 --- Returns a new playdate.geometry.size.
@@ -2364,6 +2413,10 @@ import = require
 ---@field copy fun(self: pd_size): pd_size
 --- Returns the values `width, height`.
 ---@field unpack fun(self: pd_size): (number, number)
+--- You can directly read or write  the `width` and `height` values of a `size`.
+---@field width number
+--- You can directly read or write  the `width` and `height` values of a `size`.
+---@field height number
 
 ---@class pd_vector2D_lib
 --- Returns a new playdate.geometry.vector2D.
@@ -2402,6 +2455,10 @@ import = require
 ---@field leftNormal fun(self: pd_vector2D): pd_vector2D
 --- Returns a vector that is the right normal of the caller.
 ---@field rightNormal fun(self: pd_vector2D): pd_vector2D
+--- You can directly read or write `dx`, or `dy` values to a vector2D.
+---@field dx number
+--- You can directly read or write `dx`, or `dy` values to a vector2D.
+---@field dy number
 
 ---@class pd_image_lib
 --- ### Overload 1 ###
@@ -3327,11 +3384,11 @@ import = require
 ---@field removeAllConnections fun(self: pd_node, removeIncoming?: boolean)
 --- Sets the `x` and `y` values for the node.
 ---@field setXY fun(self: pd_node, x: number, y: number)
---- You can directly read or write x, y and id values on a playdate.pathfinder.node.
+--- You can directly read or write `x`, `y` and `id` values on a `playdate.pathfinder.node`.
 ---@field x number
---- You can directly read or write x, y and id values on a playdate.pathfinder.node.
+--- You can directly read or write `x`, `y` and `id` values on a `playdate.pathfinder.node`.
 ---@field y number
---- You can directly read or write x, y and id values on a playdate.pathfinder.node.
+--- You can directly read or write `x`, `y` and `id` values on a `playdate.pathfinder.node`.
 ---@field id integer
 
 ---@class pd_sampleplayer_lib
