@@ -3948,10 +3948,10 @@ import = require
 ---@field getControlSignals fun(self: pd_track): pd_controlsignal[]
 
 ---@class pd_instrument_lib
-
----@class pd_instrument
 --- Creates a new playdate.sound.instrument object. If synth is given, adds it as a voice for the instrument.
 ---@field new fun(synth?: pd_synth): pd_instrument
+
+---@class pd_instrument
 --- Adds the given playdate.sound.synth to the instrument. If only the `note` argument is given, the voice is only used for that note, and is transposed to play at normal speed (i.e. rate=1.0 for samples, or C4 for synths). If `rangeend` is given, the voice is assigned to the range `note` to `rangeend`, inclusive, with the first note in the range transposed to rate=1.0/C4. The note and rangeend arguments can be MIDI note numbers or note names like "Db3". The final transpose argument transposes the note played, in half-tone units.
 ---@field addVoice fun(self: pd_instrument, v: pd_synth, note?: string|number, rangeend?: string|number, transpose?: number)
 --- Transposes all voices in the instrument. `halfsteps` can be a fractional value.
