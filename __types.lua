@@ -1389,7 +1389,7 @@ import = require
 --- Draw the polygon specified by the given sequence of x,y coordinates. The Lua function table.unpack() can be used to turn an array into function arguments.
 --- 
 --- Line width is specified by setLineWidth().
----@field drawPolygon (fun(p: pd_polygon)) | (fun(x1: number, y1: number, x2: number, y2: number, ...))
+---@field drawPolygon (fun(p: pd_polygon)) | (fun(x1: number, y1: number, x2: number, y2: number, ...: number))
 --- ### Overload 1 ###
 --- Fills the polygon specified by a list of x,y coordinates.
 --- 
@@ -1397,7 +1397,7 @@ import = require
 --- 
 --- ### Overload 2 ###
 --- Fills the polygon specified by the playdate.geometry.polygon `p` with the currently selected color or pattern.
----@field fillPolygon (fun(x1: number, y1: number, x2: number, y2: number, ...)) | (fun(p: pd_polygon))
+---@field fillPolygon (fun(x1: number, y1: number, x2: number, y2: number, ...: number)) | (fun(p: pd_polygon))
 --- Sets the winding rule for filling polygons, one of:
 --- 
 --- `playdate.graphics.kPolygonFillNonZero`
@@ -1914,13 +1914,13 @@ import = require
 --- Returns a new playdate.timer that will run for `duration` milliseconds. If not specified, `startValue` and `endValue` will be 0, and a linear easing function will be used.
 --- 
 --- By default, timers start upon instantiation. To modify the behavior of a timer, see common timer methods and properties.
----@field new (fun(duration: number, callback: fun(...), ...): pd_timer) | (fun(duration: number, startValue?: number, endValue?: number, easingFunction?: (fun(number, number, number, number): number)): pd_timer)
+---@field new (fun(duration: number, callback: fun(...), ...: any): pd_timer) | (fun(duration: number, startValue?: number, endValue?: number, easingFunction?: (fun(number, number, number, number): number)): pd_timer)
 --- Performs the function `callback` after `delay` milliseconds. Accepts a variable number of arguments that will be passed to the callback function when it is called. If arguments are not provided, the timer itself will be passed to the callback instead.
----@field performAfterDelay fun(delay: number, callback: fun(...), ...)
+---@field performAfterDelay fun(delay: number, callback: fun(...), ...: any)
 --- keyRepeatTimer() returns a timer that fires at key-repeat intervals. The function `callback` will be called immediately, then again after 300 milliseconds, then repeatedly at 100 millisecond intervals. If you wish to customize these millisecond intervals, use keyRepeatTimerWithDelay().
----@field keyRepeatTimer fun(callback: fun(...), ...): pd_timer
+---@field keyRepeatTimer fun(callback: fun(...), ...: any): pd_timer
 --- keyRepeatTimer() returns a timer that fires at key-repeat intervals. The function `callback` will be called immediately, then again after 300 milliseconds, then repeatedly at 100 millisecond intervals. If you wish to customize these millisecond intervals, use keyRepeatTimerWithDelay().
----@field keyRepeatTimerWithDelay fun(delayAfterInitialFiring: number, delayAfterSecondFiring: number, callback: fun(...), ...): pd_timer
+---@field keyRepeatTimerWithDelay fun(delayAfterInitialFiring: number, delayAfterSecondFiring: number, callback: fun(...), ...: any): pd_timer
 --- Returns an array listing all running timers.
 --- 
 --- Note the "." syntax rather than ":". This is a class method, not an instance method.
@@ -1990,9 +1990,9 @@ import = require
 --- Returns a new playdate.frameTimer that will run for `duration` number of frames. If not specified, `startValue` and `endValue` will be 0, and a linear easing function will be used.
 --- 
 --- By default, frame timers start upon instantiation. To modify the behavior of a frame timer, see common frame timer methods and properties.
----@field new (fun(duration: number, callback: fun(...), ...): pd_frameTimer) | (fun(duration: number, startValue?: number, endValue?: number, easingFunction?: (fun(number, number, number, number): number)): pd_frameTimer)
+---@field new (fun(duration: number, callback: fun(...), ...: any): pd_frameTimer) | (fun(duration: number, startValue?: number, endValue?: number, easingFunction?: (fun(number, number, number, number): number)): pd_frameTimer)
 --- Performs the function `callback` after the `delay` number of frames. Accepts a variable number of arguments that will be passed to the callback function when it is called. If arguments are not provided, the timer itself will be passed to the callback instead.
----@field performAfterDelay fun(delay: number, callback: fun(...), ...)
+---@field performAfterDelay fun(delay: number, callback: fun(...), ...: any)
 --- Returns an array listing all running frameTimers.
 --- 
 --- Note the "." syntax rather than ":". This is a class method, not an instance method.
@@ -2288,7 +2288,7 @@ import = require
 --- 
 --- If the polygon’s first and last points are coincident, the polygon will be considered closed. Alternatively, you may call :close() to automatically close the polygon.
 --- To draw a polygon, use playdate.graphics.drawPolygon().
----@field new (fun(x1: number, y1: number, x2: number, y2: number, ...): pd_polygon) | (fun(p1: pd_point, p2: pd_point, ...): pd_polygon) | (fun(numberOfVertices: number): pd_polygon)
+---@field new (fun(x1: number, y1: number, x2: number, y2: number, x3?: number, y3?: number, ...: number): pd_polygon) | (fun(p1: pd_point, p2: pd_point, p3?: pd_point, p4?: pd_point, p5?: pd_point, p6?: pd_point, ...: pd_point): pd_polygon) | (fun(numberOfVertices: number): pd_polygon)
 
 ---@class pd_polygon
 --- Returns a copy of a polygon.
@@ -3687,7 +3687,7 @@ import = require
 --- `playdate.sound.kLFOSampleAndHold`
 ---@field setType fun(self: pd_lfo, type: pd_lfo_type)
 --- Sets the LFO type to arpeggio, where the given values are in half-steps from the center note. For example, the sequence (0, 4, 7, 12) plays the notes of a major chord.
----@field setArpeggio fun(self: pd_lfo, note1: number, ...)
+---@field setArpeggio fun(self: pd_lfo, note1: number, ...: number)
 --- Sets the center value of the LFO.
 ---@field setCenter fun(self: pd_lfo, center: number)
 --- Sets the depth of the LFO’s modulation.
@@ -4045,7 +4045,7 @@ import = require
 --- Gets the number of columns in the gridview. 1 by default.
 ---@field getNumberOfColumns fun(self: pd_gridview): number
 --- Convenience method for list-style gridviews, or for setting the number of rows for multiple sections at a time. Pass in a list of numbers of rows for sections starting from section 1.
----@field setNumberOfRows fun(self: pd_gridview, count1: integer, ...)
+---@field setNumberOfRows fun(self: pd_gridview, count1: integer, ...: integer)
 --- Sets the size of the cells in the gridview. If cells should span the entire width of the grid (as in a list view), pass zero (0) for `cellWidth`.
 ---@field setCellSize fun(self: pd_gridview, cellWidth: number, cellHeight: number)
 --- Sets the amount of padding around cells.
