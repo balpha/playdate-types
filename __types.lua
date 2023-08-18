@@ -22,6 +22,7 @@ import = require
 ---@alias pd_effect pd_bitcrusher | pd_twopolefilter | pd_onepolefilter | pd_ringmod | pd_overdrive | pd_delayline
 
 -- not completely foolproof, but this hack should catch some accidental assignments to read-only properties
+
 ---@class READONLY_number : number
 ---@class READONLY_boolean : boolean
 ---@class READONLY_pd_size : pd_size
@@ -2968,6 +2969,14 @@ import = require
 --- 
 --- See also .x, .y, .width, .height, for direct access to these properties.
 ---@field getPosition fun(self: pd_sprite): (number, number)
+--- Can be used to directly read your sprite’s x position.
+---@field x READONLY_number
+--- Can be used to directly read your sprite’s y position.
+---@field y READONLY_number
+--- Can be used to directly read your sprite’s width.
+---@field width READONLY_number
+--- Can be used to directly read your sprite’s height.
+---@field height READONLY_number
 --- Moves the sprite by `x`, `y` pixels relative to its current position.
 ---@field moveBy fun(self: pd_sprite, x: number, y: number)
 --- Sets the Z-index of the given sprite. Sprites with higher Z-indexes are drawn on top of those with lower Z-indexes. Valid values for `z` are in the range (-32768, 32767).
