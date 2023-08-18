@@ -463,7 +463,7 @@ import = require
 --- For a very simple way to serialize a table to a file, see playdate.datastore.
 ---@field encodeToFile (fun(file: pd_file_file, pretty?: boolean, table?: table)) | (fun(path: string, pretty?: boolean, table?: table))
 
----@class pd_menu_lib
+---@class pd_menu_lib : pd_menu
 ---@field item pd_item_lib
 
 ---@class pd_menu
@@ -1921,7 +1921,7 @@ import = require
 --- Returns a string with the whitespace removed from the ending of `string`.
 ---@field trimTrailingWhitespace fun(string: string): string
 
----@class pd_timer_lib
+---@class pd_timer_lib : pd_timer
 --- This should be called from the main playdate.update() loop to drive the timers.
 ---@field updateTimers fun()
 --- ### Overload 1 ###
@@ -1997,7 +1997,7 @@ import = require
 --- A callback function that will be called on every frame (every time `timer.updateAll()` is called). If the timer was created with arguments, those will be passed as arguments to the function provided. Otherwise, the timer is passed as the single argument.
 ---@field updateCallback nil | (fun())
 
----@class pd_frameTimer_lib
+---@class pd_frameTimer_lib : pd_frameTimer
 --- This should be called from the main playdate.update() loop to drive the frame timers.
 ---@field updateTimers fun()
 --- ### Overload 1 ###
@@ -2069,7 +2069,7 @@ import = require
 ---@field crankIndicator pd_crankIndicator
 ---@field gridview pd_gridview_lib
 
----@class pd_item_lib
+---@class pd_item_lib : pd_item
 
 ---@class pd_item
 --- Sets the callback function for this menu item.
@@ -2095,7 +2095,7 @@ import = require
 --- Returns the value for this menu item.
 ---@field getValue fun(self: pd_item): integer|boolean|string
 
----@class pd_file_file_lib
+---@class pd_file_file_lib : pd_file_file
 ---@field kFileRead pd_filemode
 ---@field kFileWrite pd_filemode
 ---@field kFileAppend pd_filemode
@@ -2126,7 +2126,7 @@ import = require
 --- Equivalent to playdate->file->tell() in the C API.
 ---@field tell fun(self: pd_file_file): number
 
----@class pd_affineTransform_lib
+---@class pd_affineTransform_lib : pd_affineTransform
 --- ### Overload 1 ###
 --- Returns a new playdate.geometry.affineTransform. Use new() instead to get a new copy of the identity transform.
 --- 
@@ -2202,7 +2202,7 @@ import = require
 --- Returns the point created by applying the transform `t` to the point `p`
 ---@operator mul(pd_point): pd_point
 
----@class pd_arc_lib
+---@class pd_arc_lib : pd_arc
 
 ---@class pd_arc
 --- Returns a new playdate.geometry.arc. Angles should be specified in degrees. Zero degrees represents the top of the circle.
@@ -2232,7 +2232,7 @@ import = require
 --- You can directly read or write the `x`, `y`, `radius`, `startAngle`, `endAngle` and `clockwise` values of an arc.
 ---@field clockwise boolean
 
----@class pd_lineSegment_lib
+---@class pd_lineSegment_lib : pd_lineSegment
 --- Returns a new playdate.geometry.lineSegment.
 ---@field new fun(x1: number, y1: number, x2: number, y2: number): pd_lineSegment
 --- For use in inner loops where speed is the priority.
@@ -2284,7 +2284,7 @@ import = require
 --- You can directly read or write `x1`, `y1`, `x2`, or `y2` values to a lineSegment.
 ---@field y2 number
 
----@class pd_point_lib
+---@class pd_point_lib : pd_point
 --- Returns a new playdate.geometry.point.
 ---@field new fun(x: number, y: number): pd_point
 
@@ -2314,7 +2314,7 @@ import = require
 --- You can directly read or write the `x` and `y` values of a point.
 ---@field y number
 
----@class pd_polygon_lib
+---@class pd_polygon_lib : pd_polygon
 --- new(x1, y1, x2, y2, ..., xn, yn) returns a new playdate.geometry.polygon with vertices `(x1, y1)` through `(xn, yn)`. The Lua function table.unpack() can be used to turn an array into function arguments.
 --- 
 --- new(p1, p2, ..., pn) does the same, except the points are expressed via point objects.
@@ -2355,7 +2355,7 @@ import = require
 --- Translates each point on the polygon by `dx`, `dy` pixels.
 ---@field translate fun(self: pd_polygon, dx: number, dy: number)
 
----@class pd_rect_lib
+---@class pd_rect_lib : pd_rect
 --- Returns a new playdate.geometry.rect.
 ---@field new fun(x: number, y: number, width: number, height: number): pd_rect
 --- For use in inner loops where speed is the priority. About 3x faster than intersection.
@@ -2439,7 +2439,7 @@ import = require
 --- **READ-ONLY**. While you can directly read or write `x`, `y`, `width`, or `height` values to a rect, the values of `top`, `bottom`, `right`, `left`, `origin`, and `size` are read-only.
 ---@field size READONLY_pd_size
 
----@class pd_size_lib
+---@class pd_size_lib : pd_size
 --- Returns a new playdate.geometry.size.
 ---@field new fun(width: number, height: number): pd_size
 
@@ -2453,7 +2453,7 @@ import = require
 --- You can directly read or write  the `width` and `height` values of a `size`.
 ---@field height number
 
----@class pd_vector2D_lib
+---@class pd_vector2D_lib : pd_vector2D
 --- Returns a new playdate.geometry.vector2D.
 ---@field new fun(x: number, y: number): pd_vector2D
 --- Returns a new playdate.geometry.vector2D. Angles should be specified in degrees. Zero degrees represents the top of the circle.
@@ -2509,7 +2509,7 @@ import = require
 --- You can directly read or write `dx`, or `dy` values to a vector2D.
 ---@field dy number
 
----@class pd_image_lib
+---@class pd_image_lib : pd_image
 --- ### Overload 1 ###
 --- Creates a new blank image of the given width and height. The image can be drawn on using playdate.graphics.pushContext() or playdate.graphics.lockFocus(). The optional `bgcolor` argument is one of the color constants as used in playdate.graphics.setColor(), defaulting to `kColorClear`.
 --- 
@@ -2695,7 +2695,7 @@ import = require
 --- Returns an image created by applying a VCR pause effect to the calling image.
 ---@field vcrPauseFilterImage fun(self: pd_image): pd_image
 
----@class pd_nineSlice_lib
+---@class pd_nineSlice_lib : pd_nineSlice
 --- Returns a new 9 slice image from the image at imagePath with the stretchable region defined by other parameters. The arguments represent the origin and dimensions of the innermost ("center") slice.
 ---@field new fun(imagePath: string, innerX: number, innerY: number, innerWidth: number, innerHeight: number): pd_nineSlice
 
@@ -2711,7 +2711,7 @@ import = require
 ---@field loop pd_loop_lib
 ---@field blinker pd_blinker_lib
 
----@class pd_animator_lib
+---@class pd_animator_lib : pd_animator
 --- ### Overload 1 ###
 --- Animates between two number or playdate.geometry.point values.
 --- 
@@ -2765,7 +2765,7 @@ import = require
 --- If set to true, after the animation reaches the end, it runs in reverse from the end to the start. The time to complete both the forward and reverse will be `duration` x 2. Defaults to false.
 ---@field reverses boolean
 
----@class pd_imagetable_lib
+---@class pd_imagetable_lib : pd_imagetable
 --- ### Overload 1 ###
 --- Returns a playdate.graphics.imagetable object from the data at `path`. If there is no file at `path`, the function returns nil and a second value describing the error. If the file at `path` is an animated GIF, successive frames of the GIF will be loaded as consecutive bitmaps in the imagetable. Any timing data in the animated GIF will be ignored.
 --- 
@@ -2796,7 +2796,7 @@ import = require
 --- Equivalent to graphics.imagetable:getImage(n):draw(x,y,[flip]).
 ---@field drawImage fun(self: pd_imagetable, n: integer, x: number, y: number, flip?: pd_image_flip)
 
----@class pd_tilemap_lib
+---@class pd_tilemap_lib : pd_tilemap
 --- Creates a new tilemap object.
 ---@field new fun(): pd_tilemap
 
@@ -2842,7 +2842,7 @@ import = require
 --- Alternatively, instead of calling getCollisionRects() at all, you can use the convenience function playdate.graphics.sprite.addWallSprites(), which is effectively a shortcut for calling getCollisionRects() and passing all the resulting rects to addEmptyCollisionSprite().
 ---@field getCollisionRects fun(self: pd_tilemap, emptyIDs: integer[]): pd_rect
 
----@class pd_sprite_lib
+---@class pd_sprite_lib : pd_sprite
 --- This class method (note the "." syntax rather than ":") returns a new sprite object. A previously-loaded image or tilemap object can be optionally passed-in.
 --- 
 --- To see your sprite onscreen, you will need to call :add() on your sprite to add it to the display list.
@@ -3250,7 +3250,7 @@ import = require
 --- This method should not attempt to modify the sprites in any way. While it might be tempting to deal with collisions here, doing so will have unexpected and undesirable results. Instead, this function should return one of the collision response values as quickly as possible. If sprites need to be modified as the result of a collision, do so elsewhere, such as by inspecting the list of collisions returned by moveWithCollisions().
 ---@field collisionResponse nil | ((fun(self: pd_sprite, other: pd_sprite): pd_collision_type) | (pd_collision_type))
 
----@class pd_font_lib
+---@class pd_font_lib : pd_font
 --- Returns a playdate.graphics.font object from the data at `path`. If there is no file at `path`, the function returns nil.
 ---@field new fun(path: string): pd_font
 --- Returns a font family table from the font files specified in `fontPaths`. `fontPaths` should be a table with the following format:
@@ -3298,7 +3298,7 @@ import = require
 --- Returns the playdate.graphics.image containing the requested glyph. `character` can either be a string or a unicode codepoint number.
 ---@field getGlyph fun(self: pd_font, character: string|number): pd_image
 
----@class pd_video_lib
+---@class pd_video_lib : pd_video
 --- Returns a playdate.graphics.video object from the pdv file at `path`. If the file at `path` can’t be opened, the function returns nil.
 ---@field new fun(path: string): pd_video
 
@@ -3318,7 +3318,7 @@ import = require
 --- Draws the given frame into the video’s render context.
 ---@field renderFrame fun(self: pd_video, number: integer)
 
----@class pd_graph_lib
+---@class pd_graph_lib : pd_graph
 --- Returns a new empty playdate.pathfinder.graph object.
 --- 
 --- If nodeCount is supplied, that number of nodes will be allocated and added to the graph. Their IDs will be set from 1 to nodeCount.
@@ -3400,7 +3400,7 @@ import = require
 --- Sets the matching node’s x and y values.
 ---@field setXYForNodeWithID fun(self: pd_graph, id: integer, x: number, y: number)
 
----@class pd_node_lib
+---@class pd_node_lib : pd_node
 
 ---@class pd_node
 --- Adds a new connection between nodes.
@@ -3442,7 +3442,7 @@ import = require
 --- You can directly read or write `x`, `y` and `id` values on a `playdate.pathfinder.node`.
 ---@field id integer
 
----@class pd_sampleplayer_lib
+---@class pd_sampleplayer_lib : pd_sampleplayer
 --- ### Overload 1 ###
 --- Returns a new playdate.sound.sampleplayer object, with the sound data loaded in memory. If the sample can’t be loaded, the function returns nil and a second value containing the error.
 --- 
@@ -3492,7 +3492,7 @@ import = require
 --- Gets the current offset of the sampleplayer, in seconds. This value is not adjusted for rate.
 ---@field getOffset fun(self: pd_sampleplayer): number
 
----@class pd_fileplayer_lib
+---@class pd_fileplayer_lib : pd_fileplayer
 --- ### Overload 1 ###
 --- Returns a fileplayer object, which can stream samples from disk. The file to play is set with the playdate.sound.fileplayer:load() function.
 --- 
@@ -3560,7 +3560,7 @@ import = require
 --- Gets the current offset of the fileplayer, in seconds. This value is not adjusted for rate.
 ---@field getOffset fun(self: pd_fileplayer): number
 
----@class pd_sample_lib
+---@class pd_sample_lib : pd_sample
 --- ### Overload 1 ###
 --- Returns a new playdate.sound.sample object, with the sound data loaded in memory. If the sample can’t be loaded, the function returns nil and a second value containing the error.
 --- 
@@ -3594,7 +3594,7 @@ import = require
 --- Saves the sample to the given file. If filename has a .wav extension it will be saved in WAV format (and be unreadable by the Playdate sound functions), otherwise it will be saved in the Playdate pda format.
 ---@field save fun(self: pd_sample, filename: string)
 
----@class pd_channel_lib
+---@class pd_channel_lib : pd_channel
 --- Returns a new channel object and adds it to the global list.
 ---@field new fun(): pd_channel
 
@@ -3620,7 +3620,7 @@ import = require
 --- Sets a signal to automate the volume parameter.
 ---@field setVolumeMod fun(self: pd_channel, signal: pd_signal)
 
----@class pd_synth_lib
+---@class pd_synth_lib : pd_synth
 --- ### Overload 1 ###
 --- Returns a new synth object to play a waveform. See playdate.sound.synth:setWaveform for waveform types.
 --- 
@@ -3710,7 +3710,7 @@ import = require
 --- `playdate.sound.kWavePOVosim`
 ---@field setWaveform fun(self: pd_synth, waveform: pd_waveform|pd_sample)
 
----@class pd_signal_lib
+---@class pd_signal_lib : pd_signal
 
 ---@class pd_signal
 --- Adds a constant offset to the signal (lfo, envelope, etc.).
@@ -3718,7 +3718,7 @@ import = require
 --- Multiplies the signal’s output by the given scale factor. The scale is applied before the offset.
 ---@field setScale fun(self: pd_signal, scale: number)
 
----@class pd_lfo_lib
+---@class pd_lfo_lib : pd_lfo
 --- Returns a new LFO object, which can be used to modulate sounds. See playdate.sound.lfo:setType() for LFO types.
 ---@field new fun(type?: pd_lfo_type): pd_lfo
 
@@ -3754,7 +3754,7 @@ import = require
 --- Sets an initial holdoff time for the LFO where the LFO remains at its center value, and a ramp time where the value increases linearly to its maximum depth. Values are in seconds.
 ---@field setDelay fun(self: pd_lfo, holdoff: number, ramp: number)
 
----@class pd_envelope_lib
+---@class pd_envelope_lib : pd_envelope
 --- Creates a new envelope with the given (optional) parameters.
 ---@field new fun(attack?: number, decay?: number, sustain?: number, release?: number): pd_envelope
 
@@ -3786,7 +3786,7 @@ import = require
 --- If an envelope is marked global, it is continuously updated whether or not it’s attached to any source.
 ---@field setGlobal fun(self: pd_envelope, flag: boolean)
 
----@class pd_bitcrusher_lib
+---@class pd_bitcrusher_lib : pd_bitcrusher
 --- Creates a new bitcrusher filter.
 ---@field new fun(): pd_bitcrusher
 
@@ -3804,7 +3804,7 @@ import = require
 --- Sets a signal to modulate the filter level.
 ---@field setUndersamplingMod fun(self: pd_bitcrusher, signal: pd_signal)
 
----@class pd_ringmod_lib
+---@class pd_ringmod_lib : pd_ringmod
 --- Creates a new ring modulator filter.
 ---@field new fun(): pd_ringmod
 
@@ -3818,7 +3818,7 @@ import = require
 --- Sets a signal to modulate the ringmod frequency.
 ---@field setFrequencyMod fun(self: pd_ringmod, signal: pd_signal)
 
----@class pd_onepolefilter_lib
+---@class pd_onepolefilter_lib : pd_onepolefilter
 --- Returns a new one pole filter.
 ---@field new fun(): pd_onepolefilter
 
@@ -3832,7 +3832,7 @@ import = require
 --- Sets a modulator for the filter’s parameter.
 ---@field setParameterMod fun(self: pd_onepolefilter, m: pd_signal)
 
----@class pd_twopolefilter_lib
+---@class pd_twopolefilter_lib : pd_twopolefilter
 --- Creates a new two pole IIR filter of the given `type`:
 --- 
 --- `playdate.sound.kFilterLowPass` (or the string "lowpass" or "lopass")
@@ -3868,7 +3868,7 @@ import = require
 --- Sets the type of the filter to `type`.
 ---@field setType fun(self: pd_twopolefilter, type: pd_sound_filter)
 
----@class pd_overdrive_lib
+---@class pd_overdrive_lib : pd_overdrive
 --- Creates a new overdrive effect.
 ---@field new fun(): pd_overdrive
 
@@ -3888,7 +3888,7 @@ import = require
 --- Sets a signal to modulate the offset value.
 ---@field setOffsetMod fun(self: pd_overdrive, signal: pd_signal)
 
----@class pd_delayline_lib
+---@class pd_delayline_lib : pd_delayline
 --- Creates a new delay line effect, with the given length (in seconds).
 ---@field new fun(length: number): pd_delayline
 
@@ -3902,7 +3902,7 @@ import = require
 --- Sets the feedback level of the delay line.
 ---@field setFeedback fun(self: pd_delayline, level: number)
 
----@class pd_delaylinetap_lib
+---@class pd_delaylinetap_lib : pd_delaylinetap
 
 ---@class pd_delaylinetap
 --- Sets the position of the tap on the delay line, up to the delay line’s length.
@@ -3916,7 +3916,7 @@ import = require
 --- If set and the delay line is stereo, the tap outputs the delay line’s left channel to its right output and vice versa.
 ---@field setFlipChannels fun(self: pd_delaylinetap, flag: boolean)
 
----@class pd_sequence_lib
+---@class pd_sequence_lib : pd_sequence
 --- Creates a new sound sequence. If path.mid is given, it attempts to load data from the midi file into the sequence.
 ---@field new fun(path.mid?: string): pd_sequence
 
@@ -3954,7 +3954,7 @@ import = require
 --- Sends an allNotesOff() message to each track’s instrument.
 ---@field allNotesOff fun(self: pd_sequence)
 
----@class pd_track_lib
+---@class pd_track_lib : pd_track
 --- Creates a new playdate.sound.track object.
 ---@field new fun(): pd_track
 
@@ -3998,7 +3998,7 @@ import = require
 --- Returns an array of playdate.sound.controlsignal objects assigned to this track.
 ---@field getControlSignals fun(self: pd_track): pd_controlsignal[]
 
----@class pd_instrument_lib
+---@class pd_instrument_lib : pd_instrument
 --- Creates a new playdate.sound.instrument object. If synth is given, adds it as a voice for the instrument.
 ---@field new fun(synth?: pd_synth): pd_instrument
 
@@ -4024,7 +4024,7 @@ import = require
 --- Volume values are between 0.0 and 1.0.
 ---@field getVolume fun(self: pd_instrument): number
 
----@class pd_controlsignal_lib
+---@class pd_controlsignal_lib : pd_controlsignal
 --- Creates a new control signal object, for automating effect parameters, channel pan and level, etc.
 ---@field new fun(): pd_controlsignal
 
@@ -4068,7 +4068,7 @@ import = require
 --- Boolean property specifying which direction to animate the crank. Defaults to true.
 ---@field clockwise boolean
 
----@class pd_gridview_lib
+---@class pd_gridview_lib : pd_gridview
 --- Returns a new playdate.ui.gridview with cells sized `cellWidth`, `cellHeight`. (Sizes are in pixels.) If cells should span the entire width of the grid (as in a list view), pass zero (0) for `cellWidth`.
 ---@field new fun(cellWidth: number, cellHeight: number): pd_gridview
 
@@ -4180,7 +4180,7 @@ import = require
 --- If true, the gridview will attempt to center cells when scrolling. If false, the gridview will be scrolled just as much as necessary to make the cell visible.
 ---@field scrollCellsToCenter boolean
 
----@class pd_loop_lib
+---@class pd_loop_lib : pd_loop
 --- Creates a new animation object.
 --- 
 --- `imageTable` should be a playdate.graphics.imagetable, or nil.
@@ -4214,7 +4214,7 @@ import = require
 --- Sets the playdate.graphics.imagetable to be used for this animation loop, and sets the loop’s endFrame property to #imageTable.
 ---@field setImageTable fun(self: pd_loop, imageTable: pd_imagetable)
 
----@class pd_blinker_lib
+---@class pd_blinker_lib : pd_blinker
 --- Creates a new blinker object. Check the object’s on property to determine whether the blinker is on (true) or off (false). The default properties are:
 --- 
 --- `onDuration`: 200 (the number of milliseconds the blinker is "on")
