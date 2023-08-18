@@ -2175,6 +2175,12 @@ import = require
 ---@field transformPolygon fun(self: pd_affineTransform, p: pd_polygon)
 --- As above, but returns a new polygon rather than modifying `p`.
 ---@field transformedPolygon fun(self: pd_affineTransform, p: pd_polygon): pd_polygon
+--- Returns the transform created by multiplying transform `t1` by transform `t2`
+---@operator mul(pd_affineTransform): pd_affineTransform
+--- Returns the vector2D created by applying the transform `t` to the vector2D v
+---@operator mul(pd_vector2D): pd_vector2D
+--- Returns the point created by applying the transform `t` to the point `p`
+---@operator mul(pd_point): pd_point
 
 ---@class pd_arc_lib
 
@@ -2275,6 +2281,14 @@ import = require
 ---@field squaredDistanceToPoint fun(self: pd_point, p: pd_point): number
 --- Returns the distance to point `p`.
 ---@field distanceToPoint fun(self: pd_point, p: pd_point): number
+--- Returns a new point by adding the vector `v` to point `p`.
+---@operator add(pd_vector2D): pd_point
+--- Returns the vector constructed by subtracting `p2` from `p1`. By this construction, `p2` + (`p1` - `p2`) == `p1`.
+---@operator sub(pd_point): pd_vector2D
+--- Returns a new polygon formed by applying the transform `t` to polygon `p`.
+---@operator mul(pd_affineTransform): pd_point
+--- Returns a new lineSegment connecting points `p1` and `p2`.
+---@operator concat(pd_point): pd_lineSegment
 --- You can directly read or write the `x` and `y` values of a point.
 ---@field x number
 --- You can directly read or write the `x` and `y` values of a point.
@@ -2456,6 +2470,20 @@ import = require
 ---@field leftNormal fun(self: pd_vector2D): pd_vector2D
 --- Returns a vector that is the right normal of the caller.
 ---@field rightNormal fun(self: pd_vector2D): pd_vector2D
+--- Returns the vector formed by negating the components of vector `v`.
+---@operator unm: pd_vector2D
+--- Returns the vector formed by adding vector `v2` to vector `v1`.
+---@operator add(pd_vector2D): pd_vector2D
+--- Returns the vector formed by subtracting vector `v2` from vector `v1`.
+---@operator sub(pd_vector2D): pd_vector2D
+--- Returns the vector `v1` scaled by `s`.
+---@operator mul(number): pd_vector2D
+--- Returns the dot product of the two vectors.
+---@operator mul(pd_vector2D): number
+--- Returns the vector transformed by transform `t`.
+---@operator mul(pd_affineTransform): pd_vector2D
+--- Returns the vector divided by scalar `s`.
+---@operator div(number): pd_vector2D
 --- You can directly read or write `dx`, or `dy` values to a vector2D.
 ---@field dx number
 --- You can directly read or write `dx`, or `dy` values to a vector2D.
@@ -2728,7 +2756,7 @@ import = require
 --- Returns an empty image table for loading images into via imagetable:load() or setting already-loaded images into with imagetable:setImage(). If set, `cellsWide` is used to locate images by x,y position. The optional `cellSize` argument gives the allocation size for the images, if load() will be used. (This is a weird technical detail, so ask us if you need guidance here.)
 ---@field new (fun(path: string): pd_imagetable) | (fun(count: number, cellsWide?: number, cellSize?: number): pd_imagetable)
 
----@class pd_imagetable
+---@class pd_imagetable : {[integer]: pd_image}
 --- ### Overload 1 ###
 --- Returns the `n`-th playdate.graphics.image in the table (ordering left-to-right, top-to-bottom). The first image is at index 1. If .n_ or (`x`,`y`) is out of bounds, the function returns nil. See also imagetable[n].
 --- 
