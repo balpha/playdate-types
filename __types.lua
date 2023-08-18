@@ -3068,6 +3068,8 @@ import = require
 ---@field markDirty fun(self: pd_sprite)
 --- Marks the given rectangle (in screen coordinates) as needing a redraw. playdate.graphics drawing functions now call this automatically, adding their drawn areas to the sprite’s dirty list, so there’s likely no need to call this manually any more. This behavior may change in the future, though.
 ---@field addDirtyRect fun(x: number, y: number, width: number, height: number)
+--- By default, sprites are automatically marked for redraw when their image is changed via playdate.graphics.sprite:setImage(). If disabled by calling this function with a `false` argument, playdate.graphics.sprite.addDirtyRect() can be used to mark the (potentially smaller) area of the screen that needs to be redrawn.
+---@field setRedrawsOnImageChange fun(self: pd_sprite, flag: boolean)
 --- Removes all sprites in spriteArray from the global sprite list.
 ---@field removeSprites fun(spriteArray: pd_sprite[])
 --- If the sprite doesn’t have an image, the sprite’s draw function is called as needed to update the display. The rect passed in is the current dirty rect being updated by the display list.
