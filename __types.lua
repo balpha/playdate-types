@@ -23,6 +23,7 @@ import = require
 
 -- not completely foolproof, but this hack should catch some accidental assignments to read-only properties
 ---@class READONLY_number : number
+---@class READONLY_boolean : boolean
 ---@class READONLY_pd_size : pd_size
 ---@class READONLY_pd_point : pd_point
 
@@ -1952,7 +1953,7 @@ import = require
 --- Resets a timer to its initial values.
 ---@field reset fun(self: pd_timer)
 --- The number of milliseconds the timer has been running. Read-only.
----@field currentTime number
+---@field currentTime READONLY_number
 --- Number of milliseconds to wait before starting the timer.
 ---@field delay number
 --- If true, the timer is discarded once it is complete. Defaults to true.
@@ -1960,7 +1961,7 @@ import = require
 --- The number of milliseconds for which the timer will run.
 ---@field duration number
 --- The number of milliseconds remaining in the timer. Read-only.
----@field timeLeft number
+---@field timeLeft READONLY_number
 --- If true, the timer starts over from the beginning when it completes. Defaults to false.
 ---@field repeats boolean
 --- If true, the timer plays in reverse once it has completed. The time to complete both the forward and reverse will be `duration` x 2. Defaults to false.
@@ -4031,7 +4032,7 @@ import = require
 --- Draws the gridview in the specified rect. Ideally this should be called on every playdate.update() to accommodate scrolling.
 ---@field drawInRect fun(self: pd_gridview, x: number, y: number, width: number, height: number)
 --- This read-only variable returns true if the gridview needs to be redrawn. This can be used to help optimize drawing in your app. Keep in mind that a gridview cannot know all reasons it may need to be redrawn, such as changes in your drawing callback functions, coordinate or size changes, or overlapping drawing, so you may need to additionally redraw at other times.
----@field needsDisplay boolean
+---@field needsDisplay READONLY_boolean
 --- Sets the number of sections in the grid view. Each section contains at least one row, and row numbering starts at 1 in each section.
 ---@field setNumberOfSections fun(self: pd_gridview, num: integer)
 --- Gets the number of sections in the grid view.
@@ -4117,7 +4118,7 @@ import = require
 --- A background image that draws behind the gridview’s cells. This image can be either a playdate.graphics.image which will be tiled or a playdate.nineSlice.
 ---@field backgroundImage pd_image
 --- Read-only. True if the gridview is currently performing a scroll animation.
----@field isScrolling boolean
+---@field isScrolling READONLY_boolean
 --- The easing function used when performing scroll animations. The function should be of the form function(t, b, c, d), where t is elapsed time, b is the beginning value, c is the change, or end value - start value, and d is the duration. Many such functions are available in playdate.easingFunctions. playdate.easingFunctions.outCubic is the default.
 ---@field scrollEasingFunction (fun(number, number, number, number): number)
 --- For easing functions that take additional amplitude and period arguments (such as `inOutElastic`), set these to the desired values.
