@@ -130,6 +130,22 @@ import = require
 --- For playdate.cranked(), `change` is the angle change in degrees. `acceleratedChange` is `change` multiplied by a value that increases as the crank moves faster, similar to the way mouse acceleration works. Negative values are anti-clockwise.
 ---@field cranked nil | (fun(change: number, acceleratedChange: number))
 
+---@class pd_metadata
+--- A unique identifier for your game, in reverse DNS notation.
+---@field bundleID string
+--- A game version number, formatted any way you wish, that is displayed to players. It is not used to compute when updates should occur.
+---@field version string
+--- A monotonically-increasing integer value used to indicate a unique version of your game. This can be set using an automated build process like Continuous Integration to avoid having to set the value by hand.
+---@field buildNumber integer
+--- A directory of images that will be used by the launcher.
+---@field imagePath string
+--- Optional. Should point to the path of a short audio file to be played as the game launch animation is taking place.
+---@field launchSoundPath string?
+--- Optional. A content warning that displays when the user launches your game for the first time. The user will have the option of backing out and not launching your game if they choose.
+---@field contentWarning string?
+--- Optional. A second content warning that displays on a second screen when the user launches your game for the first time. The user will have the option of backing out and not launching your game if they choose. Note: contentWarning2 will only display if a contentWarning attribute is also specified.
+---@field contentWarning2 string?
+
 ---@class tablelib
 --- Returns the first index of `element` in the given array-style table. If the table does not contain `element`, the function returns nil.
 ---@field indexOfElement fun(table: table, element: any): number?
@@ -147,6 +163,10 @@ import = require
 ---@class pd_playdate_lib
 --- Returns two values, the current API version of the Playdate runtime and the minimum API version supported by the runtime.
 ---@field apiVersion fun(): (number, number)
+--- The playdate.metadata table contains the values in the current game’s pdxinfo file, keyed by variable name. To retrieve the version number of the game, for example, you would use playdate.metadata.version.
+--- 
+--- Changing values in this table at run time has no effect.
+---@field metadata pd_metadata
 --- Implement this callback and Playdate OS will call it once per frame. This is the place to put the main update-and-draw code for your game. Playdate will attempt to call this function by default 30 times per second; that value can be changed by calling playdate.display.setRefreshRate().
 --- 
 --- If your update() function takes too long to execute, Playdate OS may not be able to call it as often as specified by the current refresh rate. In this case, Playdate OS will simply try and call it as often as it can, with a not-to-exceed rate of playdate.display.getRefreshRate() frames per second.
