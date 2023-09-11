@@ -3997,7 +3997,7 @@ import = require
 --- Returns the maximum number of notes simultaneously active in the track. (Known bug: this currently only works for midi files)
 ---@field getPolyphony fun(self: pd_track): integer
 --- Sets the playdate.sound.instrument that this track plays. If inst is a playdate.sound.synth, the function creates an instrument for the synth.
----@field setInstrument fun(self: pd_track, inst: pd_instrument)
+---@field setInstrument fun(self: pd_track, inst: pd_instrument|pd_synth)
 --- Gets the playdate.sound.instrument that this track plays.
 ---@field getInstrument fun(self: pd_track): pd_instrument
 --- Mutes or unmutes the track.
