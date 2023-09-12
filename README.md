@@ -45,8 +45,8 @@ file for minimal autocomplete support.
 
 I do in fact recommend deleting `__stub.lua` once you've placed `__types.lua` here.
 
-If the SDK was working correctly in your IDE, then the language server (and thus your IDE) should pick this up immediately;
-if not, restart your IDE once.
+Assuming the SDK was already working correctly in your IDE, then the language server (and thus your IDE) should pick this up immediately.
+If it doesn't, restarting your IDE should do the trick.
 
 You can modify the language settings (in VS Code that would be in `.vscode/settings.json` in your project) to get the level of
 type strictness that you want. See the [Diagnostics documentation](https://luals.github.io/wiki/diagnostics/) for details.
