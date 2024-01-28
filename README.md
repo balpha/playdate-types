@@ -1,6 +1,6 @@
 ## Type annotations for the Playdate SDK
 
-**SDK Version:** 2.1.1
+**SDK Version:** 2.2.0
 
 The file `__types.lua` contains [annotations](https://github.com/LuaLS/lua-language-server/wiki/Annotations)
 for the [Playdate](https://play.date/) handheld console's [Lua SDK](https://play.date/dev/).
