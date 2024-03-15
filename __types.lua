@@ -67,6 +67,16 @@ import = require
 ---@field length number
 ---@field velocity number
 
+---@class pd_stats_table
+---@field kernel number
+---@field serial number
+---@field game number
+---@field GC number
+---@field wifi number
+---@field audio number
+---@field trace number
+---@field idle number
+
 ---@class pd_UNDOCUMENTED
 ---@class pd_button
 ---@class pd_text_alignment
@@ -407,7 +417,7 @@ import = require
 --- idle
 --- 
 --- playdate.getStats() only functions on a Playdate device. In the Simulator, this function returns nil.
----@field getStats fun(): table
+---@field getStats fun(): pd_stats_table
 --- setStatsInterval() sets the length of time for each sample frame of runtime stats. Set `seconds` to zero to disable stats collection.
 ---@field setStatsInterval fun(seconds: number)
 ---@field display pd_display_lib
