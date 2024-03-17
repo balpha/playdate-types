@@ -4486,7 +4486,7 @@ import = require
 --- If `scrollToSelection` is true (or not provided), the newly-selected cell will be scrolled to. If `animate` is true (or not provided), the scroll will be animated.
 ---@field selectNextColumn fun(self: pd_gridview, wrapSelection: boolean, scrollToSelection?: boolean, animate?: boolean)
 --- Identical to selectNextColumn() but goes the other direction.
----@field selectPreviousColumn fun(self: pd_gridview, wrapSelection: boolean, scrollToSelection?: boolean, animate?: boolen)
+---@field selectPreviousColumn fun(self: pd_gridview, wrapSelection: boolean, scrollToSelection?: boolean, animate?: boolean)
 --- A background image that draws behind the gridview’s cells. This image can be either a playdate.graphics.image which will be tiled or a playdate.nineSlice.
 ---@field backgroundImage pd_image
 --- Read-only. True if the gridview is currently performing a scroll animation.
