@@ -2983,7 +2983,7 @@ import = require
 --- `sourceRect`, if specified, will cause only the part of the tilemap within sourceRect to be drawn. `sourceRect` should be relative to the tilemap’s bounds and can be a playdate.geometry.rect or four integers, (`x`, `y`, `w`, `h`), representing the rect.
 ---@field draw (fun(self: pd_tilemap, x: number, y: number, sourceRect?: pd_rect)) | (fun(self: pd_tilemap, x: number, y: number, rx?: number, ry?: number, rw?: number, rh?: number))
 --- Draws the tilemap ignoring the currently-set drawOffset.
----@field drawIgnoringOffset fun(self: pd_tilemap, x: number, y: number, sourceRect?: pd_rect)
+---@field drawIgnoringOffset (fun(self: pd_tilemap, x: number, y: number, sourceRect?: pd_rect)) | (fun(self: pd_tilemap, x: number, y: number, rx?: number, ry?: number, rw?: number, rh?: number))
 --- Sets the index of the tile at tilemap position (`x`, `y`). `index` is the (1-based) index of the image in the tilemap’s playdate.graphics.imagetable.
 --- 
 --- Tilemaps and imagetables, like Lua arrays, are 1-based, not 0-based. tilemap:setTileAtPosition(1, 1, 2) will set the index of the tile in the top-leftmost position to 2.
