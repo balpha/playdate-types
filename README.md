@@ -2,7 +2,7 @@
 
 **SDK Version:** 2.5.0
 
-The file `__types.lua` contains [annotations](https://github.com/LuaLS/lua-language-server/wiki/Annotations)
+The file `__types.lua` contains [annotations](https://luals.github.io/wiki/annotations/)
 for the [Playdate](https://play.date/) handheld console's [Lua SDK](https://play.date/dev/).
 
 This includes:
