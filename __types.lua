@@ -4722,6 +4722,20 @@ import = require
 ---@field isValid fun(self: pd_loop): boolean
 --- Sets the playdate.graphics.imagetable to be used for this animation loop, and sets the loop’s endFrame property to #imageTable.
 ---@field setImageTable fun(self: pd_loop, imageTable: pd_imagetable)
+--- `delay` : the value of `delay`, if passed, or 100ms (the delay before moving to the next frame)
+---@field delay number
+--- `startFrame` : 1 (the value the object resets to when the loop completes)
+---@field startFrame number
+--- `endFrame` : the number of images in `imageTable` if passed, or 1 (the last frame value in the loop)
+---@field endFrame number
+--- `frame` : 1 (the current frame counter)
+---@field frame number
+--- `step` : 1 (the value by which frame increments)
+---@field step number
+--- `shouldLoop` : the value of `shouldLoop`, if passed, or true. (whether the object loops when it completes)
+---@field shouldLoop boolean
+--- `paused` : false (paused loops don’t change their frame value)
+---@field paused boolean
 
 ---@class pd_blinker_lib : pd_blinker
 --- Creates a new blinker object. Check the object’s on property to determine whether the blinker is on (true) or off (false). The default properties are:
@@ -4762,3 +4776,19 @@ import = require
 ---@field stop fun(self: pd_blinker)
 --- Flags the caller for removal from the global list of blinkers
 ---@field remove fun(self: pd_blinker)
+--- `onDuration`: 200 (the number of milliseconds the blinker is "on")
+---@field onDuration number
+--- `offDuration`: 200 (the number of milliseconds the blinker is "off")
+---@field offDuration number
+--- `loop`: false (should the blinker restart after completing)
+---@field loop boolean
+--- `cycles`: 6 (the number of changes the blinker goes through before it’s complete)
+---@field cycles number
+--- `default`: true (the state the blinker will start in. Note: if default is true, blinker.on will return true when the blinker is in its `onDuration` phase. If default is false, blinker.on will return false when the blinker is in its `onDuration` phase.)
+---@field default boolean
+--- `counter`: Read this property to see which cycle the blinker is on (counts from `n` down to zero)
+---@field counter READONLY_number
+--- `on`: Read this property to determine the current state of the blinker. The blinker always starts in the state specified by the default property.
+---@field on READONLY_boolean
+--- `running`: Read this property to see if the blinker is actively running
+---@field running READONLY_boolean
